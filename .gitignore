@@ -1,0 +1,6 @@
+# visual studio folders/files
+.vs/
+VirtualClue.sln
+VirtualClue.vcxproj
+VirtualClue.vcxproj.filters
+VirtualClue.vcxproj.user
