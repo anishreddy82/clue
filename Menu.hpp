@@ -7,6 +7,7 @@
 class Menu {
 private:
 	std::vector<Player> players;
+	std::vector<char> colors;
 public:
 	Menu();
 	std::vector<Player> setup(int x);

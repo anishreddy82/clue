@@ -8,7 +8,7 @@ Default constructor, will generate 4 player objects and add them into the
 member variable vector
 */
 Menu::Menu() {
-
+	colors = { 'r', 'b', 'g', 'y', 'v', 'w' };
 }
 
 /*
@@ -53,8 +53,8 @@ Returns a char
 */
 char Menu::generate_color() {
 	srand(time(NULL));
-	const char colorArray[6] = { 'r', 'b', 'g', 'y', 'v', 'w' };
-	int randIndex = rand() % 6;
-	char choice = colorArray[randIndex];
+	int randIndex = rand() % static_cast<int>(colors.size());
+	char choice = colors.at(randIndex);
+	colors.erase(colors.begin() + randIndex);
 	return choice;
 }
