@@ -51,6 +51,9 @@ Generate a random char representing a color
 Returns a char
 */
 char Menu::generate_color() {
-
-	return 'a';
+	srand(time(NULL));
+	const char colorArray[6] = { 'r', 'b', 'g', 'y', 'v', 'w' };
+	int randIndex = rand() % 6;
+	char choice = colorArray[randIndex];
+	return choice;
 }
