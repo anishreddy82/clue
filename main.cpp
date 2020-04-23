@@ -31,7 +31,7 @@ int main() {
 	*/
 	std::cout << "_______________________________________________________________" << std::endl;
 	for (int i = 0; i < player_count; i++) {
-		if (game_players.at(i).checkPassword("123")) {
+		if (game_players.at(i).checkPassword("")) {
 			game_players.at(i).printPlayerInfo();
 		}
 	}

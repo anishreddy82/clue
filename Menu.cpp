@@ -32,6 +32,7 @@ std::vector<Player> Menu::setup(int x) {
 		std::cout << std::endl;
 
 		//setup Player i's color
+		new_player.setColor(generate_color());
 
 		//setup Player i's password
 		std::cout << "(Optional) Please enter your password to secure your turn: ";
