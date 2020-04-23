@@ -1,18 +1,15 @@
 #include <iostream>
 #include "Player.hpp"
+#include "Menu.hpp"
 
 int main() {
 
-	Player newPlayer = Player(1);
-	newPlayer.setPassword("123");
+	Menu main_menu = Menu();
+	
+	//prompt to confirm game setup
 
-	if (newPlayer.checkPassword("123")) {
-		std::cout << "success" << std::endl;
-		std::cout << newPlayer.getId();
-	}
+	//begin game setup
 
-	else {
-		std::cout << "fail" << std::endl;
-	}
+	
 	return 0;
 }
