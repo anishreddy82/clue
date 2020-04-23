@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Player.hpp"
 
 /*
@@ -34,6 +35,18 @@ bool Player::checkPassword(std::string stringIn) {
 		return 0;
 	}
 }
+
+
+/*
+printer function for testing
+*/
+void Player::printPlayerInfo() {
+	std::cout << "id: " << id << std::endl;
+	std::cout << "Name: " << name << std::endl;
+	std::cout << "Color: " << color << std::endl;
+	std::cout << "Password: " << password << std::endl;
+}
+
 
 /*
 Accessor functions for getting private members

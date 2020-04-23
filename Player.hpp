@@ -17,4 +17,5 @@ public:
 	void setColor(char colorIn);
 	void setPassword(std::string passwordIn);
 	bool checkPassword(std::string stringIn);
+	void printPlayerInfo();
 };
