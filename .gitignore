@@ -1,6 +1,5 @@
-# visual studio folders/files
+# visual studio user preferences 
 .vs/
-VirtualClue.sln
-VirtualClue.vcxproj
+Debug
 VirtualClue.vcxproj.filters
 VirtualClue.vcxproj.user
