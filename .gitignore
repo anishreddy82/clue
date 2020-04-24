@@ -1,0 +1,5 @@
+# visual studio user preferences 
+.vs/
+Debug
+VirtualClue.vcxproj.filters
+VirtualClue.vcxproj.user
