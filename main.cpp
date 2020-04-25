@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Player.hpp"
 #include "Menu.hpp"
+#include "room.hpp"
+#include <array>
+#include <string>
+#include "board.hpp"
 
 int main() {
 	Menu main_menu = Menu();
@@ -35,6 +39,9 @@ int main() {
 			game_players.at(i).printPlayerInfo();
 		}
 	}
+
+	Board difBoard;
+	difBoard.dif();
 
 
 	return 0;
