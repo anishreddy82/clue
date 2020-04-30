@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Player.hpp"
 #include "Menu.hpp"
+#include "Game.hpp"
 #include "room.hpp"
 #include <array>
 #include <string>
@@ -40,9 +41,23 @@ int main() {
 		}
 	}
 
+	//create the board
 	Board difBoard;
 	difBoard.dif();
 
+	//create the Game
+	Game game = Game();
+	//add the players
+	game.setPlayers(game_players);
+	//add the board
+	game.setBoard(difBoard);
+	//deal cards to the board and player
+	game.dealAllCards();
+	
+	/*
+	PRINT PLAYER HAND INFO FOR TESTING
+	*/
+	game.getPlayers().at(0).showHand();
 
 	return 0;
 }

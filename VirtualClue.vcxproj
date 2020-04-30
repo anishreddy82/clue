@@ -103,13 +103,23 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="board.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="board.hpp" />
+    <ClInclude Include="Card.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Helper.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="room.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

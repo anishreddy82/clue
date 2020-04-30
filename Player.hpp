@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <vector>
+#include "Card.hpp"
 class Player
 {
 private:
@@ -7,10 +9,14 @@ private:
 	std::string name;
 	char color;
 	std::string password;
+
 public:
 	Player();
 	Player(int idIn);
+	std::vector<Card> hand;
+	
 	std::string getName();
+	void showHand();
 	int getId();
 	char getColor();
 	void setName(std::string nameIn);
