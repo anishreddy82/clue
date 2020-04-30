@@ -86,5 +86,6 @@ void Game::dealAllCards() {
 	while (static_cast<int>(deck.size() > 0)) {
 		//mod the number of players for even distribution
 		givePlayerCard(players.at(i % (players.size())).hand);
+		i++;
 	}
 }
