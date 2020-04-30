@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Card.hpp"
 
 
@@ -34,6 +35,14 @@ void Card::setMurder() {
 	murder = true;
 }
 
+/*
+Printer function for showing the information of this card
+*/
+void Card::displayCard() {
+	std::cout << "Name: " << name << std::endl;
+	std::cout << "Type: " << type << std::endl;
+	std::cout << "Murder: " << murder << std::endl;
+}
 
 /*
 Function that checks if this card is part of the winning set

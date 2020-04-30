@@ -11,6 +11,7 @@ private:
 public:
 	Card();
 	Card(std::string nameIn, char typeIn);
+	void displayCard();
 	char getType();
 	std::string getName();
 	void setMurder();

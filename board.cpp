@@ -60,4 +60,3 @@ void Board::dif(){
         std::cout << std::endl;
     }
 }
-

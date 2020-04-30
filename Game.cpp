@@ -47,3 +47,44 @@ void Game::giveBoardCards(vector<Card> &v) {
 	v.push_back(deck.at(idx));
 	deck.erase(deck.begin() + idx);
 }
+
+/*
+Mutator functions that add the Players and Board to the Game object
+Pre: Players in the vector have already been created
+	Board has already been created
+accepts: players, board
+returns: none
+*/
+void Game::setPlayers(std::vector<Player> setupPlayers) {
+	players = setupPlayers;
+}
+void Game::setBoard(Board createdBoard) {
+	gameBoard = createdBoard;
+}
+
+/*
+Accessor function for returning the players
+*/
+vector<Player> Game::getPlayers() {
+	return players;
+}
+
+
+/*
+Function that deals out the deck to both the board (winning cards)
+and players hands.
+Calls: givePlayerCard(), giveBoardCards()
+params: none
+returns: none
+*/
+void Game::dealAllCards() {
+	//first deal out the murder cards
+	giveBoardCards(gameBoard.murderCards);
+
+	int i = 0;
+	//deal the rest of the cards to the players hands
+	while (static_cast<int>(deck.size() > 0)) {
+		//mod the number of players for even distribution
+		givePlayerCard(players.at(i % (players.size())).hand);
+	}
+}

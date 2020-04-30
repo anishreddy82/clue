@@ -36,9 +36,8 @@ bool Player::checkPassword(std::string stringIn) {
 	}
 }
 
-
 /*
-printer function for testing
+printer functions for testing
 */
 void Player::printPlayerInfo() {
 	std::cout << "id: " << id << std::endl;
@@ -46,7 +45,15 @@ void Player::printPlayerInfo() {
 	std::cout << "Color: " << color << std::endl;
 	std::cout << "Password: " << password << std::endl;
 }
+void Player::showHand() {
+	std::cout << name << " has a hand of: " << std::endl;
 
+	for (int i = 0; i < static_cast<int>(hand.size()); i++) {
+		hand.at(i).displayCard();
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
 
 /*
 Accessor functions for getting private members
