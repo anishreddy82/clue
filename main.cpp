@@ -59,5 +59,10 @@ int main() {
 	*/
 	game.getPlayers().at(0).showHand();
 
+	/*
+	NOTEBOOK MANIPUlATION - TESTING PURPOSES
+	*/
+	game.getPlayers().at(0).viewNotebook();
+
 	return 0;
 }
