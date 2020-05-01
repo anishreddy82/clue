@@ -3,4 +3,7 @@
 Debug
 VirtualClue.vcxproj.filters
 VirtualClue.vcxproj.user
+
+#vim files
 a.out
+makefile
