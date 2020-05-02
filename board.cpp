@@ -39,7 +39,7 @@ void Board::dif(std::vector<Player> players){
     boardArray[3][4].name = "    space    ";
     boardArray[4][0].name = "    space    ";
     boardArray[4][1].name = "    space    ";
-	boardArray[4][2].name = "    space    ";
+	  boardArray[4][2].name = "    space    ";
     boardArray[4][3].name = "    space    ";
     boardArray[4][4].name = "Library      ";
     boardArray[5][0].name = "    space    ";

@@ -8,9 +8,9 @@
 class Room{
     
 public:
-    Player* player1;
-    int weapon;
-    std::string name;
-    Room();
+  Player* player1;
+  int weapon;
+  std::string name;
+  Room();
 	void rooms();
 };

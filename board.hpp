@@ -12,6 +12,6 @@ private:
 	
 public:
 	void dif(std::vector<Player>);
-     Room **boardArray;
-	 std::vector<Card> murderCards;
+  Room **boardArray;
+	std::vector<Card> murderCards;
 };
