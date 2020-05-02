@@ -59,7 +59,7 @@ void Player::viewNotebook() {
 	std::string pw;
 	int choice;
 	std::cout << getName() << ", enter your password: ";
-	std::cin >> pw;
+	getline(std::cin, pw);
 	if (!checkPassword(pw))
 		std::cout << "Wrong password\n";
 	else {
