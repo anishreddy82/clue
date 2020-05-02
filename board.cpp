@@ -4,7 +4,7 @@
 #include <string>
 
 
-void Board::dif(){
+void Board::dif(std::vector<Player> players){
     int w = 7;
     int h = 5;
     boardArray = new Room*[w];
@@ -52,6 +52,10 @@ void Board::dif(){
     boardArray[6][2].name = "    Hall     ";
     boardArray[6][3].name = "    space    ";
     boardArray[6][4].name = "    Study    ";
+	
+	for (int i = 0; i < players.size(); i++) {
+		boardArray[players[i].getPositionX()][players[i].getPositionY()].name += players[i].getColor();
+	}
 
     for(int i = 0; i < w; i++){
         for(int j = 0; j < h; j++){
