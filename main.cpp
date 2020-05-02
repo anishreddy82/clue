@@ -43,7 +43,7 @@ int main() {
 
 	//create the board
 	Board difBoard;
-	difBoard.dif();
+	difBoard.dif(game_players);
 
 	//create the Game
 	Game game = Game();
@@ -54,6 +54,10 @@ int main() {
 	//deal cards to the board and player
 	game.dealAllCards();
 	
+	std::cout << "Lets start the game!" << std::endl;
+
+	game.movePlayer(game_players);
+
 	/*
 	PRINT PLAYER HAND INFO FOR TESTING
 	*/

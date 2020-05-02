@@ -9,6 +9,7 @@ member variable vector
 */
 Menu::Menu() {
 	colors = { 'r', 'b', 'g', 'y', 'v', 'w' };
+	positions = {1, 2, 3, 4, 5, 6};
 }
 
 /*
@@ -33,6 +34,7 @@ std::vector<Player> Menu::setup(int x) {
 
 		//setup Player i's color
 		new_player.setColor(generate_color());
+		new_player.setStartingPosition(generate_randPos());
 
 		//setup Player i's password
 		std::cout << "(Optional) Please enter your password to secure your turn: ";
@@ -58,3 +60,14 @@ char Menu::generate_color() {
 	colors.erase(colors.begin() + randIndex);
 	return choice;
 }
+
+int Menu::generate_randPos(){
+	srand(time(NULL));
+	int randNum = rand() % positions.size();
+	int choice = positions.at(randNum);
+	positions.erase(positions.begin() + randNum);
+	return choice;
+}
+
+
+

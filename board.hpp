@@ -11,7 +11,7 @@ class Board{
 private:
 	
 public:
-	void dif();
+	void dif(std::vector<Player>);
      Room **boardArray;
 	 std::vector<Card> murderCards;
 };

@@ -1,4 +1,7 @@
 #include "Game.hpp"
+#include <iostream>
+#include <string>
+
 
 Game::Game() {
 	//colors begin at index 0
@@ -87,5 +90,44 @@ void Game::dealAllCards() {
 		//mod the number of players for even distribution
 		givePlayerCard(players.at(i % (players.size())).hand);
 		i++;
+	}
+}
+
+void Game::movePlayer(std::vector<Player> players){
+	for(int i = 0; i < players.size(); i++){
+		int choice;
+		int move;
+		std::cout << "Hello " << players[i].getName() << std::endl;
+		std::cout << "It is your turn to play" << std::endl;
+		std::cout << "Would you like to roll the die?" << std::endl;
+		std::cout << "1. Yes" << std::endl;
+		std::cout << "2. No" << std::endl;
+		std::cin >> choice;
+		if (choice == 1) {
+			srand(time(NULL));
+			int randDie = rand() % 3 + 1;
+			std::cout << "You rolled " << randDie << std::endl;
+			std::cout << "Would you like to move up, down, left or right?" << std::endl;
+			std::cout << "1. Up" << std::endl;
+			std::cout << "2. Down" << std::endl;
+			std::cout << "3. Left" << std::endl;
+			std::cout << "4. Right" << std::endl;
+			std::cin >> move;
+			if (move == 1) {
+				players[i].setPositionX(players[i].getPositionX() - randDie);
+			}
+			else if (move == 2) {
+				players[i].setPositionY(players[i].getPositionY() - randDie);
+			}
+			else if (move == 3) {
+				players[i].setPositionY(players[i].getPositionY() + randDie);
+			}
+			else if (move == 4) {
+				players[i].setPositionX(players[i].getPositionX() + randDie);
+			}
+		}
+
+		gameBoard.dif(players);
+
 	}
 }
