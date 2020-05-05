@@ -44,6 +44,9 @@ void Player::printPlayerInfo() {
 	std::cout << "Name: " << name << std::endl;
 	std::cout << "Color: " << color << std::endl;
 	std::cout << "Password: " << password << std::endl;
+	std::cout << "Starting X: " << posX << std::endl;
+	std::cout << "Starting Y: " << posY << std::endl;
+
 }
 void Player::showHand() {
 	std::cout << name << " has a hand of: " << std::endl;
@@ -114,6 +117,13 @@ char Player::getColor() {
 	return color;
 }
 
+int Player::getPositionX(){
+	return posX;
+}
+int Player::getPositionY(){
+	return posY;
+}
+
 /*
 Mutator functions for setting private members
 */
@@ -125,4 +135,40 @@ void Player::setName(std::string nameIn) {
 }
 void Player::setPassword(std::string passwordIn) {
 	password = passwordIn;
+}
+
+
+void Player::setPositionX(int posX1) {
+	posX = posX1;
+}
+
+void Player::setPositionY(int posY1) {
+	posY = posY1;
+}
+
+void Player::setStartingPosition(int pos){
+	if(pos == 1){
+		posX = 0;
+		posY = 3;
+	}
+	else if(pos == 2){
+		posX = 3;
+		posY = 4;
+	}
+	else if(pos == 3){
+		posX = 6;
+		posY = 3;
+	}
+	else if(pos == 4){
+		posX = 5;
+		posY = 0;
+	}
+	else if(pos == 5){
+		posX = 2;
+		posY = 0;
+	}
+	else if(pos == 6){
+		posX = 0;
+		posY = 1;
+	}
 }
