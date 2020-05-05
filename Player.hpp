@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Card.hpp"
+#include "Notebook.hpp"
 class Player
 {
 private:
@@ -9,8 +10,10 @@ private:
 	std::string name;
 	char color;
 	std::string password;
+	Notebook notebook;
 	int posX;
 	int posY;
+
 
 public:
 
@@ -20,6 +23,8 @@ public:
 	
 	std::string getName();
 	void showHand();
+	void viewNotebook();
+	void useNotebook(int);
 	int getId();
 	char getColor();
 	int getPositionX();

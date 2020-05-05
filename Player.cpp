@@ -58,6 +58,52 @@ void Player::showHand() {
 	std::cout << std::endl;
 }
 
+void Player::viewNotebook() {
+	std::string pw;
+	int choice;
+	std::cout << getName() << ", enter your password: ";
+	getline(std::cin, pw);
+	if (!checkPassword(pw))
+		std::cout << "Wrong password\n";
+	else {
+		do {
+			notebook.display();
+			std::cout << "\nWhat would you like to do?\n";
+			std::cout << "1. Add an entry\n";
+			std::cout << "2. Remove an entry\n";
+			std::cout << "3. Clear the notebook\n";
+			std::cout << "4. Close the notebook\n";
+			cin >> choice;
+			useNotebook(choice);
+		} while (choice != 4);
+	}
+}
+
+void Player::useNotebook(int val) {
+	std::string entry;
+	char ch;
+	int idx;
+	switch(val) {
+		case 1: std::cout << "Enter a new note: ";
+			cin.ignore();
+			getline(std::cin, entry);
+			notebook.addEntry(entry);
+			break;
+		case 2: std::cout << "Choose an entry number to remove: ";
+			cin >> idx;
+			notebook.eraseEntry(idx);
+			break;
+		case 3: std::cout << "Are you sure you want to clear your notes? (y or n): ";
+			cin >> ch;
+			if (toupper(ch) == 'Y')
+				notebook.clear();
+			break;
+		case 4: std::cout << "Closing notebook...\n";
+			break;
+		default: std::cout << "Invalid entry\n";
+	}
+}
+
 /*
 Accessor functions for getting private members
 */
@@ -90,6 +136,7 @@ void Player::setName(std::string nameIn) {
 void Player::setPassword(std::string passwordIn) {
 	password = passwordIn;
 }
+
 
 void Player::setPositionX(int posX1) {
 	posX = posX1;
