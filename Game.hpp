@@ -13,6 +13,7 @@ class Game {
 		vector<Card> deck;
 		vector<Player> players;
 		Board gameBoard;
+		int turn_number;
 		
 	public:
 		Game();
@@ -23,6 +24,11 @@ class Game {
 		void setBoard(Board createdBoard);
 		void movePlayer(std::vector<Player> players);
 		vector<Player> getPlayers();
+
+		bool playTurn();
+		void clearScreen();
+		void greet(Player current_player);
+		int displaySubMenu(Player current_player);
 };
 
 #endif

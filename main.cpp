@@ -27,24 +27,13 @@ int main() {
 		std::cin.ignore(10000, '\n'); //skips the newline char on input
 	}
 	
-	//begin game setup
-	std::vector<Player> game_players = main_menu.setup(player_count);
-
-
 	/*
-	PRINT PLAYER INFO FOR TESTING
+	Begin Game Setup
 	*/
-	std::cout << "_______________________________________________________________" << std::endl;
-	for (int i = 0; i < player_count; i++) {
-		if (game_players.at(i).checkPassword("")) {
-			game_players.at(i).printPlayerInfo();
-		}
-	}
-
+	std::vector<Player> game_players = main_menu.setup(player_count);
 	//create the board
 	Board difBoard;
-	difBoard.dif(game_players);
-
+	//////////////////////////////////////////difBoard.dif(game_players);
 	//create the Game
 	Game game = Game();
 	//add the players
@@ -54,19 +43,22 @@ int main() {
 	//deal cards to the board and player
 	game.dealAllCards();
 	
+	game.clearScreen();
 	std::cout << "Lets start the game!" << std::endl;
 
-	game.movePlayer(game_players);
+	game.clearScreen();
 
-	/*
-	PRINT PLAYER HAND INFO FOR TESTING
-	*/
-	game.getPlayers().at(0).showHand();
+	bool winner = false;
+	while (!winner) {
+		//clear the board
+		game.clearScreen();
+		//reprint the board
 
-	/*
-	NOTEBOOK MANIPUlATION - TESTING PURPOSES
-	*/
-	game.getPlayers().at(0).viewNotebook();
+		//print UI information (SFML possible here????)
+
+		//let the player perform the turn
+		winner = game.playTurn();
+	}
 
 	return 0;
 }

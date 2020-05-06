@@ -109,6 +109,7 @@
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Notebook.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="room.cpp" />
   </ItemGroup>
@@ -118,6 +119,7 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Helper.hpp" />
     <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Notebook.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="room.hpp" />
   </ItemGroup>
