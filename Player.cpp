@@ -67,6 +67,7 @@ void Player::viewNotebook() {
 		std::cout << "Wrong password\n";
 	else {
 		do {
+			std::cout << std::endl;
 			notebook.display();
 			std::cout << "\nWhat would you like to do?\n";
 			std::cout << "1. Add an entry\n";
@@ -98,7 +99,7 @@ void Player::useNotebook(int val) {
 			if (toupper(ch) == 'Y')
 				notebook.clear();
 			break;
-		case 4: std::cout << "Closing notebook...\n";
+		case 4: std::cout << "Closing notebook...\n" << std::endl;
 			break;
 		default: std::cout << "Invalid entry\n";
 	}
@@ -148,27 +149,27 @@ void Player::setPositionY(int posY1) {
 
 void Player::setStartingPosition(int pos){
 	if(pos == 1){
-		posX = 0;
-		posY = 3;
+		posX = 3;
+		posY = 0;
 	}
 	else if(pos == 2){
-		posX = 3;
-		posY = 4;
-	}
-	else if(pos == 3){
-		posX = 6;
+		posX = 4;
 		posY = 3;
 	}
+	else if(pos == 3){
+		posX = 3;
+		posY = 6;
+	}
 	else if(pos == 4){
-		posX = 5;
-		posY = 0;
+		posX = 0;
+		posY = 5;
 	}
 	else if(pos == 5){
-		posX = 2;
-		posY = 0;
+		posX = 0;
+		posY = 2;
 	}
 	else if(pos == 6){
-		posX = 0;
-		posY = 1;
+		posX = 1;
+		posY = 0;
 	}
 }
