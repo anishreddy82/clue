@@ -147,7 +147,6 @@ void Game::movePlayer(std::vector<Player> &players){
 			randDie--;
 		}
 	}
-
 }
 
 
@@ -164,7 +163,7 @@ bool Game::playTurn() {
 	greet(current_player->getName(), current_player->getColor());
 
 	//move must be performed before suggestions/accusations
-	movePlayer(players); //BOARD IS NOT UPDATING BETWEEN PLAYERS, OLD COORDS BEING REVERTED <---------------------------------------------------------------------
+	movePlayer(players); 
 
 	/*
 	TODO: ADD PLAYER UI FOR SUGGESTIONS/ACCUSATIONS
@@ -179,18 +178,13 @@ bool Game::playTurn() {
 			break; //show hand
 		case 2: current_player->viewNotebook();
 			break; //show notebook
-		case 3: break; //suggestion (IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE A SUGGESTION)
-		case 4: accusation = false; //accusation (IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
+		case 3: break; //suggestion (TODO: implement current_player->suggest(), + IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE A SUGGESTION)
+		case 4: accusation = false; //accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
 			break; 
 		case 5: break; //quit
 		default: std::cout << "Please enter a menu choice from 1-5 only" << std::endl;
 		}
 	}
-
-	//update player info in container <-- use pointers instead in functions??????????????? THIS IS NOT PERSISTING
-	//players.at(turn_number % static_cast<int>(players.size())) = current_player;
-	
-	//UPDATE PLAYER INFO EITHER THROUGH POINTER OR SETTER METHODS BASED ON THE TEMP CURRENT PLAYER
 
 	/*
 	End Game check

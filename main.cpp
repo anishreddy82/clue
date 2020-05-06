@@ -33,7 +33,6 @@ int main() {
 	std::vector<Player> game_players = main_menu.setup(player_count);
 	//create the board
 	Board difBoard;
-	//////////////////////////////////////////difBoard.dif(game_players);
 	//create the Game
 	Game game = Game();
 	//add the players
@@ -48,6 +47,7 @@ int main() {
 
 	game.clearScreen();
 
+	//begin game loop
 	bool winner = false;
 	while (!winner) {
 		//clear the board
