@@ -54,7 +54,7 @@ void Board::dif(std::vector<Player> players){
     boardArray[6][4].name = "    Study    ";
 	
 	for (int i = 0; i < players.size(); i++) {
-		boardArray[players[i].getPositionX()][players[i].getPositionY()].name += players[i].getColor();
+		boardArray[players[i].getPositionY()][players[i].getPositionX()].name += players[i].getColor();
 	}
 	std::cout << "__________________________________________________________________________________" << std::endl;
 

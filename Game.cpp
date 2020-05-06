@@ -109,32 +109,35 @@ void Game::movePlayer(std::vector<Player> players){
 		srand(time(NULL));
 		int randDie = rand() % 3 + 1;
 		std::cout << "You rolled " << randDie << std::endl;
-		std::cout << "Would you like to move up, down, left or right?" << std::endl;
-		std::cout << "1. Up" << std::endl;
-		std::cout << "2. Down" << std::endl;
-		std::cout << "3. Left" << std::endl;
-		std::cout << "4. Right" << std::endl;
-		std::cin >> move;
-		//clear the buffer after cin
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
+		while (randDie > 0) {
+			std::cout << "Would you like to move up, down, left or right?" << std::endl;
+			std::cout << "1. Up" << std::endl;
+			std::cout << "2. Down" << std::endl;
+			std::cout << "3. Left" << std::endl;
+			std::cout << "4. Right" << std::endl;
+			std::cin >> move;
+			//clear the buffer after cin
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
 
-		//TODO: ADD CONDITIONALS FOR BOUNDARY CASES
-		if (move == 1) {
-			players[player_id].setPositionX(players[player_id].getPositionX() - randDie);
-		}
-		else if (move == 2) {
-			players[player_id].setPositionY(players[player_id].getPositionY() - randDie);
-		}
-		else if (move == 3) {
-			players[player_id].setPositionY(players[player_id].getPositionY() + randDie);
-		}
-		else if (move == 4) {
-			players[player_id].setPositionX(players[player_id].getPositionX() + randDie);
+			//TODO: ADD CONDITIONALS FOR BOUNDARY CASES
+			if (move == 1) {
+				players[player_id].setPositionY(players[player_id].getPositionY() - 1);
+			}
+			else if (move == 2) {
+				players[player_id].setPositionY(players[player_id].getPositionY() + 1);
+			}
+			else if (move == 3) {
+				players[player_id].setPositionX(players[player_id].getPositionX() - 1);
+			}
+			else if (move == 4) {
+				players[player_id].setPositionX(players[player_id].getPositionX() + 1);
+			}
+			//display board
+			gameBoard.dif(players);
+			randDie--;
 		}
 	}
-
-	gameBoard.dif(players);
 
 }
 

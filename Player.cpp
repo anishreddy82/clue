@@ -148,27 +148,27 @@ void Player::setPositionY(int posY1) {
 
 void Player::setStartingPosition(int pos){
 	if(pos == 1){
-		posX = 0;
-		posY = 3;
+		posX = 3;
+		posY = 0;
 	}
 	else if(pos == 2){
-		posX = 3;
-		posY = 4;
-	}
-	else if(pos == 3){
-		posX = 6;
+		posX = 4;
 		posY = 3;
 	}
+	else if(pos == 3){
+		posX = 3;
+		posY = 6;
+	}
 	else if(pos == 4){
-		posX = 5;
-		posY = 0;
+		posX = 0;
+		posY = 5;
 	}
 	else if(pos == 5){
-		posX = 2;
-		posY = 0;
+		posX = 0;
+		posY = 2;
 	}
 	else if(pos == 6){
-		posX = 0;
-		posY = 1;
+		posX = 1;
+		posY = 0;
 	}
 }
