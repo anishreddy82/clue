@@ -110,6 +110,7 @@ void Game::movePlayer(std::vector<Player> players){
 		int randDie = rand() % 3 + 1;
 		std::cout << "You rolled " << randDie << std::endl;
 		while (randDie > 0) {
+			std::cout << "You have " << randDie << "moves left" << std::endl;
 			std::cout << "Would you like to move up, down, left or right?" << std::endl;
 			std::cout << "1. Up" << std::endl;
 			std::cout << "2. Down" << std::endl;
@@ -120,18 +121,25 @@ void Game::movePlayer(std::vector<Player> players){
 			std::cin.clear();
 			std::cin.ignore(10000, '\n');
 
-			//TODO: ADD CONDITIONALS FOR BOUNDARY CASES
 			if (move == 1) {
-				players[player_id].setPositionY(players[player_id].getPositionY() - 1);
+				if (players[player_id].getPositionY() != 0){
+					players[player_id].setPositionY(players[player_id].getPositionY() - 1);
+				}
 			}
 			else if (move == 2) {
-				players[player_id].setPositionY(players[player_id].getPositionY() + 1);
+				if (players[player_id].getPositionY() != 6) {
+					players[player_id].setPositionY(players[player_id].getPositionY() + 1);
+				}
 			}
 			else if (move == 3) {
-				players[player_id].setPositionX(players[player_id].getPositionX() - 1);
+				if (players[player_id].getPositionX() != 0) {
+					players[player_id].setPositionX(players[player_id].getPositionX() - 1);
+				}
 			}
 			else if (move == 4) {
-				players[player_id].setPositionX(players[player_id].getPositionX() + 1);
+				if (players[player_id].getPositionX() != 4) {
+					players[player_id].setPositionX(players[player_id].getPositionX() + 1);
+				}
 			}
 			//display board
 			gameBoard.dif(players);
