@@ -94,7 +94,7 @@ void Game::dealAllCards() {
 	}
 }
 
-void Game::movePlayer(std::vector<Player> players){
+void Game::movePlayer(std::vector<Player> &players){
 	int choice;
 	int move;
 	int player_id = turn_number % static_cast<int>(players.size());
@@ -158,13 +158,13 @@ game functions for each player
 */
 bool Game::playTurn() {
 	//grab the current player from the container
-	Player current_player = players.at(turn_number % static_cast<int>(players.size()));
+	Player *current_player = &players.at(turn_number % static_cast<int>(players.size()));
 
 	//print welcome message for current Player
-	greet(current_player);
+	greet(current_player->getName(), current_player->getColor());
 
 	//move must be performed before suggestions/accusations
-	movePlayer(players);
+	movePlayer(players); //BOARD IS NOT UPDATING BETWEEN PLAYERS, OLD COORDS BEING REVERTED <---------------------------------------------------------------------
 
 	/*
 	TODO: ADD PLAYER UI FOR SUGGESTIONS/ACCUSATIONS
@@ -172,12 +172,12 @@ bool Game::playTurn() {
 	bool accusation = false; //setup for accusation
 	int menu_choice = false;
 	while (menu_choice != 5) {
-		menu_choice = displaySubMenu(current_player);
+		menu_choice = displaySubMenu();
 
 		switch (menu_choice) {
-		case 1: current_player.showHand();
+		case 1: current_player->showHand();
 			break; //show hand
-		case 2: current_player.viewNotebook();
+		case 2: current_player->viewNotebook();
 			break; //show notebook
 		case 3: break; //suggestion (IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE A SUGGESTION)
 		case 4: accusation = false; //accusation (IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
@@ -187,9 +187,10 @@ bool Game::playTurn() {
 		}
 	}
 
-	//update player info in container <-- use pointers instead in functions???????????????
-	players.at(turn_number % static_cast<int>(players.size())) = current_player;
-
+	//update player info in container <-- use pointers instead in functions??????????????? THIS IS NOT PERSISTING
+	//players.at(turn_number % static_cast<int>(players.size())) = current_player;
+	
+	//UPDATE PLAYER INFO EITHER THROUGH POINTER OR SETTER METHODS BASED ON THE TEMP CURRENT PLAYER
 
 	/*
 	End Game check
@@ -214,16 +215,16 @@ void Game::clearScreen() {
 
 }
 
-void Game::greet(Player current_player) {
-	std::cout << "It is currently " << current_player.getName() << "'s turn." << std::endl;
-	std::cout << current_player.getName() << " is of color (" << current_player.getColor() << ")" << std::endl;
+void Game::greet(std::string current_player_name, char current_player_color) {
+	std::cout << "It is currently " << current_player_name << "'s turn." << std::endl;
+	std::cout << current_player_name << " is of color (" << current_player_color << ")" << std::endl;
 	gameBoard.dif(players);
 
 }
 /*
 Sub menu for player action options
 */
-int Game::displaySubMenu(Player current_player) {
+int Game::displaySubMenu() {
 	std::cout << "What action would you like to perform?" << std::endl;
 	std::cout << "1. View your hand of chards" << std::endl;
 	std::cout << "2. View or use your Notebook" << std::endl;

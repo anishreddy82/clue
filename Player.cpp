@@ -67,6 +67,7 @@ void Player::viewNotebook() {
 		std::cout << "Wrong password\n";
 	else {
 		do {
+			std::cout << std::endl;
 			notebook.display();
 			std::cout << "\nWhat would you like to do?\n";
 			std::cout << "1. Add an entry\n";
@@ -98,7 +99,7 @@ void Player::useNotebook(int val) {
 			if (toupper(ch) == 'Y')
 				notebook.clear();
 			break;
-		case 4: std::cout << "Closing notebook...\n";
+		case 4: std::cout << "Closing notebook...\n" << std::endl;
 			break;
 		default: std::cout << "Invalid entry\n";
 	}
