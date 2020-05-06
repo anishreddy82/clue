@@ -1,0 +1,60 @@
+#include <sstream>
+#include "MainMenuState.hpp"
+#include "DEFINITIONS.hpp"
+#include <iostream>
+
+namespace gui {
+	MainMenuState::MainMenuState(GameDataRef data) : data(data) {}
+
+	void MainMenuState::init() {
+		this->data->assets.loadTexture("Background", MAIN_MENU_BACKGROUND_FILEPATH);
+		this->data->assets.loadTexture("Play Button", MAIN_MENU_PLAY_BUTTON);
+		//this->data->assets.loadTexture("Play Button Outer", MAIN_MENU_PLAY_BUTTON_OUTER);
+		this->data->assets.loadTexture("Game Title", MAIN_MENU_TITLE_PATH);
+		this->background.setTexture(this->data->assets.getTexture("Background"));
+		this->playButton.setTexture(this->data->assets.getTexture("Play Button"));
+		//this->playButtonOuter.setTexture(this->data->assets.getTexture("Play Button Outer"));
+		this->title.setTexture(this->data->assets.getTexture("Game Title"));
+
+		//positioning
+		this->playButton.setPosition((SCREEN_WIDTH / 2) - 
+				(this->playButton.getGlobalBounds().width / 2),
+			(SCREEN_HEIGHT / 2) - (this->playButton.getGlobalBounds().height / 2));
+
+		/*this->playButtonOuter.setPosition((SCREEN_WIDTH / 2) - 
+				(this->playButtonOuter.getGlobalBounds().width / 2),
+			(SCREEN_HEIGHT / 2) - (this->playButtonOuter.getGlobalBounds().height / 2));*/
+
+		this->title.setPosition((SCREEN_WIDTH / 2) - 
+				(this->title.getGlobalBounds().width / 2), this->title
+			.getGlobalBounds().height * 0.1);
+	}
+
+	void MainMenuState::handleInput() {
+		sf::Event event;
+		while (this->data->window.pollEvent(event)) {
+			if (sf::Event::Closed == event.type) {
+				this->data->window.close();
+			}
+			if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, 
+						this->data->window)) {
+				std::cout << "Go to Game Screen\n";
+			}
+		}
+	}
+
+	void MainMenuState::update(float dt) {
+
+	}
+
+	void MainMenuState::draw(float dt) {
+		this->data->window.clear();
+
+		this->data->window.draw(this->background);
+		this->data->window.draw(this->playButton);
+		//this->data->window.draw(this->playButtonOuter);
+		this->data->window.draw(this->title);
+
+		this->data->window.display();
+	}
+}

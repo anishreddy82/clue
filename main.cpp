@@ -6,6 +6,7 @@
 #include <array>
 #include <string>
 #include "board.hpp"
+#include "DEFINITIONS.hpp"
 
 int main() {
 	Menu main_menu = Menu();
@@ -46,7 +47,7 @@ int main() {
 	difBoard.dif(game_players);
 
 	//create the Game
-	Game game = Game();
+	gui::Game game = gui::Game(SCREEN_WIDTH, SCREEN_HEIGHT, "Virtual Clue");
 	//add the players
 	game.setPlayers(game_players);
 	//add the board
