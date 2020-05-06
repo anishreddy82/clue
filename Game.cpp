@@ -175,6 +175,9 @@ bool Game::playTurn() {
 		}
 	}
 
+	//update player info in container <-- use pointers instead in functions???????????????
+	players.at(turn_number % static_cast<int>(players.size())) = current_player;
+
 
 	/*
 	End Game check

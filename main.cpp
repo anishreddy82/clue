@@ -52,7 +52,6 @@ int main() {
 	while (!winner) {
 		//clear the board
 		game.clearScreen();
-		//reprint the board
 
 		//print UI information (SFML possible here????)
 
