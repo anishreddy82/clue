@@ -33,13 +33,13 @@ Game::Game() {
 	deck.emplace_back(Card("billiard room", 'r'));
 }
 
-void Game::givePlayerCard(vector<Card> &v) {
+void Game::givePlayerCard(vector<Card>& v) {
 	int idx = rand() % deck.size();
 	v.push_back(deck.at(idx));
 	deck.erase(deck.begin() + idx);
 }
 
-void Game::giveBoardCards(vector<Card> &v) {
+void Game::giveBoardCards(vector<Card>& v) {
 	int idx = (rand() % ((deck.size() - 1) - 12 + 1) + 12);
 	v.push_back(deck.at(idx));
 	deck.erase(deck.begin() + idx);
@@ -95,7 +95,7 @@ void Game::dealAllCards() {
 	}
 }
 
-void Game::movePlayer(std::vector<Player> &players){
+void Game::movePlayer(std::vector<Player>& players) {
 	int choice;
 	int move;
 	int player_id = turn_number % static_cast<int>(players.size());
@@ -117,7 +117,7 @@ void Game::movePlayer(std::vector<Player> &players){
 		//	playerPosY.push_back(players[i].getPositionY());
 		//}
 		while (randDie > 0) {
-			std::cout << "You have " << randDie << " moves left" << std::endl;
+			std::cout << "You have " << randDie << " move(s) left" << std::endl;
 			std::cout << "Would you like to move up, down, left or right?" << std::endl;
 			std::cout << "1. Up" << std::endl;
 			std::cout << "2. Down" << std::endl;
@@ -127,32 +127,51 @@ void Game::movePlayer(std::vector<Player> &players){
 			//clear the buffer after cin
 			std::cin.clear();
 			std::cin.ignore(10000, '\n');
-			for (int i = 0; i < players.size(); i++) {
-				if (move == 1) {
-					if (players[player_id].getPositionY() != 0 && (players[player_id].getPositionY() - 1 != players[i].getPositionY())) {
-						players[player_id].setPositionY(players[player_id].getPositionY() - 1);
-					}
+			bool playerThere = false;
+			if (move == 1) {
+				playerThere = playerInSpot(players[player_id].getPositionX(), players[player_id].getPositionY() - 1);
+				if (players[player_id].getPositionY() != 0 && playerThere == false) {
+					players[player_id].setPositionY(players[player_id].getPositionY() - 1);
 				}
-				else if (move == 2) {
-					if (players[player_id].getPositionY() != 6 && (players[player_id].getPositionY() + 1 != players[i].getPositionY())) {
-						players[player_id].setPositionY(players[player_id].getPositionY() + 1);
-					}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
 				}
-				else if (move == 3) {
-					if (players[player_id].getPositionX() != 0 && (players[player_id].getPositionX() - 1 != players[i].getPositionX())) {
-						players[player_id].setPositionX(players[player_id].getPositionX() - 1);
-					}
-				}
-				else if (move == 4) {
-					if (players[player_id].getPositionX() != 4 && (players[player_id].getPositionX() + 1 != players[i].getPositionX())) {
-						players[player_id].setPositionX(players[player_id].getPositionX() + 1);
-					}
-				}
-
-				//display board
-				gameBoard.dif(players);
-				randDie--;
 			}
+			else if (move == 2) {
+				playerThere = playerInSpot(players[player_id].getPositionX(), players[player_id].getPositionY() + 1);
+				if (players[player_id].getPositionY() != 6 && playerThere == false) {
+					players[player_id].setPositionY(players[player_id].getPositionY() + 1);
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
+				}
+			}
+			else if (move == 3) {
+				playerThere = playerInSpot(players[player_id].getPositionX() - 1, players[player_id].getPositionY());
+				if (players[player_id].getPositionX() != 0 && playerThere == false) {
+					players[player_id].setPositionX(players[player_id].getPositionX() - 1);
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
+				}
+			}
+			else if (move == 4) {
+				playerThere = playerInSpot(players[player_id].getPositionX() + 1, players[player_id].getPositionY());
+				if (players[player_id].getPositionX() != 4 && playerThere == false) {
+					players[player_id].setPositionX(players[player_id].getPositionX() + 1);
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
+				}
+			}
+
+			//display board
+			gameBoard.dif(players);
+			randDie--;
 		}
 	}
 }
@@ -160,18 +179,18 @@ void Game::movePlayer(std::vector<Player> &players){
 
 /*
 Function for performing the main game functions
-will call the other class methods to perform specific 
+will call the other class methods to perform specific
 game functions for each player
 */
 bool Game::playTurn() {
 	//grab the current player from the container
-	Player *current_player = &players.at(turn_number % static_cast<int>(players.size()));
+	Player* current_player = &players.at(turn_number % static_cast<int>(players.size()));
 
 	//print welcome message for current Player
 	greet(current_player->getName(), current_player->getColor());
 
 	//move must be performed before suggestions/accusations
-	movePlayer(players); 
+	movePlayer(players);
 
 
 	/*
@@ -187,12 +206,12 @@ bool Game::playTurn() {
 			break; //show hand
 		case 2: current_player->viewNotebook();
 			break; //show notebook
-		case 3: 
+		case 3:
 			break;
 			/*if (current_player->getRoomName(current_player->getPositionX(), current_player->getPositionY()) == "    space    " + current_player->getColor())  {
 					break;
 				}
-			  else {
+				else {
 					int weapon_menu_choice = 0;
 					std::cout << "Pick a murder weapon: " << std::endl;
 					std::cout << "1. candlestick" << std::endl;
@@ -202,35 +221,30 @@ bool Game::playTurn() {
 					std::cout << "5. lead pipe" << std::endl;
 					std::cout << "6. knife" << std::endl;
 					std::cin >> weapon_menu_choice;
-					
+
 					int player_choice = 0;
 					std::cout << "Pick a player: " << std::endl;
 					for (int i = 0; i < players.size(); i++) {
 						std::cout << i + 1 << ". " << players[i].getName() << std::endl;
 					}
 					std::cin >> player_choice;
-
 					std::string roomName = current_player->getRoomName(current_player->getPositionX(), current_player->getPositionY());
-
 					std::string previousPlayer = players[current_player->getId() - 1].getName();
-
 					std::cout << current_player->getName() << " is suggesting " << players[player_choice].getName() << " did the murder" << std::endl;
-					
+
 					for(int i = 0; i < players[current_player->getId() - 1].hand.size(); i++){
 						if (deck[weapon_menu_choice + 6].getName() == players[current_player->getId() - 1].hand[i].getName()) {
 							std::cout << "There was a match!" << std::endl;
 							std::cout << players[current_player->getId() - 1].hand[i].getName() << " was found!" << std::endl;
 						}
-
 						if (deck[player_choice - 1].getName() == players[current_player->getId() - 1].hand[i].getName()) {
 							std::cout << "There was a match!" << std::endl;
 							std::cout << players[current_player->getId() - 1].hand[i].getName() << " was found!" << std::endl;
 						}
 					}
-
-			  }*/
+				}*/
 		case 4: accusation = false; //accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
-			break; 
+			break;
 		case 5: break; //quit
 		default: std::cout << "Please enter a menu choice from 1-5 only" << std::endl;
 		}
@@ -284,4 +298,15 @@ int Game::displaySubMenu() {
 	std::cin.ignore(10000, '\n');
 	std::cout << std::endl;
 	return choice;
+}
+
+bool Game::playerInSpot(int x, int y) {
+	//, vector<Player> players
+
+	for (int i = 0; i < players.size(); i++) {
+		if (x == players[i].getPositionX() && y == players[i].getPositionY()) {
+			return true;
+		}
+	}
+	return false;
 }
