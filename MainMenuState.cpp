@@ -1,5 +1,6 @@
 #include <sstream>
 #include "MainMenuState.hpp"
+#include "GameState.hpp"
 #include "DEFINITIONS.hpp"
 #include <iostream>
 
@@ -17,6 +18,12 @@ namespace gui {
 		this->title.setTexture(this->data->assets.getTexture("Game Title"));
 
 		//positioning
+
+		this->background.setPosition((SCREEN_WIDTH / 2) - 
+				(this->background.getGlobalBounds().width / 2),
+			(SCREEN_HEIGHT / 2) - (this->background.getGlobalBounds().height / 2));
+
+		this->playButton.setScale(0.5f, 0.5f);
 		this->playButton.setPosition((SCREEN_WIDTH / 2) - 
 				(this->playButton.getGlobalBounds().width / 2),
 			(SCREEN_HEIGHT / 2) - (this->playButton.getGlobalBounds().height / 2));
@@ -27,7 +34,7 @@ namespace gui {
 
 		this->title.setPosition((SCREEN_WIDTH / 2) - 
 				(this->title.getGlobalBounds().width / 2), this->title
-			.getGlobalBounds().height * 0.1);
+			.getGlobalBounds().height * 0.01);
 	}
 
 	void MainMenuState::handleInput() {
@@ -38,7 +45,7 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, 
 						this->data->window)) {
-				std::cout << "Go to Game Screen\n";
+				this->data->machine.addState(stateRef(new GameState(data)), true);
 			}
 		}
 	}
