@@ -3,11 +3,11 @@
 #include "Player.hpp"
 
 Room::Room() {
-	//player1 = new Player;
+	player1 = new Player;
 	weapon = 0;
 	name = "";
 }
 
-void Room::rooms(){
-    
+void Room::rooms() {
+
 }

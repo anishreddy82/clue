@@ -84,24 +84,24 @@ void Player::useNotebook(int val) {
 	std::string entry;
 	char ch;
 	int idx;
-	switch(val) {
-		case 1: std::cout << "Enter a new note: ";
-			cin.ignore();
-			getline(std::cin, entry);
-			notebook.addEntry(entry);
-			break;
-		case 2: std::cout << "Choose an entry number to remove: ";
-			cin >> idx;
-			notebook.eraseEntry(idx);
-			break;
-		case 3: std::cout << "Are you sure you want to clear your notes? (y or n): ";
-			cin >> ch;
-			if (toupper(ch) == 'Y')
-				notebook.clear();
-			break;
-		case 4: std::cout << "Closing notebook...\n" << std::endl;
-			break;
-		default: std::cout << "Invalid entry\n";
+	switch (val) {
+	case 1: std::cout << "Enter a new note: ";
+		cin.ignore();
+		getline(std::cin, entry);
+		notebook.addEntry(entry);
+		break;
+	case 2: std::cout << "Choose an entry number to remove: ";
+		cin >> idx;
+		notebook.eraseEntry(idx);
+		break;
+	case 3: std::cout << "Are you sure you want to clear your notes? (y or n): ";
+		cin >> ch;
+		if (toupper(ch) == 'Y')
+			notebook.clear();
+		break;
+	case 4: std::cout << "Closing notebook...\n" << std::endl;
+		break;
+	default: std::cout << "Invalid entry\n";
 	}
 }
 
@@ -118,10 +118,10 @@ char Player::getColor() {
 	return color;
 }
 
-int Player::getPositionX(){
+int Player::getPositionX() {
 	return posX;
 }
-int Player::getPositionY(){
+int Player::getPositionY() {
 	return posY;
 }
 
@@ -147,34 +147,29 @@ void Player::setPositionY(int posY1) {
 	posY = posY1;
 }
 
-void Player::setStartingPosition(int pos){
-	if(pos == 1){
+void Player::setStartingPosition(int pos) {
+	if (pos == 1) {
 		posX = 3;
 		posY = 0;
 	}
-	else if(pos == 2){
+	else if (pos == 2) {
 		posX = 4;
 		posY = 3;
 	}
-	else if(pos == 3){
+	else if (pos == 3) {
 		posX = 3;
 		posY = 6;
 	}
-	else if(pos == 4){
+	else if (pos == 4) {
 		posX = 0;
 		posY = 5;
 	}
-	else if(pos == 5){
+	else if (pos == 5) {
 		posX = 0;
 		posY = 2;
 	}
-	else if(pos == 6){
+	else if (pos == 6) {
 		posX = 1;
 		posY = 0;
 	}
-}
-
-std::string Player::getRoomName(int x, int y) {
-	std::string room = roomname.roomName(x, y);
-	return room;
 }

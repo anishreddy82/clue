@@ -8,15 +8,15 @@
 #include "room.hpp"
 #include "Card.hpp"
 
-class Board{
+class Board {
 private:
 	int w;
 	int h;
 	std::vector<std::pair<int, int>> player_coords;
 public:
 	Board();
-	std::string roomName(int, int);
+
 	void dif(std::vector<Player>);
-	Room **boardArray;
+	Room** boardArray;
 	std::vector<Card> murderCards;
 };

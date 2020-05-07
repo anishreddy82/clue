@@ -3,7 +3,6 @@
 #include <vector>
 #include "Card.hpp"
 #include "Notebook.hpp"
-#include "board.hpp"
 class Player
 {
 private:
@@ -15,16 +14,17 @@ private:
 	int posX;
 	int posY;
 
+
 public:
 
 	Player();
 	Player(int idIn);
 	std::vector<Card> hand;
+
 	std::string getName();
 	void showHand();
 	void viewNotebook();
 	void useNotebook(int);
-	std::string getRoomName(int posx, int posy);
 	int getId();
 	char getColor();
 	int getPositionX();
