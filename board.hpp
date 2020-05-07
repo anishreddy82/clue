@@ -15,7 +15,7 @@ private:
 	std::vector<std::pair<int, int>> player_coords;
 public:
 	Board();
-
+	std::string roomName(int, int);
 	void dif(std::vector<Player>);
 	Room **boardArray;
 	std::vector<Card> murderCards;

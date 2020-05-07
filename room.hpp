@@ -8,7 +8,7 @@
 class Room{
     
 public:
-  Player* player1;
+  //Player player1;
   int weapon;
   std::string name;
   Room();

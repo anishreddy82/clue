@@ -173,3 +173,8 @@ void Player::setStartingPosition(int pos){
 		posY = 0;
 	}
 }
+
+std::string Player::getRoomName(int x, int y) {
+	std::string room = roomname.roomName(x, y);
+	return room;
+}

@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 
 
 Game::Game() {
@@ -99,7 +100,7 @@ void Game::movePlayer(std::vector<Player> &players){
 	int move;
 	int player_id = turn_number % static_cast<int>(players.size());
 
-	std::cout << "Would you like to roll the die?" << std::endl;
+	std::cout << "Would you like to make a move?" << std::endl;
 	std::cout << "1. Yes" << std::endl;
 	std::cout << "2. No" << std::endl;
 	std::cin >> choice;
@@ -109,6 +110,12 @@ void Game::movePlayer(std::vector<Player> &players){
 		srand(time(NULL));
 		int randDie = rand() % 3 + 1;
 		std::cout << "You rolled " << randDie << std::endl;
+		std::vector<int> playerPosX;
+		std::vector<int> playerPosY;
+		//for (int i = 0; i < players.size(); i++) {
+		//	playerPosX.push_back(players[i].getPositionX());
+		//	playerPosY.push_back(players[i].getPositionY());
+		//}
 		while (randDie > 0) {
 			std::cout << "You have " << randDie << " moves left" << std::endl;
 			std::cout << "Would you like to move up, down, left or right?" << std::endl;
@@ -120,31 +127,32 @@ void Game::movePlayer(std::vector<Player> &players){
 			//clear the buffer after cin
 			std::cin.clear();
 			std::cin.ignore(10000, '\n');
+			for (int i = 0; i < players.size(); i++) {
+				if (move == 1) {
+					if (players[player_id].getPositionY() != 0 && (players[player_id].getPositionY() - 1 != players[i].getPositionY())) {
+						players[player_id].setPositionY(players[player_id].getPositionY() - 1);
+					}
+				}
+				else if (move == 2) {
+					if (players[player_id].getPositionY() != 6 && (players[player_id].getPositionY() + 1 != players[i].getPositionY())) {
+						players[player_id].setPositionY(players[player_id].getPositionY() + 1);
+					}
+				}
+				else if (move == 3) {
+					if (players[player_id].getPositionX() != 0 && (players[player_id].getPositionX() - 1 != players[i].getPositionX())) {
+						players[player_id].setPositionX(players[player_id].getPositionX() - 1);
+					}
+				}
+				else if (move == 4) {
+					if (players[player_id].getPositionX() != 4 && (players[player_id].getPositionX() + 1 != players[i].getPositionX())) {
+						players[player_id].setPositionX(players[player_id].getPositionX() + 1);
+					}
+				}
 
-			if (move == 1) {
-				if (players[player_id].getPositionY() != 0){
-					players[player_id].setPositionY(players[player_id].getPositionY() - 1);
-
-				}
+				//display board
+				gameBoard.dif(players);
+				randDie--;
 			}
-			else if (move == 2) {
-				if (players[player_id].getPositionY() != 6) {
-					players[player_id].setPositionY(players[player_id].getPositionY() + 1);
-				}
-			}
-			else if (move == 3) {
-				if (players[player_id].getPositionX() != 0) {
-					players[player_id].setPositionX(players[player_id].getPositionX() - 1);
-				}
-			}
-			else if (move == 4) {
-				if (players[player_id].getPositionX() != 4) {
-					players[player_id].setPositionX(players[player_id].getPositionX() + 1);
-				}
-			}
-			//display board
-			gameBoard.dif(players);
-			randDie--;
 		}
 	}
 }
@@ -165,6 +173,7 @@ bool Game::playTurn() {
 	//move must be performed before suggestions/accusations
 	movePlayer(players); 
 
+
 	/*
 	TODO: ADD PLAYER UI FOR SUGGESTIONS/ACCUSATIONS
 	*/
@@ -178,13 +187,56 @@ bool Game::playTurn() {
 			break; //show hand
 		case 2: current_player->viewNotebook();
 			break; //show notebook
-		case 3: break; //suggestion (TODO: implement current_player->suggest(), + IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE A SUGGESTION)
+		case 3: 
+			break;
+			/*if (current_player->getRoomName(current_player->getPositionX(), current_player->getPositionY()) == "    space    " + current_player->getColor())  {
+					break;
+				}
+			  else {
+					int weapon_menu_choice = 0;
+					std::cout << "Pick a murder weapon: " << std::endl;
+					std::cout << "1. candlestick" << std::endl;
+					std::cout << "2. revolver" << std::endl;
+					std::cout << "3. rope" << std::endl;
+					std::cout << "4. wrench" << std::endl;
+					std::cout << "5. lead pipe" << std::endl;
+					std::cout << "6. knife" << std::endl;
+					std::cin >> weapon_menu_choice;
+					
+					int player_choice = 0;
+					std::cout << "Pick a player: " << std::endl;
+					for (int i = 0; i < players.size(); i++) {
+						std::cout << i + 1 << ". " << players[i].getName() << std::endl;
+					}
+					std::cin >> player_choice;
+
+					std::string roomName = current_player->getRoomName(current_player->getPositionX(), current_player->getPositionY());
+
+					std::string previousPlayer = players[current_player->getId() - 1].getName();
+
+					std::cout << current_player->getName() << " is suggesting " << players[player_choice].getName() << " did the murder" << std::endl;
+					
+					for(int i = 0; i < players[current_player->getId() - 1].hand.size(); i++){
+						if (deck[weapon_menu_choice + 6].getName() == players[current_player->getId() - 1].hand[i].getName()) {
+							std::cout << "There was a match!" << std::endl;
+							std::cout << players[current_player->getId() - 1].hand[i].getName() << " was found!" << std::endl;
+						}
+
+						if (deck[player_choice - 1].getName() == players[current_player->getId() - 1].hand[i].getName()) {
+							std::cout << "There was a match!" << std::endl;
+							std::cout << players[current_player->getId() - 1].hand[i].getName() << " was found!" << std::endl;
+						}
+					}
+
+			  }*/
 		case 4: accusation = false; //accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
 			break; 
 		case 5: break; //quit
 		default: std::cout << "Please enter a menu choice from 1-5 only" << std::endl;
 		}
 	}
+	//weapons begin at index 6
+
 
 	/*
 	End Game check
