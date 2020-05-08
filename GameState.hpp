@@ -14,6 +14,8 @@ namespace gui {
 			void draw(float dt);
 
 		private:
+			void initGridPieces();
+			void initButtons();
 			GameDataRef data;
 			sf::Sprite background;
 			sf::Sprite rollButton;
@@ -22,6 +24,10 @@ namespace gui {
 			sf::Sprite endTurnButton;
 			sf::Sprite myCardsButton;
 			sf::Sprite notebookButton;
+			sf::Sprite gridSprite;
+
+			sf::Sprite gridPieces[12][12];
+			int gridArray[12][12];
 
 			int turn;
 			int gameState;

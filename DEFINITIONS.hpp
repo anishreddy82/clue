@@ -21,6 +21,7 @@
 #define GAME_MY_CARDS_BUTTON_FILEPATH "./Assets/graphics/MyCardsButton.png"
 #define GAME_NOTEBOOK_BUTTON_FILEPATH "./Assets/graphics/NotebookButton.png"
 
+#define GRID_SPRITE_FILEPATH "./Assets/graphics/grid.png"
 #define W_PIECE_FILEPATH "./Assets/graphics/wPiece.png"
 #define B_PIECE_FILEPATH "./Assets/graphics/bPiece.png"
 #define R_PIECE_FILEPATH "./Assets/graphics/rPiece.png"
