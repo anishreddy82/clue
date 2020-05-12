@@ -49,7 +49,7 @@ namespace gui {
 			}
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::Escape) {
-					this->data->machine.addState(stateRef(new PauseState(data)), true);
+					this->data->machine.addState(stateRef(new PauseState(data)), false);
 				}
 			}
 			if (this->data->input.isSpriteClicked(this->rollButton, sf::Mouse::Left,

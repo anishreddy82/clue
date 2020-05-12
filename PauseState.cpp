@@ -27,7 +27,7 @@ namespace gui {
 			}
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::Escape) {
-					this->data->machine.addState(stateRef(new GameState(data)), true);
+					this->data->machine.removeState();
 				}
 			}
 		}
