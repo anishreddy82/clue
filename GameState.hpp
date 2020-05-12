@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "State.hpp"
 #include "Game.hpp"
+#include "Piece.hpp"
 
 namespace gui {
 	class GameState : public State {
@@ -28,6 +29,8 @@ namespace gui {
 
 			sf::Sprite gridPieces[12][12];
 			int gridArray[12][12];
+
+			Piece* piece;
 
 			int turn;
 			int gameState;

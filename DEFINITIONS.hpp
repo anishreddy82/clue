@@ -30,7 +30,7 @@
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
 
 
-
+#define GRID_CELL_SIZE 50
 #define STATE_PLAYING 98
 #define STATE_PAUSED 97
 #define STATE_WON 96

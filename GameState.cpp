@@ -43,6 +43,7 @@ namespace gui {
 
 	void GameState::handleInput() {
 		sf::Event event;
+		int dir;
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) {
 				this->data->window.close();
@@ -50,6 +51,18 @@ namespace gui {
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::Escape) {
 					this->data->machine.addState(stateRef(new PauseState(data)), false);
+				}
+				if (event.key.code == sf::Keyboard::Right) {
+					piece->movePiece(1);
+				}
+				if (event.key.code == sf::Keyboard::Left) {
+					piece->movePiece(2);
+				}
+				if (event.key.code == sf::Keyboard::Up) {
+					piece->movePiece(3);
+				}
+				if (event.key.code == sf::Keyboard::Down) {
+					piece->movePiece(4);
 				}
 			}
 			if (this->data->input.isSpriteClicked(this->rollButton, sf::Mouse::Left,
@@ -90,6 +103,7 @@ namespace gui {
 		this->data->window.draw(this->gridSprite);
 		this->data->window.draw(this->gridPieces[11][7]);
 		this->data->window.draw(this->gridPieces[11][4]);
+		piece->drawPieces();
 		this->data->window.draw(this->rollButton);
 		this->data->window.draw(this->suggestButton);
 		this->data->window.draw(this->accuseButton);
@@ -107,10 +121,12 @@ namespace gui {
 					tempSpriteSize.x * 10) - 32, gridSprite.getPosition().y + (
 						tempSpriteSize.y * 7) + 270);
 
-		gridPieces[11][4].setTexture(this->data->assets.getTexture("Green Piece"));
-		gridPieces[11][4].setPosition(gridSprite.getPosition().x + (
+		piece = new Piece(data, "Green Piece");
+		tempSpriteSize = this->data->assets.getTexture("Green Piece").getSize();
+		piece->getPiece().setPosition(gridSprite.getPosition().x + (
 					tempSpriteSize.x * 7) - 65, gridSprite.getPosition().y + (
 						tempSpriteSize.y * 7) + 270);
+
 
 		//position remaining game pieces
 	}
