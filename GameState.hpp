@@ -17,6 +17,13 @@ namespace gui {
 		private:
 			void initGridPieces();
 			void initButtons();
+			void initGameDeck();
+			void initPlayers();
+			void initWinningCards(vector<Card>&);
+			void givePlayerCard(vector<Card>&);
+			void dealOutCards();
+			char generate_color();
+			int generate_randPos();
 			GameDataRef data;
 			sf::Sprite background;
 			sf::Sprite rollButton;
@@ -30,7 +37,13 @@ namespace gui {
 			sf::Sprite gridPieces[12][12];
 			int gridArray[12][12];
 
-			Piece* piece;
+			Piece* activePiece;
+			vector<Piece*> pieces;
+			vector<Card> deck;
+			vector<Card> murderCards;
+			vector<Player> players;
+			vector<char> colors;
+			vector<int> positions;
 
 			int turn;
 			int gameState;

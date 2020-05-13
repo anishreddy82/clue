@@ -9,6 +9,8 @@ namespace gui {
 
 	void GameState::init() {
 		gameState = STATE_PLAYING;
+		colors = { 'r', 'b', 'g', 'y', 'v', 'w' };
+		positions = { 1, 2, 3, 4, 5, 6 };
 		
 		//this->data->assets.loadTexture("Background", GAME_BACKGROUND_FILEPATH);
 		this->data->assets.loadTexture("Grid Sprite", GRID_SPRITE_FILEPATH);
@@ -25,13 +27,7 @@ namespace gui {
 		this->data->assets.loadTexture("My Cards Button", GAME_MY_CARDS_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Notebook Button", GAME_NOTEBOOK_BUTTON_FILEPATH);
 
-		//this->background.setTexture(this->data->assets.getTexture("Background"));
 		this->gridSprite.setTexture(this->data->assets.getTexture("Grid Sprite"));
-
-		//this->background.setScale(.8f, .8f);
-		/*this->background.setPosition((SCREEN_WIDTH / 2) - 
-				(this->background.getGlobalBounds().width / 2), 
-				(SCREEN_HEIGHT / 2) - (this->background.getGlobalBounds().height / 2));*/
 		this->gridSprite.setScale(5.0f, 5.0f);
 		this->gridSprite.setPosition((SCREEN_WIDTH / 2) -
 				(this->gridSprite.getGlobalBounds().width / 2),
@@ -39,6 +35,9 @@ namespace gui {
 
 		initGridPieces();
 		initButtons();
+		initGameDeck();
+		initPlayers();
+		dealOutCards();
 	}
 
 	void GameState::handleInput() {
@@ -53,16 +52,16 @@ namespace gui {
 					this->data->machine.addState(stateRef(new PauseState(data)), false);
 				}
 				if (event.key.code == sf::Keyboard::Right) {
-					piece->movePiece(1);
+					pieces.at(0)->movePiece(1);
 				}
 				if (event.key.code == sf::Keyboard::Left) {
-					piece->movePiece(2);
+					pieces.at(0)->movePiece(2);
 				}
 				if (event.key.code == sf::Keyboard::Up) {
-					piece->movePiece(3);
+					pieces.at(0)->movePiece(3);
 				}
 				if (event.key.code == sf::Keyboard::Down) {
-					piece->movePiece(4);
+					pieces.at(0)->movePiece(4);
 				}
 			}
 			if (this->data->input.isSpriteClicked(this->rollButton, sf::Mouse::Left,
@@ -99,11 +98,15 @@ namespace gui {
 	void GameState::draw(float dt) {
 		this->data->window.clear();
 
-		//this->data->window.draw(this->background);
 		this->data->window.draw(this->gridSprite);
-		this->data->window.draw(this->gridPieces[11][7]);
-		this->data->window.draw(this->gridPieces[11][4]);
-		piece->drawPieces();
+		//this->data->window.draw(this->gridPieces[11][7]);
+		//this->data->window.draw(this->gridPieces[11][4]);
+		pieces.at(0)->drawPieces();
+		pieces.at(1)->drawPieces();
+		pieces.at(2)->drawPieces();
+		pieces.at(3)->drawPieces();
+		pieces.at(4)->drawPieces();
+		pieces.at(5)->drawPieces();
 		this->data->window.draw(this->rollButton);
 		this->data->window.draw(this->suggestButton);
 		this->data->window.draw(this->accuseButton);
@@ -115,20 +118,35 @@ namespace gui {
 	}
 
 	void GameState::initGridPieces() {
+		pieces.emplace(pieces.begin(), new Piece(data, "White Piece"));
 		sf::Vector2u tempSpriteSize = this->data->assets.getTexture("White Piece").getSize();
-		gridPieces[11][7].setTexture(this->data->assets.getTexture("White Piece"));
-		gridPieces[11][7].setPosition(gridSprite.getPosition().x + (
+		pieces.at(0)->getPiece().setPosition(gridSprite.getPosition().x + (
 					tempSpriteSize.x * 10) - 32, gridSprite.getPosition().y + (
 						tempSpriteSize.y * 7) + 270);
 
-		piece = new Piece(data, "Green Piece");
+		pieces.emplace_back(new Piece(data, "Green Piece"));
 		tempSpriteSize = this->data->assets.getTexture("Green Piece").getSize();
-		piece->getPiece().setPosition(gridSprite.getPosition().x + (
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + (
 					tempSpriteSize.x * 7) - 65, gridSprite.getPosition().y + (
 						tempSpriteSize.y * 7) + 270);
 
+		pieces.emplace_back(new Piece(data, "Blue Piece"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + 8, 
+				gridSprite.getPosition().y + (GRID_CELL_SIZE * 9) + 7);
 
-		//position remaining game pieces
+		pieces.emplace_back(new Piece(data, "Red Piece"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + 
+				(GRID_CELL_SIZE * 8) + 8, gridSprite.getPosition().y + 7);
+		activePiece = pieces.at(pieces.size() - 1);
+
+		pieces.emplace_back(new Piece(data, "Brown Piece"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
+				(GRID_CELL_SIZE * 11) + 8, gridSprite.getPosition().y + 
+				(GRID_CELL_SIZE * 3) + 7);
+
+		pieces.emplace_back(new Piece(data, "Purple Piece"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + 8,
+				gridSprite.getPosition().y + (GRID_CELL_SIZE * 2) + 7);
 	}
 
 	void GameState::initButtons() {
@@ -174,4 +192,125 @@ namespace gui {
 					(SCREEN_HEIGHT - notebookButton.getGlobalBounds().height)));
 	}
 
+	void GameState::initGameDeck() {
+		//colors begin at index 0
+		deck.emplace(deck.begin(), Card("white", 'c'));
+		deck.emplace_back(Card("blue", 'c'));
+		deck.emplace_back(Card("red", 'c'));
+		deck.emplace_back(Card("brown", 'c'));
+		deck.emplace_back(Card("green", 'c'));
+		deck.emplace_back(Card("purple", 'c'));
+
+		//weapons begin at index 6
+		deck.emplace_back(Card("candlestick", 'w'));
+		deck.emplace_back(Card("revolver", 'w'));
+		deck.emplace_back(Card("rope", 'w'));
+		deck.emplace_back(Card("wrench", 'w'));
+		deck.emplace_back(Card("lead pipe", 'w'));
+		deck.emplace_back(Card("knife", 'w'));
+
+		//rooms begin at index 12
+		deck.emplace_back(Card("study", 'r'));
+		deck.emplace_back(Card("library", 'r'));
+		deck.emplace_back(Card("conservatory", 'r'));
+		deck.emplace_back(Card("hall", 'r'));
+		deck.emplace_back(Card("kitchen", 'r'));
+		deck.emplace_back(Card("ballroom", 'r'));
+		deck.emplace_back(Card("lounge", 'r'));
+		deck.emplace_back(Card("billiard room", 'r'));
+	}
+
+	void GameState::initPlayers() {
+		int player_count;
+		//prompt to confirm game setup
+		std::cout << "How many players for the game? (min 4, max 6)" << std::endl;
+		std::cin >> player_count;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n'); //skips the newline char on input
+
+		//loop for invalid player count inputs
+		while (player_count > 6 || player_count < 4) {
+			//prompt to confirm game setup
+			std::cout << "Please input a valid player count. (min 4, max 6)" << std::endl;
+
+			std::cin >> player_count;
+
+			std::cin.clear();
+			std::cin.ignore(10000, '\n'); //skips the newline char on input
+		}
+		for (int i = 1; i <= player_count; i++) {
+			std::cout << "_______________________________________________________________" << std::endl;
+			//create new Player with their id
+			Player new_player = Player(i);
+
+			//setup Player i's name
+			std::cout << "Player " << i << ". Please enter your name: ";
+			std::string nameIn;
+			std::getline(std::cin, nameIn);
+			new_player.setName(nameIn);
+			std::cout << std::endl;
+
+			//setup Player i's color
+			new_player.setColor(generate_color());
+			new_player.setStartingPosition(generate_randPos());
+
+			//setup Player i's password
+			std::cout << "(Optional) Please enter your password to secure your turn: ";
+			std::string passwordIn;
+			std::getline(std::cin, passwordIn);
+			new_player.setPassword(passwordIn);
+
+			players.push_back(new_player);
+
+		}
+	}
+
+
+	void GameState::initWinningCards(vector<Card> &v) {
+		int idx = (rand() % ((deck.size() - 1) - 12 + 1) + 12);
+		v.push_back(deck.at(idx));
+		deck.erase(deck.begin() + idx);
+		  
+		idx = (rand() % (11 - 6 + 1) + 6);
+		v.push_back(deck.at(idx));
+		deck.erase(deck.begin() + idx);
+		    
+		idx = rand() % 6;
+		v.push_back(deck.at(idx));
+		deck.erase(deck.begin() + idx);
+	}
+
+	void GameState::givePlayerCard(vector<Card> &v) {
+		int idx = rand() % deck.size();
+		v.push_back(deck.at(idx));
+		deck.erase(deck.begin() + idx);
+	}
+
+	void GameState::dealOutCards() {
+		//first deal out the murder cards
+		initWinningCards(murderCards);
+		int i = 0;
+		//deal the rest of the cards to the players hands
+		while (static_cast<int>(deck.size() > 0)) {
+			//mod the number of players for even distribution
+			givePlayerCard(players.at(i % (players.size())).hand);
+			i++;
+		}
+	}
+
+	char GameState::generate_color() {
+		srand(time(NULL));
+		int randIndex = rand() % static_cast<int>(colors.size());
+		char choice = colors.at(randIndex);
+		colors.erase(colors.begin() + randIndex);
+		return choice;
+	}
+
+	int GameState::generate_randPos() {
+		srand(time(NULL));
+		int randNum = rand() % positions.size();
+		int choice = positions.at(randNum);
+		positions.erase(positions.begin() + randNum);
+		return choice;
+	}
 }

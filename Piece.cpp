@@ -3,9 +3,6 @@
 namespace gui {
 	Piece::Piece(GameDataRef data, std::string name) : data(data) {
 		piece.setTexture(data->assets.getTexture(name));
-		piece.setPosition((data->window.getSize().x / 4) - (
-					piece.getGlobalBounds().width / 2), (data->window.getSize().y / 2) -
-				(piece.getGlobalBounds().height / 2));
 	}
 
 	void Piece::drawPieces() {
