@@ -105,6 +105,7 @@
   <ItemGroup>
     <ClCompile Include="board.cpp" />
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Die.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -116,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="board.hpp" />
     <ClInclude Include="Card.hpp" />
+    <ClInclude Include="Die.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Helper.hpp" />
     <ClInclude Include="Menu.hpp" />

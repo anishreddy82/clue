@@ -2,8 +2,10 @@
 #include <iostream>
 #include <string>
 
+#define MAX_DIE_COUNT 3
 
 Game::Game() {
+	die = Die(MAX_DIE_COUNT);
 	turn_number = 0;
 	//colors begin at index 0
 	deck.emplace(deck.begin(), Card("white", 'c'));
@@ -95,32 +97,15 @@ void Game::dealAllCards() {
 }
 
 void Game::movePlayer(std::vector<Player> &players){
-	int choice;
-	int move;
 	int player_id = turn_number % static_cast<int>(players.size());
-
-	std::cout << "Would you like to roll the die?" << std::endl;
-	std::cout << "1. Yes" << std::endl;
-	std::cout << "2. No" << std::endl;
-	std::cin >> choice;
-	std::cin.clear();
-	std::cin.ignore(10000, '\n');
+	int choice = promptForMovementMenu();
 	if (choice == 1) {
-		srand(time(NULL));
-		int randDie = rand() % 3 + 1;
-		std::cout << "You rolled " << randDie << std::endl;
-		while (randDie > 0) {
-			std::cout << "You have " << randDie << " moves left" << std::endl;
-			std::cout << "Would you like to move up, down, left or right?" << std::endl;
-			std::cout << "1. Up" << std::endl;
-			std::cout << "2. Down" << std::endl;
-			std::cout << "3. Left" << std::endl;
-			std::cout << "4. Right" << std::endl;
-			std::cin >> move;
-			//clear the buffer after cin
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
+		die.roll();
 
+		std::cout << "You rolled " << die.getCurrentNumber() << std::endl;
+		while (die.getCurrentNumber() > 0) {
+			int move = playerMovementDirectionMenu(die.getCurrentNumber());
+			//clear the buffer after cin
 			if (move == 1) {
 				if (players[player_id].getPositionY() != 0){
 					players[player_id].setPositionY(players[player_id].getPositionY() - 1);
@@ -144,64 +129,70 @@ void Game::movePlayer(std::vector<Player> &players){
 			}
 			//display board
 			gameBoard.dif(players);
-			randDie--;
+			die.decrement();
 		}
 	}
 }
 
+int Game::promptForMovementMenu() {
+	std::cout << "Would you like to roll the die?" << std::endl;
+	std::cout << "1. Yes" << std::endl;
+	std::cout << "2. No" << std::endl;
+	int choice;
+	std::cin >> choice;
+	std::cin.clear();
+	std::cin.ignore(10000, '\n');
+	return choice;
+}
+int Game::playerMovementDirectionMenu(int movementPointsLeft) {
+	std::cout << "You have " << movementPointsLeft << " moves left" << std::endl;
+	std::cout << "Would you like to move up, down, left or right?" << std::endl;
+	std::cout << "1. Up" << std::endl;
+	std::cout << "2. Down" << std::endl;
+	std::cout << "3. Left" << std::endl;
+	std::cout << "4. Right" << std::endl;
+	int direction;
+	std::cin >> direction;
+	std::cin.clear();
+	std::cin.ignore(10000, '\n');
+	return direction;
+}
 
-/*
-Function for performing the main game functions
-will call the other class methods to perform specific 
-game functions for each player
-*/
+
 bool Game::playTurn() {
-	//grab the current player from the container
 	Player *current_player = &players.at(turn_number % static_cast<int>(players.size()));
-
-	//print welcome message for current Player
 	greet(current_player->getName(), current_player->getColor());
-
-	//move must be performed before suggestions/accusations
 	movePlayer(players); 
 
 	/*
 	TODO: ADD PLAYER UI FOR SUGGESTIONS/ACCUSATIONS
 	*/
-	bool accusation = false; //setup for accusation
+	bool accusation = false;
 	int menu_choice = false;
 	while (menu_choice != 5) {
 		menu_choice = displaySubMenu();
 
 		switch (menu_choice) {
 		case 1: current_player->showHand();
-			break; //show hand
+			break;
 		case 2: current_player->viewNotebook();
-			break; //show notebook
+			break;
 		case 3: break; //suggestion (TODO: implement current_player->suggest(), + IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE A SUGGESTION)
-		case 4: accusation = false; //accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
+		case 4: accusation = false; //TODO: accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
 			break; 
-		case 5: break; //quit
+		case 5: break; 
 		default: std::cout << "Please enter a menu choice from 1-5 only" << std::endl;
 		}
 	}
 
-	/*
-	End Game check
-	*/
-	//accusation by the player, a success returns true to start endgame
 	if (accusation) {
 		return true;
 	}
-	//increase turn number, move on to next player
 	turn_number++;
 	return false;
 }
 
 
-/*
-Clears the command line to provide better UI experience
-*/
 void Game::clearScreen() {
 	for (int i = 0; i < 5; i++) {
 		std::cout << std::endl;

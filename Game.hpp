@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "board.hpp"
 #include <vector>
+#include "Die.hpp"
 
 using std::vector;
 
@@ -14,6 +15,7 @@ class Game {
 		vector<Player> players;
 		Board gameBoard;
 		int turn_number;
+		Die die;
 		
 	public:
 		Game();
@@ -29,6 +31,8 @@ class Game {
 		void clearScreen();
 		void greet(std::string current_player_name, char current_player_color);
 		int displaySubMenu();
+		int promptForMovementMenu();
+		int playerMovementDirectionMenu(int movementPointsLeft);
 };
 
 #endif

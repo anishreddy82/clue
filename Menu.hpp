@@ -14,4 +14,7 @@ public:
 	std::vector<Player> setup(int x);
 	char generate_color();
 	int generate_randPos();
+	void setupPlayerName(Player &current_player);
+	void setupPlayerColor(Player &current_player);
+	void setupPlayerPassword(Player &current_player);
 };
