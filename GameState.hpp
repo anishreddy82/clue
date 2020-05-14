@@ -38,6 +38,7 @@ namespace gui {
 			sf::Sprite gridSprite;
 			sf::Font rollFont;
 			sf::Text rollText;
+			sf::Text turnText;
 
 			sf::Sprite gridPieces[12][12];
 			int gridArray[12][12];

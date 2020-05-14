@@ -33,19 +33,14 @@ namespace gui {
 				(this->gridSprite.getGlobalBounds().width / 2),
 				(SCREEN_HEIGHT / 2) - (this->gridSprite.getGlobalBounds().height / 2));
 
+		this->data->assets.loadFont("Roll Font", ROLL_FONT_FILEPATH);
+
 		initGridPieces();
 		initButtons();
 		initGameDeck();
 		this->turn = 0;
 		initPlayers();
 		this->moves = 0;
-
-		this->data->assets.loadFont("Roll Font", ROLL_FONT_FILEPATH);
-		this->rollFont = this->data->assets.getFont("Roll Font");
-		rollText.setFont(rollFont);
-		rollText.setString(std::to_string(moves));
-		rollText.setCharacterSize(45);
-		rollText.setFillColor(sf::Color::White);
 
 		gameState = GameStates::eTurnOver;
 		dealOutCards();
@@ -73,7 +68,8 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getColor() << 
+						std::cout << players.at(turn).getName() << "(" << 
+							players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Left) {
@@ -87,7 +83,8 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getColor() << 
+						std::cout << players.at(turn).getName() << "(" << 
+							players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Up) {
@@ -101,7 +98,8 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getColor() << 
+						std::cout << players.at(turn).getName() << "(" << 
+							players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Down) {
@@ -115,7 +113,8 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getColor() << 
+						std::cout << players.at(turn).getName() << "(" << 
+							players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 			}
@@ -158,8 +157,9 @@ namespace gui {
 			//move to GameOver State
 		}
 		if (gameState == GameStates::eTurnOver) {
-			//set activePiece to next player's piece
 			char next = players.at(turn).getColor();
+			turnText.setString(players.at(turn).getName() + "'s Turn" + 
+					"(" + players.at(turn).getColor() + ")");
 			if (next == 'r')
 				activePiece = pieces.at(3);
 			else if (next == 'b')
@@ -176,22 +176,19 @@ namespace gui {
 
 		if (moves) {
 			rollText.setString(std::to_string(moves));
-			
 		}
 		else {
 			rollText.setString("<--");
 		}
 
-		rollText.setPosition(sf::Vector2f(gridSprite.getPosition().x + (
-			rollButton.getGlobalBounds().width) + 
-			(GRID_CELL_SIZE / 2), 
-			(SCREEN_HEIGHT - rollButton.getGlobalBounds().height)));
+		
 	}
 
 	void GameState::draw(float dt) {
 		this->data->window.clear();
 
 		this->data->window.draw(this->gridSprite);
+		this->data->window.draw(this->turnText);
 		//this->data->window.draw(this->gridPieces[11][7]);
 		//this->data->window.draw(this->gridPieces[11][4]);
 		pieces.at(0)->drawPieces();
@@ -283,6 +280,23 @@ namespace gui {
 		this->notebookButton.move(sf::Vector2f((gridSprite.getPosition().x + (
 							notebookButton.getGlobalBounds().width) * 6), 
 					(SCREEN_HEIGHT - notebookButton.getGlobalBounds().height)));
+
+		this->rollFont = this->data->assets.getFont("Roll Font");
+		rollText.setFont(rollFont);
+		rollText.setString(std::to_string(moves));
+		rollText.setCharacterSize(45);
+		rollText.setFillColor(sf::Color::White);
+		rollText.setPosition(sf::Vector2f(gridSprite.getPosition().x + (
+			rollButton.getGlobalBounds().width) + 
+			(GRID_CELL_SIZE / 2), 
+			(SCREEN_HEIGHT - rollButton.getGlobalBounds().height)));
+
+		turnText.setFont(rollFont);
+		//turnText.setString(players.at(turn).getName() + "'s Turn");
+		turnText.setCharacterSize(60);
+		turnText.setFillColor(sf::Color::White);
+		turnText.setPosition(sf::Vector2f(gridSprite.getPosition().x + 
+						(GRID_CELL_SIZE * 3), 0));
 	}
 
 	void GameState::initGameDeck() {
