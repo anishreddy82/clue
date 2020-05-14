@@ -32,13 +32,15 @@
 #define GRID_CELL_SIZE 50
 #define CELLS_X 12
 #define CELLS_Y 12
-#define STATE_PLAYING 98
-#define STATE_PAUSED 97
-#define STATE_WON 96
-#define STATE_LOSE 95
+
+#define MOVE_RIGHT 1
+#define MOVE_LEFT 2
+#define MOVE_UP 3
+#define MOVE_DOWN 4
 
 enum GameStates {
 	ePlaying,
 	eTurnOver,
+	ePaused,
 	eGameOver
 };

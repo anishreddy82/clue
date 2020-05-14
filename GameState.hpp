@@ -24,6 +24,9 @@ namespace gui {
 			void dealOutCards();
 			char generate_color();
 			bool checkSpriteCollision();
+			void checkForMoves();
+			bool validateHorizontalMove(int, int);
+			bool validateVerticalMove(int, int);
 			GameDataRef data;
 			sf::Sprite background;
 			sf::Sprite rollButton;

@@ -8,8 +8,6 @@ namespace gui {
 	PauseState::PauseState(GameDataRef data) : data(data) {}
 
 	void PauseState::init() {
-		gameState = STATE_PAUSED;
-		
 		this->data->assets.loadTexture("Background", PAUSE_BACKGROUND_FILEPATH);
 		this->background.setTexture(this->data->assets.getTexture("Background"));
 

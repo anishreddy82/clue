@@ -8,7 +8,6 @@ namespace gui {
 	GameState::GameState(GameDataRef data) : data(data) {}
 
 	void GameState::init() {
-		gameState = STATE_PLAYING;
 		colors = { 'r', 'b', 'g', 'y', 'v', 'w' };
 		positions = { 1, 2, 3, 4, 5, 6 };
 		
@@ -56,25 +55,10 @@ namespace gui {
 				}
 				if (event.key.code == sf::Keyboard::Right) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (players.at(turn).getPositionX() + 1);
+						pos = (players.at(turn).getPositionX() + MOVE_RIGHT);
 						if (pos < CELLS_X) {
-							activePiece->movePiece(1);
-							if (checkSpriteCollision()) {
-								activePiece->movePiece(2);
-								std::cout << "Collision\n";
-							}
-							else {
-								moves--;
-								players.at(turn).setPositionX(
-										players.at(turn).
-										getPositionX() + 1);
-								if (!moves) {
-									gameState = GameStates::eTurnOver;
-									turn++;
-									if (turn >= players.size())
-										turn = 0;
-								}
-							}
+							if (!validateHorizontalMove(pos, MOVE_RIGHT))
+									activePiece->movePiece(MOVE_LEFT);
 						}
 						else
 							std::cout << "You have reached the edge\n";
@@ -87,23 +71,8 @@ namespace gui {
 					if (gameState == GameStates::ePlaying) {
 						pos = (players.at(turn).getPositionX() - 1);
 						if (pos >= 0) {
-							activePiece->movePiece(2);
-							if (checkSpriteCollision()) {
-								activePiece->movePiece(1);
-								std::cout << "Collision\n";
-							}
-							else {
-								moves--;
-								players.at(turn).setPositionX(
-										players.at(turn).
-										getPositionX() - 1);
-								if (!moves) {
-									gameState = GameStates::eTurnOver;
-									turn++;
-									if (turn >= players.size())
-										turn = 0;
-								}
-							}
+							if(!validateHorizontalMove(pos, MOVE_LEFT))
+								activePiece->movePiece(MOVE_RIGHT);
 						}
 						else
 							std::cout << "You have reached the edge\n";
@@ -116,23 +85,8 @@ namespace gui {
 					if (gameState == GameStates::ePlaying) {
 						pos = (players.at(turn).getPositionY() - 1);
 						if (pos >= 0) {
-							activePiece->movePiece(3);
-							if (checkSpriteCollision()) {
-								activePiece->movePiece(4);
-								std::cout << "Collision\n";
-							}
-							else {
-								moves--;
-								players.at(turn).setPositionY(
-										players.at(turn).
-										getPositionY() - 1);
-								if (!moves) {
-									gameState = GameStates::eTurnOver;
-									turn++;
-									if (turn >= players.size())
-										turn = 0;
-								}
-							}
+							if (!validateVerticalMove(pos, MOVE_UP))
+								activePiece->movePiece(MOVE_DOWN);
 						}
 						else
 							std::cout << "You have reached the edge\n";
@@ -145,23 +99,8 @@ namespace gui {
 					if (gameState == GameStates::ePlaying) {
 						pos = (players.at(turn).getPositionY() + 1);
 						if (pos < CELLS_Y) {
-							activePiece->movePiece(4);
-							if (checkSpriteCollision()) {
-								activePiece->movePiece(3);
-								std::cout << "Collision\n";
-							}
-							else {
-								moves--;
-								players.at(turn).setPositionY(
-										players.at(turn).
-										getPositionY() + 1);
-								if (!moves) {
-									gameState = GameStates::eTurnOver;
-									turn++;
-									if (turn >= players.size())
-										turn = 0;
-								}
-							}
+							if (!validateVerticalMove(pos, MOVE_DOWN))
+								activePiece->movePiece(MOVE_UP);
 						}
 						else
 							std::cout << "You have reached the edge\n";
@@ -453,6 +392,43 @@ namespace gui {
 			}
 		}
 		return false;
+	}
+
+	bool GameState::validateHorizontalMove(int pos, int dir) {
+		activePiece->movePiece(dir);
+		if (checkSpriteCollision()) {
+			std::cout << "Collision\n";
+			return false;
+		}
+		else {
+			moves--;
+			players.at(turn).setPositionX(pos);
+			checkForMoves();
+		}
+		return true;
+	}
+
+	bool GameState::validateVerticalMove(int pos, int dir) {
+		activePiece->movePiece(dir);
+		if (checkSpriteCollision()) {
+			std::cout << "Collision\n";
+			return false;
+		}
+		else {
+			moves--;
+			players.at(turn).setPositionY(pos);
+			checkForMoves();
+		}
+		return true;
+	}
+
+	void GameState::checkForMoves() {
+		if (!moves) {
+			gameState = GameStates::eTurnOver;
+			turn++;
+			if (turn >= players.size())
+				turn = 0;
+		}
 	}
 
 }
