@@ -29,9 +29,16 @@
 #define G_PIECE_FILEPATH "./Assets/graphics/gPiece.png"
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
 
-
 #define GRID_CELL_SIZE 50
+#define CELLS_X 12
+#define CELLS_Y 12
 #define STATE_PLAYING 98
 #define STATE_PAUSED 97
 #define STATE_WON 96
 #define STATE_LOSE 95
+
+enum GameStates {
+	ePlaying,
+	eTurnOver,
+	eGameOver
+};

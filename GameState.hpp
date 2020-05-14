@@ -46,6 +46,7 @@ namespace gui {
 			vector<int> positions;
 
 			int turn;
+			int moves;
 			int gameState;
 	};
 }

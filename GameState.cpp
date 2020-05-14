@@ -36,13 +36,16 @@ namespace gui {
 		initGridPieces();
 		initButtons();
 		initGameDeck();
+		this->turn = 0;
 		initPlayers();
+		this->moves = 0;
+		gameState = GameStates::eTurnOver;
 		dealOutCards();
 	}
 
 	void GameState::handleInput() {
 		sf::Event event;
-		int dir;
+		int dir, pos;
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) {
 				this->data->window.close();
@@ -52,21 +55,104 @@ namespace gui {
 					this->data->machine.addState(stateRef(new PauseState(data)), false);
 				}
 				if (event.key.code == sf::Keyboard::Right) {
-					pieces.at(0)->movePiece(1);
+					if (gameState == GameStates::ePlaying) {
+						pos = (players.at(turn).getPositionX() + 1);
+						if (pos < CELLS_X) {
+							activePiece->movePiece(1);
+							moves--;
+							players.at(turn).setPositionX(
+									players.at(turn).getPositionX() + 1);
+							if (!moves) {
+								gameState = GameStates::eTurnOver;
+								turn++;
+								if (turn >= players.size())
+									turn = 0;
+							}
+						}
+						else
+							std::cout << "You have reached the edge\n";
+					}
+					else
+						std::cout << players.at(turn).getColor() << 
+							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Left) {
-					pieces.at(0)->movePiece(2);
+					if (gameState == GameStates::ePlaying) {
+						pos = (players.at(turn).getPositionX() - 1);
+						if (pos >= 0) {
+							activePiece->movePiece(2);
+							moves--;
+							players.at(turn).setPositionX(
+									players.at(turn).getPositionX() - 1);
+							if (!moves) {
+								gameState = GameStates::eTurnOver;
+								turn++;
+								if (turn >= players.size())
+									turn = 0;
+							}
+						}
+						else
+							std::cout << "You have reached the edge\n";
+					}
+					else
+						std::cout << players.at(turn).getColor() << 
+							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Up) {
-					pieces.at(0)->movePiece(3);
+					if (gameState == GameStates::ePlaying) {
+						pos = (players.at(turn).getPositionY() - 1);
+						if (pos >= 0) {
+							activePiece->movePiece(3);
+							moves--;
+							players.at(turn).setPositionY(
+									players.at(turn).getPositionY() - 1);
+							if (!moves) {
+								gameState = GameStates::eTurnOver;
+								turn++;
+								if (turn >= players.size())
+									turn = 0;
+							}
+						}
+						else
+							std::cout << "You have reached the edge\n";
+					}
+					else
+						std::cout << players.at(turn).getColor() << 
+							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Down) {
-					pieces.at(0)->movePiece(4);
+					if (gameState == GameStates::ePlaying) {
+						pos = (players.at(turn).getPositionY() + 1);
+						if (pos < CELLS_Y) {
+							activePiece->movePiece(4);
+							moves--;
+							players.at(turn).setPositionY(
+									players.at(turn).getPositionY() + 1);
+							if (!moves) {
+								gameState = GameStates::eTurnOver;
+								turn++;
+								if (turn >= players.size())
+									turn = 0;
+							}
+						}
+						else
+							std::cout << "You have reached the edge\n";
+					}
+					else
+						std::cout << players.at(turn).getColor() << 
+							" must roll first\n";
 				}
 			}
 			if (this->data->input.isSpriteClicked(this->rollButton, sf::Mouse::Left,
 						this->data->window)) {
-				cout << "The roll button has been clicked\n";
+				if (gameState == GameStates::eTurnOver) {
+					cout << "The roll button has been clicked\n";
+					srand(time(NULL));
+					moves = rand() % 3 + 1;
+					std::cout << players.at(turn).getColor() << " has rolled "
+						<< moves << "\n";
+					gameState = GameStates::ePlaying;
+				}
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
 						this->data->window)) {
@@ -92,7 +178,25 @@ namespace gui {
 	}
 
 	void GameState::update(float dt) {
-
+		if (gameState == GameStates::eGameOver) {
+			//move to GameOver State
+		}
+		if (gameState == GameStates::eTurnOver) {
+			//set activePiece to next player's piece
+			char next = players.at(turn).getColor();
+			if (next == 'r')
+				activePiece = pieces.at(3);
+			else if (next == 'b')
+				activePiece = pieces.at(2);
+			else if (next == 'g')
+				activePiece = pieces.at(1);
+			else if (next == 'y')
+				activePiece = pieces.at(4);
+			else if (next == 'v')
+				activePiece = pieces.at(5);
+			else
+				activePiece = pieces.at(0);
+		}
 	}
 
 	void GameState::draw(float dt) {
@@ -252,7 +356,7 @@ namespace gui {
 
 			//setup Player i's color
 			new_player.setColor(generate_color());
-			new_player.setStartingPosition(generate_randPos());
+			new_player.setStartingPosition();
 
 			//setup Player i's password
 			std::cout << "(Optional) Please enter your password to secure your turn: ";
@@ -262,6 +366,10 @@ namespace gui {
 
 			players.push_back(new_player);
 
+		}
+		for (int i = 0; i < players.size(); i++) {
+			if (players.at(i).getColor() == 'r')
+				turn = i;
 		}
 	}
 
