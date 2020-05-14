@@ -59,14 +59,21 @@ namespace gui {
 						pos = (players.at(turn).getPositionX() + 1);
 						if (pos < CELLS_X) {
 							activePiece->movePiece(1);
-							moves--;
-							players.at(turn).setPositionX(
-									players.at(turn).getPositionX() + 1);
-							if (!moves) {
-								gameState = GameStates::eTurnOver;
-								turn++;
-								if (turn >= players.size())
-									turn = 0;
+							if (checkSpriteCollision()) {
+								activePiece->movePiece(2);
+								std::cout << "Collision\n";
+							}
+							else {
+								moves--;
+								players.at(turn).setPositionX(
+										players.at(turn).
+										getPositionX() + 1);
+								if (!moves) {
+									gameState = GameStates::eTurnOver;
+									turn++;
+									if (turn >= players.size())
+										turn = 0;
+								}
 							}
 						}
 						else
@@ -81,14 +88,21 @@ namespace gui {
 						pos = (players.at(turn).getPositionX() - 1);
 						if (pos >= 0) {
 							activePiece->movePiece(2);
-							moves--;
-							players.at(turn).setPositionX(
-									players.at(turn).getPositionX() - 1);
-							if (!moves) {
-								gameState = GameStates::eTurnOver;
-								turn++;
-								if (turn >= players.size())
-									turn = 0;
+							if (checkSpriteCollision()) {
+								activePiece->movePiece(1);
+								std::cout << "Collision\n";
+							}
+							else {
+								moves--;
+								players.at(turn).setPositionX(
+										players.at(turn).
+										getPositionX() - 1);
+								if (!moves) {
+									gameState = GameStates::eTurnOver;
+									turn++;
+									if (turn >= players.size())
+										turn = 0;
+								}
 							}
 						}
 						else
@@ -103,14 +117,21 @@ namespace gui {
 						pos = (players.at(turn).getPositionY() - 1);
 						if (pos >= 0) {
 							activePiece->movePiece(3);
-							moves--;
-							players.at(turn).setPositionY(
-									players.at(turn).getPositionY() - 1);
-							if (!moves) {
-								gameState = GameStates::eTurnOver;
-								turn++;
-								if (turn >= players.size())
-									turn = 0;
+							if (checkSpriteCollision()) {
+								activePiece->movePiece(4);
+								std::cout << "Collision\n";
+							}
+							else {
+								moves--;
+								players.at(turn).setPositionY(
+										players.at(turn).
+										getPositionY() - 1);
+								if (!moves) {
+									gameState = GameStates::eTurnOver;
+									turn++;
+									if (turn >= players.size())
+										turn = 0;
+								}
 							}
 						}
 						else
@@ -125,14 +146,21 @@ namespace gui {
 						pos = (players.at(turn).getPositionY() + 1);
 						if (pos < CELLS_Y) {
 							activePiece->movePiece(4);
-							moves--;
-							players.at(turn).setPositionY(
-									players.at(turn).getPositionY() + 1);
-							if (!moves) {
-								gameState = GameStates::eTurnOver;
-								turn++;
-								if (turn >= players.size())
-									turn = 0;
+							if (checkSpriteCollision()) {
+								activePiece->movePiece(3);
+								std::cout << "Collision\n";
+							}
+							else {
+								moves--;
+								players.at(turn).setPositionY(
+										players.at(turn).
+										getPositionY() + 1);
+								if (!moves) {
+									gameState = GameStates::eTurnOver;
+									turn++;
+									if (turn >= players.size())
+										turn = 0;
+								}
 							}
 						}
 						else
@@ -241,7 +269,6 @@ namespace gui {
 		pieces.emplace_back(new Piece(data, "Red Piece"));
 		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + 
 				(GRID_CELL_SIZE * 8) + 8, gridSprite.getPosition().y + 7);
-		activePiece = pieces.at(pieces.size() - 1);
 
 		pieces.emplace_back(new Piece(data, "Brown Piece"));
 		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
@@ -370,6 +397,8 @@ namespace gui {
 		for (int i = 0; i < players.size(); i++) {
 			if (players.at(i).getColor() == 'r')
 				turn = i;
+			else
+				turn = rand() % players.size();
 		}
 	}
 
@@ -414,11 +443,16 @@ namespace gui {
 		return choice;
 	}
 
-	int GameState::generate_randPos() {
-		srand(time(NULL));
-		int randNum = rand() % positions.size();
-		int choice = positions.at(randNum);
-		positions.erase(positions.begin() + randNum);
-		return choice;
+	bool GameState::checkSpriteCollision() {
+		sf::FloatRect shape1 = activePiece->getPiece().getGlobalBounds();
+		for (int i = 0; i < pieces.size(); i++) {
+			sf::FloatRect shape2 = pieces.at(i)->getPiece().getGlobalBounds();
+			if (activePiece != pieces.at(i)) {
+				if (shape1.intersects(shape2))
+					return true;
+			}
+		}
+		return false;
 	}
+
 }

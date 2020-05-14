@@ -23,7 +23,7 @@ namespace gui {
 			void givePlayerCard(vector<Card>&);
 			void dealOutCards();
 			char generate_color();
-			int generate_randPos();
+			bool checkSpriteCollision();
 			GameDataRef data;
 			sf::Sprite background;
 			sf::Sprite rollButton;
