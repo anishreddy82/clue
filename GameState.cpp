@@ -26,6 +26,7 @@ namespace gui {
 		this->data->assets.loadTexture("My Cards Button", GAME_MY_CARDS_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Notebook Button", GAME_NOTEBOOK_BUTTON_FILEPATH);
 
+
 		this->gridSprite.setTexture(this->data->assets.getTexture("Grid Sprite"));
 		this->gridSprite.setScale(5.0f, 5.0f);
 		this->gridSprite.setPosition((SCREEN_WIDTH / 2) -
@@ -38,6 +39,14 @@ namespace gui {
 		this->turn = 0;
 		initPlayers();
 		this->moves = 0;
+
+		this->data->assets.loadFont("Roll Font", ROLL_FONT_FILEPATH);
+		this->rollFont = this->data->assets.getFont("Roll Font");
+		rollText.setFont(rollFont);
+		rollText.setString(std::to_string(moves));
+		rollText.setCharacterSize(45);
+		rollText.setFillColor(sf::Color::White);
+
 		gameState = GameStates::eTurnOver;
 		dealOutCards();
 	}
@@ -164,6 +173,19 @@ namespace gui {
 			else
 				activePiece = pieces.at(0);
 		}
+
+		if (moves) {
+			rollText.setString(std::to_string(moves));
+			
+		}
+		else {
+			rollText.setString("<--");
+		}
+
+		rollText.setPosition(sf::Vector2f(gridSprite.getPosition().x + (
+			rollButton.getGlobalBounds().width) + 
+			(GRID_CELL_SIZE / 2), 
+			(SCREEN_HEIGHT - rollButton.getGlobalBounds().height)));
 	}
 
 	void GameState::draw(float dt) {
@@ -178,6 +200,7 @@ namespace gui {
 		pieces.at(3)->drawPieces();
 		pieces.at(4)->drawPieces();
 		pieces.at(5)->drawPieces();
+		this->data->window.draw(this->rollText);
 		this->data->window.draw(this->rollButton);
 		this->data->window.draw(this->suggestButton);
 		this->data->window.draw(this->accuseButton);

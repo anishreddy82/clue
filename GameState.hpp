@@ -36,6 +36,8 @@ namespace gui {
 			sf::Sprite myCardsButton;
 			sf::Sprite notebookButton;
 			sf::Sprite gridSprite;
+			sf::Font rollFont;
+			sf::Text rollText;
 
 			sf::Sprite gridPieces[12][12];
 			int gridArray[12][12];

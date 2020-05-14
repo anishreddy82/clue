@@ -29,6 +29,8 @@
 #define G_PIECE_FILEPATH "./Assets/graphics/gPiece.png"
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
 
+#define ROLL_FONT_FILEPATH "./Assets/fonts/arial.ttf"
+
 #define GRID_CELL_SIZE 50
 #define CELLS_X 12
 #define CELLS_Y 12
