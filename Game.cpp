@@ -1,10 +1,10 @@
 #include "Game.hpp"
+#include "SplashState.hpp"
 #include <iostream>
 #include <string>
 
 
-Game::Game() {
-	turn_number = 0;
+gui::Game::Game() {
 	//colors begin at index 0
 	deck.emplace(deck.begin(), Card("white", 'c'));
 	deck.emplace_back(Card("blue", 'c'));
@@ -30,15 +30,73 @@ Game::Game() {
 	deck.emplace_back(Card("ballroom", 'r'));
 	deck.emplace_back(Card("lounge", 'r'));
 	deck.emplace_back(Card("billiard room", 'r'));
+	turn_number = 0;
 }
 
-void Game::givePlayerCard(vector<Card> &v) {
+gui::Game::Game(int w, int h, std::string title) {
+	//colors begin at index 0
+	deck.emplace(deck.begin(), Card("white", 'c'));
+	deck.emplace_back(Card("blue", 'c'));
+	deck.emplace_back(Card("red", 'c'));
+	deck.emplace_back(Card("brown", 'c'));
+	deck.emplace_back(Card("green", 'c'));
+	deck.emplace_back(Card("purple", 'c'));
+
+	//weapons begin at index 6
+	deck.emplace_back(Card("candlestick", 'w'));
+	deck.emplace_back(Card("revolver", 'w'));
+	deck.emplace_back(Card("rope", 'w'));
+	deck.emplace_back(Card("wrench", 'w'));
+	deck.emplace_back(Card("lead pipe", 'w'));
+	deck.emplace_back(Card("knife", 'w'));
+
+	//rooms begin at index 12
+	deck.emplace_back(Card("study", 'r'));
+	deck.emplace_back(Card("library", 'r'));
+	deck.emplace_back(Card("conservatory", 'r'));
+	deck.emplace_back(Card("hall", 'r'));
+	deck.emplace_back(Card("kitchen", 'r'));
+	deck.emplace_back(Card("ballroom", 'r'));
+	deck.emplace_back(Card("lounge", 'r'));
+	deck.emplace_back(Card("billiard room", 'r'));
+	turn_number = 0;
+
+	data->window.create(sf::VideoMode(w, h), title, sf::Style::Close | sf::Style::Titlebar);
+	data->machine.addState(stateRef(new SplashState(this->data)));
+
+	this->run();
+}
+
+void gui::Game::run() {
+	float newTime, frameTime, interpolation;
+	float currentTime = this->clock.getElapsedTime().asSeconds();
+	float accumulator = 0.0f;
+	while(this->data->window.isOpen()) {
+		this->data->machine.processStateChanges();
+		newTime = this->clock.getElapsedTime().asSeconds();
+		frameTime = newTime - currentTime;
+		if (frameTime > 0.25f)
+			frameTime = 0.25f;
+		currentTime = newTime;
+		accumulator += frameTime;
+
+		while(accumulator >= dt) {
+			this->data->machine.getActiveState()->handleInput();
+			this->data->machine.getActiveState()->update(dt);
+			accumulator -= dt;
+		}
+		interpolation = accumulator / dt;
+		this->data->machine.getActiveState()->draw(interpolation);
+	}
+}
+
+void gui::Game::givePlayerCard(vector<Card> &v) {
 	int idx = rand() % deck.size();
 	v.push_back(deck.at(idx));
 	deck.erase(deck.begin() + idx);
 }
 
-void Game::giveBoardCards(vector<Card> &v) {
+void gui::Game::giveBoardCards(vector<Card> &v) {
 	int idx = (rand() % ((deck.size() - 1) - 12 + 1) + 12);
 	v.push_back(deck.at(idx));
 	deck.erase(deck.begin() + idx);
@@ -59,17 +117,17 @@ Pre: Players in the vector have already been created
 accepts: players, board
 returns: none
 */
-void Game::setPlayers(std::vector<Player> setupPlayers) {
+void gui::Game::setPlayers(std::vector<Player> setupPlayers) {
 	players = setupPlayers;
 }
-void Game::setBoard(Board createdBoard) {
+void gui::Game::setBoard(Board createdBoard) {
 	gameBoard = createdBoard;
 }
 
 /*
 Accessor function for returning the players
 */
-vector<Player> Game::getPlayers() {
+vector<Player> gui::Game::getPlayers() {
 	return players;
 }
 
@@ -81,7 +139,7 @@ Calls: givePlayerCard(), giveBoardCards()
 params: none
 returns: none
 */
-void Game::dealAllCards() {
+void gui::Game::dealAllCards() {
 	//first deal out the murder cards
 	giveBoardCards(gameBoard.murderCards);
 
@@ -94,7 +152,7 @@ void Game::dealAllCards() {
 	}
 }
 
-void Game::movePlayer(std::vector<Player> &players){
+void gui::Game::movePlayer(std::vector<Player> &players){
 	int choice;
 	int move;
 	int player_id = turn_number % static_cast<int>(players.size());

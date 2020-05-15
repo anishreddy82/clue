@@ -173,3 +173,30 @@ void Player::setStartingPosition(int pos){
 		posY = 0;
 	}
 }
+
+void Player::setStartingPosition() {
+	if (color == 'r') {
+		posX = 8;
+		posY = 0;
+	}
+	else if (color == 'b') {
+		posX = 0;
+		posY = 9;
+	}
+	else if (color == 'g') {
+		posX = 4;
+		posY = 11;
+	}
+	else if (color == 'y') {
+		posX = 11;
+		posY = 3;
+	}
+	else if (color == 'w') {
+		posX = 7;
+		posY = 11;
+	}
+	else {
+		posX = 0;
+		posY = 2;
+	}
+}
