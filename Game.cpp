@@ -213,7 +213,7 @@ Function for performing the main game functions
 will call the other class methods to perform specific 
 game functions for each player
 */
-bool Game::playTurn() {
+bool gui::Game::playTurn() {
 	//grab the current player from the container
 	Player *current_player = &players.at(turn_number % static_cast<int>(players.size()));
 
@@ -260,14 +260,14 @@ bool Game::playTurn() {
 /*
 Clears the command line to provide better UI experience
 */
-void Game::clearScreen() {
+void gui::Game::clearScreen() {
 	for (int i = 0; i < 5; i++) {
 		std::cout << std::endl;
 	}
 
 }
 
-void Game::greet(std::string current_player_name, char current_player_color) {
+void gui::Game::greet(std::string current_player_name, char current_player_color) {
 	std::cout << "It is currently " << current_player_name << "'s turn." << std::endl;
 	std::cout << current_player_name << " is of color (" << current_player_color << ")" << std::endl;
 	gameBoard.dif(players);
@@ -276,7 +276,7 @@ void Game::greet(std::string current_player_name, char current_player_color) {
 /*
 Sub menu for player action options
 */
-int Game::displaySubMenu() {
+int gui::Game::displaySubMenu() {
 	std::cout << "What action would you like to perform?" << std::endl;
 	std::cout << "1. View your hand of chards" << std::endl;
 	std::cout << "2. View or use your Notebook" << std::endl;

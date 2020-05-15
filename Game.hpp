@@ -42,7 +42,7 @@ namespace gui {
 			void dealAllCards();
 			void setPlayers(std::vector<Player> setupPlayers);
 			void setBoard(Board createdBoard);
-			void movePlayer(std::vector<Player> players);
+			void movePlayer(std::vector<Player>& players);
 			vector<Player> getPlayers();
 			bool playTurn();
 			void clearScreen();
