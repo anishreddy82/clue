@@ -37,6 +37,7 @@ namespace gui {
 
 		initGridPieces();
 		initButtons();
+		initText();
 		initGameDeck();
 		this->turn = 0;
 		initPlayers();
@@ -121,12 +122,7 @@ namespace gui {
 			if (this->data->input.isSpriteClicked(this->rollButton, sf::Mouse::Left,
 						this->data->window)) {
 				if (gameState == GameStates::eTurnOver) {
-					cout << "The roll button has been clicked\n";
-					srand(time(NULL));
-					moves = rand() % 3 + 1;
-					std::cout << players.at(turn).getColor() << " has rolled "
-						<< moves << "\n";
-					gameState = GameStates::ePlaying;
+					rollDice();
 				}
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
@@ -281,6 +277,10 @@ namespace gui {
 							notebookButton.getGlobalBounds().width) * 6), 
 					(SCREEN_HEIGHT - notebookButton.getGlobalBounds().height)));
 
+		
+	}
+
+	void GameState::initText() {
 		this->rollFont = this->data->assets.getFont("Roll Font");
 		rollText.setFont(rollFont);
 		rollText.setString(std::to_string(moves));
@@ -292,7 +292,6 @@ namespace gui {
 			(SCREEN_HEIGHT - rollButton.getGlobalBounds().height)));
 
 		turnText.setFont(rollFont);
-		//turnText.setString(players.at(turn).getName() + "'s Turn");
 		turnText.setCharacterSize(60);
 		turnText.setFillColor(sf::Color::White);
 		turnText.setPosition(sf::Vector2f(gridSprite.getPosition().x + 
@@ -457,6 +456,15 @@ namespace gui {
 			checkForMoves();
 		}
 		return true;
+	}
+
+	void GameState::rollDice() {
+		cout << "The roll button has been clicked\n";
+		srand(time(NULL));
+		moves = rand() % 3 + 1;
+		std::cout << players.at(turn).getColor() << " has rolled "
+			<< moves << "\n";
+		gameState = GameStates::ePlaying;
 	}
 
 	void GameState::checkForMoves() {

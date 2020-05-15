@@ -17,6 +17,7 @@ namespace gui {
 		private:
 			void initGridPieces();
 			void initButtons();
+			void initText();
 			void initGameDeck();
 			void initPlayers();
 			void initWinningCards(vector<Card>&);
@@ -27,6 +28,7 @@ namespace gui {
 			void checkForMoves();
 			bool validateHorizontalMove(int, int);
 			bool validateVerticalMove(int, int);
+			void rollDice();
 			GameDataRef data;
 			sf::Sprite background;
 			sf::Sprite rollButton;
