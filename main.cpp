@@ -6,6 +6,7 @@
 #include <array>
 #include <string>
 #include "board.hpp"
+#include <cctype>
 
 int main() {
 	Menu main_menu = Menu();
@@ -17,6 +18,7 @@ int main() {
 	std::cin.ignore(10000, '\n'); //skips the newline char on input
 
 	//loop for invalid player count inputs
+	//
 	while (player_count > 6 || player_count < 4) {
 		//prompt to confirm game setup
 		std::cout << "Please input a valid player count. (min 4, max 6)" << std::endl;
@@ -32,13 +34,13 @@ int main() {
 	*/
 	std::vector<Player> game_players = main_menu.setup(player_count);
 	//create the board
-	Board difBoard;
+	Board createBoard;
 	//create the Game
 	Game game = Game();
 	//add the players
 	game.setPlayers(game_players);
 	//add the board
-	game.setBoard(difBoard);
+	game.setBoard(createBoard);
 	//deal cards to the board and player
 	game.dealAllCards();
 	

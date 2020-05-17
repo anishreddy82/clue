@@ -24,7 +24,6 @@ class Game {
 		void setBoard(Board createdBoard);
 		void movePlayer(std::vector<Player> &players);
 		vector<Player> getPlayers();
-
 		bool playTurn();
 		void clearScreen();
 		void greet(std::string current_player_name, char current_player_color);

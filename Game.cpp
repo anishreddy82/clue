@@ -121,6 +121,7 @@ void Game::movePlayer(std::vector<Player> &players){
 			std::cin.clear();
 			std::cin.ignore(10000, '\n');
 
+
 			if (move == 1) {
 				if (players[player_id].getPositionY() != 0){
 					players[player_id].setPositionY(players[player_id].getPositionY() - 1);
@@ -143,11 +144,12 @@ void Game::movePlayer(std::vector<Player> &players){
 				}
 			}
 			//display board
-			gameBoard.dif(players);
+			gameBoard.updateBoard(players);
 			randDie--;
 		}
 	}
 }
+
 
 
 /*
@@ -212,7 +214,7 @@ void Game::clearScreen() {
 void Game::greet(std::string current_player_name, char current_player_color) {
 	std::cout << "It is currently " << current_player_name << "'s turn." << std::endl;
 	std::cout << current_player_name << " is of color (" << current_player_color << ")" << std::endl;
-	gameBoard.dif(players);
+	gameBoard.updateBoard(players);
 
 }
 /*

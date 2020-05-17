@@ -12,5 +12,4 @@ public:
   int weapon;
   std::string name;
   Room();
-	void rooms();
 };

@@ -22,46 +22,84 @@ Board::Board() {
 			boardArray[i][j].name = "";
 		}
 	}
+	for (int i = 0; i < w; i++) {
+		for (int j = 0; j < h; j++) {
+			createBoard(i, j);
+			/*if (i == 0 && j == 0) {
+				boardArray[i][j].name = "   kitchen   ";
+			}
+			else if (i == 0 && j == 2) {
+				boardArray[i][j].name = "  Ball Room  ";
+			}
+			else if (i == 0 && j == 4) {
+				boardArray[i][j].name = "Conservatory ";
+			}
+			else if (i == 2 && j == 4) {
+				boardArray[i][j].name = "Billiard Room";
+			}
+			else if (i == 3 && j == 0) {
+				boardArray[i][j].name = "Dining Room  ";
+			}
+			else if (i == 3 && j == 2) {
+				boardArray[i][j].name = "    Clue     ";
+			}
+			else if (i == 4 && j == 4) {
+				boardArray[i][j].name = "Library      ";
+			}
+			else if (i == 6 && j == 0) {
+				boardArray[i][j].name = "    Lounge   ";
+			}
+			else if (i == 6 && j == 2) {
+				boardArray[i][j].name = "    Hall     ";
+			}
+			else if (i == 6 && j == 4) {
+				boardArray[i][j].name = "    Study    ";
+			}
+			else {
+				boardArray[i][j].name = "    space    ";
+			}*/
+		}
+	}
 
-	boardArray[0][0].name = "   kitchen   ";
-	boardArray[0][1].name = "    space    ";
-	boardArray[0][2].name = "  Ball Room  ";
-	boardArray[0][3].name = "    space    ";
-	boardArray[0][4].name = "Conservatory ";
-	boardArray[1][0].name = "    space    ";
-	boardArray[1][1].name = "    space    ";
-	boardArray[1][2].name = "    space    ";
-	boardArray[1][3].name = "    space    ";
-	boardArray[1][4].name = "    space    ";
-	boardArray[2][0].name = "    space    ";
-	boardArray[2][1].name = "    space    ";
-	boardArray[2][2].name = "    space    ";
-	boardArray[2][3].name = "    space    ";
-	boardArray[2][4].name = "Billiard Room";
-	boardArray[3][0].name = "Dining Room  ";
-	boardArray[3][1].name = "    space    ";
-	boardArray[3][2].name = "    Clue     ";
-	boardArray[3][3].name = "    space    ";
-	boardArray[3][4].name = "    space    ";
-	boardArray[4][0].name = "    space    ";
-	boardArray[4][1].name = "    space    ";
-	boardArray[4][2].name = "    space    ";
-	boardArray[4][3].name = "    space    ";
-	boardArray[4][4].name = "Library      ";
-	boardArray[5][0].name = "    space    ";
-	boardArray[5][1].name = "    space    ";
-	boardArray[5][2].name = "    space    ";
-	boardArray[5][3].name = "    space    ";
-	boardArray[5][4].name = "    space    ";
-	boardArray[6][0].name = "    Lounge   ";
-	boardArray[6][1].name = "    space    ";
-	boardArray[6][2].name = "    Hall     ";
-	boardArray[6][3].name = "    space    ";
-	boardArray[6][4].name = "    Study    ";
 }
 
+void Board::createBoard(int i, int j) {
+	if (i == 0 && j == 0) {
+		boardArray[i][j].name = "   kitchen   ";
+	}
+	else if (i == 0 && j == 2) {
+		boardArray[i][j].name = "  Ball Room  ";
+	}
+	else if (i == 0 && j == 4) {
+		boardArray[i][j].name = "Conservatory ";
+	}
+	else if (i == 2 && j == 4) {
+		boardArray[i][j].name = "Billiard Room";
+	}
+	else if (i == 3 && j == 0) {
+		boardArray[i][j].name = "Dining Room  ";
+	}
+	else if (i == 3 && j == 2) {
+		boardArray[i][j].name = "    Clue     ";
+	}
+	else if (i == 4 && j == 4) {
+		boardArray[i][j].name = "Library      ";
+	}
+	else if (i == 6 && j == 0) {
+		boardArray[i][j].name = "    Lounge   ";
+	}
+	else if (i == 6 && j == 2) {
+		boardArray[i][j].name = "    Hall     ";
+	}
+	else if (i == 6 && j == 4) {
+		boardArray[i][j].name = "    Study    ";
+	}
+	else {
+		boardArray[i][j].name = "    space    ";
+	}
+}
 
-void Board::dif(std::vector<Player> players){
+void Board::updateBoard(std::vector<Player> players){
 	
 	for (int i = 0; i < static_cast<int>(players.size()); i++) {
 		player_coords.at(i).first = players.at(i).getPositionY();

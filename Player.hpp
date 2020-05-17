@@ -25,6 +25,7 @@ public:
 	void showHand();
 	void viewNotebook();
 	void useNotebook(int);
+	void doNotebook();
 	int getId();
 	char getColor();
 	int getPositionX();

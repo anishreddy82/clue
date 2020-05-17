@@ -66,18 +66,24 @@ void Player::viewNotebook() {
 	if (!checkPassword(pw))
 		std::cout << "Wrong password\n";
 	else {
-		do {
-			std::cout << std::endl;
-			notebook.display();
-			std::cout << "\nWhat would you like to do?\n";
-			std::cout << "1. Add an entry\n";
-			std::cout << "2. Remove an entry\n";
-			std::cout << "3. Clear the notebook\n";
-			std::cout << "4. Close the notebook\n";
-			cin >> choice;
-			useNotebook(choice);
-		} while (choice != 4);
+		doNotebook();
 	}
+}
+
+void Player::doNotebook() {
+	int choice;
+	do {
+		std::cout << std::endl;
+		notebook.display();
+		std::cout << "\nWhat would you like to do?\n";
+		std::cout << "1. Add an entry\n";
+		std::cout << "2. Remove an entry\n";
+		std::cout << "3. Clear the notebook\n";
+		std::cout << "4. Close the notebook\n";
+		cin >> choice;
+		useNotebook(choice);
+	} while (choice != 4);
+
 }
 
 void Player::useNotebook(int val) {
@@ -147,7 +153,7 @@ void Player::setPositionY(int posY1) {
 	posY = posY1;
 }
 
-void Player::setStartingPosition(int pos){
+void Player::setStartingPosition(int pos) {
 	if(pos == 1){
 		posX = 3;
 		posY = 0;
