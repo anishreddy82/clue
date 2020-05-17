@@ -238,41 +238,41 @@ namespace gui {
 	void GameState::initButtons() {
 		sf::Vector2u tempButtonSize = this->data->assets.getTexture("Roll Button").getSize();
 		this->rollButton.setTexture(this->data->assets.getTexture("Roll Button"));
-		this->rollButton.setScale(.08f, .08f);
+		this->rollButton.setScale(BUTTON_SCALE, BUTTON_SCALE);
 		this->rollButton.move(sf::Vector2f(gridSprite.getPosition().x, 
 					(SCREEN_HEIGHT - rollButton.getGlobalBounds().height)));
 
 		tempButtonSize = this->data->assets.getTexture("Suggest Button").getSize();
 		this->suggestButton.setTexture(this->data->assets.getTexture("Suggest Button"));
-		this->suggestButton.setScale(.08f, .08f);
+		this->suggestButton.setScale(BUTTON_SCALE, BUTTON_SCALE);
 		this->suggestButton.move(sf::Vector2f((gridSprite.getPosition().x + (
 							suggestButton.getGlobalBounds().width) * 2), 
 					(SCREEN_HEIGHT - suggestButton.getGlobalBounds().height)));
 
 		tempButtonSize = this->data->assets.getTexture("Accuse Button").getSize();
 		this->accuseButton.setTexture(this->data->assets.getTexture("Accuse Button"));
-		this->accuseButton.setScale(.08f, .08f);
+		this->accuseButton.setScale(BUTTON_SCALE, BUTTON_SCALE);
 		this->accuseButton.move(sf::Vector2f((gridSprite.getPosition().x + (
 							accuseButton.getGlobalBounds().width) * 3), 
 					(SCREEN_HEIGHT - accuseButton.getGlobalBounds().height)));
 
 		tempButtonSize = this->data->assets.getTexture("End Turn Button").getSize();
 		this->endTurnButton.setTexture(this->data->assets.getTexture("End Turn Button"));
-		this->endTurnButton.setScale(.08f, .08f);
+		this->endTurnButton.setScale(BUTTON_SCALE, BUTTON_SCALE);
 		this->endTurnButton.move(sf::Vector2f((gridSprite.getPosition().x + (
 							endTurnButton.getGlobalBounds().width) * 4), 
 					(SCREEN_HEIGHT - endTurnButton.getGlobalBounds().height)));
 
 		tempButtonSize = this->data->assets.getTexture("My Cards Button").getSize();
 		this->myCardsButton.setTexture(this->data->assets.getTexture("My Cards Button"));
-		this->myCardsButton.setScale(.08f, .08f);
+		this->myCardsButton.setScale(BUTTON_SCALE, BUTTON_SCALE);
 		this->myCardsButton.move(sf::Vector2f((gridSprite.getPosition().x + (
 							myCardsButton.getGlobalBounds().width) * 5), 
 					(SCREEN_HEIGHT - myCardsButton.getGlobalBounds().height)));
 
 		tempButtonSize = this->data->assets.getTexture("Notebook Button").getSize();
 		this->notebookButton.setTexture(this->data->assets.getTexture("Notebook Button"));
-		this->notebookButton.setScale(.08f, .08f);
+		this->notebookButton.setScale(BUTTON_SCALE, BUTTON_SCALE);
 		this->notebookButton.move(sf::Vector2f((gridSprite.getPosition().x + (
 							notebookButton.getGlobalBounds().width) * 6), 
 					(SCREEN_HEIGHT - notebookButton.getGlobalBounds().height)));

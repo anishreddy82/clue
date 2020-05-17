@@ -34,7 +34,7 @@ std::vector<Player> Menu::setup(int x) {
 
 		//setup Player i's color
 		new_player.setColor(generate_color());
-		new_player.setStartingPosition(generate_randPos());
+		new_player.setStartingPosition();
 
 		//setup Player i's password
 		std::cout << "(Optional) Please enter your password to secure your turn: ";

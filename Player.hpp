@@ -31,7 +31,6 @@ public:
 	int getPositionY();
 	void setName(std::string nameIn);
 	void setColor(char colorIn);
-	void setStartingPosition(int pos);
 	void setStartingPosition();
 	void setPassword(std::string passwordIn);
 	void setPositionX(int posX1);

@@ -28,6 +28,7 @@
 #define Br_PIECE_FILEPATH "./Assets/graphics/brPiece.png"
 #define G_PIECE_FILEPATH "./Assets/graphics/gPiece.png"
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
+#define BUTTON_SCALE .08f
 
 #define ROLL_FONT_FILEPATH "./Assets/fonts/arial.ttf"
 
