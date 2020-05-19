@@ -91,3 +91,7 @@ void Board::dif(std::vector<Player> players) {
 	std::cout << "__________________________________________________________________________________" << std::endl;
 	std::cout << std::endl;
 }
+
+std::string Board::getRoomName(int pos1, int pos2) {
+	return boardArray[pos1][pos2].name;
+}

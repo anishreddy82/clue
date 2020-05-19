@@ -14,13 +14,11 @@ private:
 	int posX;
 	int posY;
 
-
 public:
 
 	Player();
 	Player(int idIn);
 	std::vector<Card> hand;
-
 	std::string getName();
 	void showHand();
 	void viewNotebook();

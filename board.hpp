@@ -19,4 +19,5 @@ public:
 	void dif(std::vector<Player>);
 	Room** boardArray;
 	std::vector<Card> murderCards;
+	std::string getRoomName(int, int);
 };

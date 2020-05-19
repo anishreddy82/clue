@@ -14,6 +14,9 @@ class Game {
 		vector<Player> players;
 		Board gameBoard;
 		int turn_number;
+		vector<std::string> name;
+		vector<std::string> weapon;
+		vector<std::string> room;
 		
 	public:
 		Game();
@@ -24,7 +27,6 @@ class Game {
 		void setBoard(Board createdBoard);
 		void movePlayer(std::vector<Player> &players);
 		vector<Player> getPlayers();
-
 		bool playTurn();
 		void clearScreen();
 		void greet(std::string current_player_name, char current_player_color);

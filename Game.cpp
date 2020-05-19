@@ -7,12 +7,12 @@
 Game::Game() {
 	turn_number = 0;
 	//colors begin at index 0
-	deck.emplace(deck.begin(), Card("white", 'c'));
-	deck.emplace_back(Card("blue", 'c'));
-	deck.emplace_back(Card("red", 'c'));
-	deck.emplace_back(Card("brown", 'c'));
-	deck.emplace_back(Card("green", 'c'));
-	deck.emplace_back(Card("purple", 'c'));
+	deck.emplace(deck.begin(), Card("w", 'c'));
+	deck.emplace_back(Card("v", 'c'));
+	deck.emplace_back(Card("y", 'c'));
+	deck.emplace_back(Card("g", 'c'));
+	deck.emplace_back(Card("r", 'c'));
+	deck.emplace_back(Card("b", 'c'));
 
 	//weapons begin at index 6
 	deck.emplace_back(Card("candlestick", 'w'));
@@ -31,6 +31,27 @@ Game::Game() {
 	deck.emplace_back(Card("ballroom", 'r'));
 	deck.emplace_back(Card("lounge", 'r'));
 	deck.emplace_back(Card("billiard room", 'r'));
+
+	name.push_back("w");
+	name.push_back("v");
+	name.push_back("y");
+	name.push_back("g");
+	name.push_back("r");
+	name.push_back("b");
+	weapon.push_back("candlestick");
+	weapon.push_back("revolver");
+	weapon.push_back("rope");
+	weapon.push_back("wrench");
+	weapon.push_back("lead pipe");
+	weapon.push_back("knife");
+	room.push_back("study");
+	room.push_back("library");
+	room.push_back("conservatory");
+	room.push_back("hall");
+	room.push_back("kitchen");
+	room.push_back("ballroom");
+	room.push_back("lounge");
+	room.push_back("billiard room");
 }
 
 void Game::givePlayerCard(vector<Card>& v) {
@@ -184,6 +205,7 @@ game functions for each player
 */
 bool Game::playTurn() {
 	//grab the current player from the container
+	Board* gameBoard = new Board;
 	Player* current_player = &players.at(turn_number % static_cast<int>(players.size()));
 
 	//print welcome message for current Player
@@ -193,12 +215,15 @@ bool Game::playTurn() {
 	movePlayer(players);
 
 
+	std::string roomName1;
+	std::string emptyRoomName = "    space    ";
 	/*
 	TODO: ADD PLAYER UI FOR SUGGESTIONS/ACCUSATIONS
 	*/
 	bool accusation = false; //setup for accusation
 	int menu_choice = false;
 	while (menu_choice != 5) {
+
 		menu_choice = displaySubMenu();
 
 		switch (menu_choice) {
@@ -207,42 +232,94 @@ bool Game::playTurn() {
 		case 2: current_player->viewNotebook();
 			break; //show notebook
 		case 3:
-			break;
-			/*if (current_player->getRoomName(current_player->getPositionX(), current_player->getPositionY()) == "    space    " + current_player->getColor())  {
-					break;
+			roomName1 = gameBoard->getRoomName(current_player->getPositionY(), current_player->getPositionX());
+			if (roomName1.compare(emptyRoomName) == 0)  {
+				break;
+			}
+			else {
+				int weapon_menu_choice = 0;
+				std::cout << "Pick a murder weapon: " << std::endl;
+				std::cout << "1. candlestick" << std::endl;
+				std::cout << "2. revolver" << std::endl;
+				std::cout << "3. rope" << std::endl;
+				std::cout << "4. wrench" << std::endl;
+				std::cout << "5. lead pipe" << std::endl;
+				std::cout << "6. knife" << std::endl;
+				std::cin >> weapon_menu_choice;
+				std::string weapon_choice;
+
+				for (int i = 0; i <= weapon.size(); i++) {
+					if (i + 1 == weapon_menu_choice) {
+						weapon_choice = weapon[i];
+					}
+				}
+
+				int player_choice = 0;
+				std::cout << "Pick a player: " << std::endl;
+				for (int i = 0; i < name.size(); i++) {
+					std::cout << i + 1 << ". " << name[i] << std::endl;
+				}
+				std::cin >> player_choice;	
+				std::string player_string_choice = name[player_choice - 1];
+	
+				std::string roomName = gameBoard->getRoomName(current_player->getPositionY(), current_player->getPositionX());
+				std::cout << current_player->getName() << " is suggesting " << player_string_choice << " did the murder in " << roomName << " with a " << weapon_choice << std::endl;
+
+				int player_count = players.size();
+				int player_current = current_player->getId() - 1;
+				bool isWeapon = false;
+				bool isName = false;
+				bool isRoom = false;
+				while (player_count != 0) {
+					if (player_current < 0) {
+						player_current += players.size();
+					}
+					for (int i = 0; i < players[player_current].hand.size(); i++) {
+						if (weapon_choice == players[player_current].hand[i].getName()) {
+							std::cout << players[player_current].getName() << " has the " << weapon_choice << " you suggested" << std::endl;
+							isWeapon = true;
+						}
+					}
+					for (int i = 0; i < players[player_current].hand.size(); i++) {
+						if (player_string_choice == players[player_current].hand[i].getName()) {
+							std::cout << players[player_current].getName() << " has player with color " << player_string_choice << " you suggested" << std::endl;
+							isName = true;
+						}
+					}
+					for (int i = 0; i < players[player_current].hand.size(); i++) {
+						if (roomName == players[player_current].hand[i].getName()) {
+							std::cout << players[player_current].getName() << " has the room with name " << roomName << " you suggested" << std::endl;
+							isRoom = true;
+						}
+					}
+					player_count--;
+					player_current = player_current - 1;
+				}
+				if (isWeapon == true && isName == true && isRoom == true) {
+					std::cout << "All the cards have been accounted for" << std::endl;
+				}
+				else if (isWeapon == false && isName == true && isRoom == true) {
+					std::cout << "The suggest weapon: " << weapon_choice << " was not found in any of the players cards" << std::endl;
+				}
+				else if (isWeapon == true && isName == false && isRoom == true) {
+					std::cout << "The suggested player: " << player_string_choice << " was not found in any of the players cards" << std::endl;
+				}
+				else if (isWeapon == true && isName == true && isRoom == false) {
+					std::cout << "The suggested room: " << roomName << " was not found in any of the players cards" << std::endl;
+				}
+				else if (isWeapon == false && isName == false && isRoom == true) {
+					std::cout << "The suggested weapon: " << weapon_choice << " and player: " << player_string_choice << " were not found in any of the players cards" << std::endl;
+				}
+				else if (isWeapon == false && isName == true && isRoom == false) {
+					std::cout << "The suggested weapon: " << weapon_choice << " and room: " << roomName << " were not found in any of the players cards" << std::endl;
+				}
+				else if (isWeapon == true && isName == false && isRoom == false) {
+					std::cout << "The suggested player: " << player_string_choice << " and room: " << roomName << " were not found in any of the players cards" << std::endl;
 				}
 				else {
-					int weapon_menu_choice = 0;
-					std::cout << "Pick a murder weapon: " << std::endl;
-					std::cout << "1. candlestick" << std::endl;
-					std::cout << "2. revolver" << std::endl;
-					std::cout << "3. rope" << std::endl;
-					std::cout << "4. wrench" << std::endl;
-					std::cout << "5. lead pipe" << std::endl;
-					std::cout << "6. knife" << std::endl;
-					std::cin >> weapon_menu_choice;
-
-					int player_choice = 0;
-					std::cout << "Pick a player: " << std::endl;
-					for (int i = 0; i < players.size(); i++) {
-						std::cout << i + 1 << ". " << players[i].getName() << std::endl;
-					}
-					std::cin >> player_choice;
-					std::string roomName = current_player->getRoomName(current_player->getPositionX(), current_player->getPositionY());
-					std::string previousPlayer = players[current_player->getId() - 1].getName();
-					std::cout << current_player->getName() << " is suggesting " << players[player_choice].getName() << " did the murder" << std::endl;
-
-					for(int i = 0; i < players[current_player->getId() - 1].hand.size(); i++){
-						if (deck[weapon_menu_choice + 6].getName() == players[current_player->getId() - 1].hand[i].getName()) {
-							std::cout << "There was a match!" << std::endl;
-							std::cout << players[current_player->getId() - 1].hand[i].getName() << " was found!" << std::endl;
-						}
-						if (deck[player_choice - 1].getName() == players[current_player->getId() - 1].hand[i].getName()) {
-							std::cout << "There was a match!" << std::endl;
-							std::cout << players[current_player->getId() - 1].hand[i].getName() << " was found!" << std::endl;
-						}
-					}
-				}*/
+					std::cout << "None of the suggested cards were found in any of the players hands" << std::endl;
+				}
+			}
 		case 4: accusation = false; //accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
 			break;
 		case 5: break; //quit
