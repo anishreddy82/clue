@@ -10,11 +10,9 @@ namespace gui {
 	void MainMenuState::init() {
 		this->data->assets.loadTexture("Background", MAIN_MENU_BACKGROUND_FILEPATH);
 		this->data->assets.loadTexture("Play Button", MAIN_MENU_PLAY_BUTTON);
-		//this->data->assets.loadTexture("Play Button Outer", MAIN_MENU_PLAY_BUTTON_OUTER);
 		this->data->assets.loadTexture("Game Title", MAIN_MENU_TITLE_PATH);
 		this->background.setTexture(this->data->assets.getTexture("Background"));
 		this->playButton.setTexture(this->data->assets.getTexture("Play Button"));
-		//this->playButtonOuter.setTexture(this->data->assets.getTexture("Play Button Outer"));
 		this->title.setTexture(this->data->assets.getTexture("Game Title"));
 
 		//positioning
@@ -27,10 +25,6 @@ namespace gui {
 		this->playButton.setPosition((SCREEN_WIDTH / 2) - 
 				(this->playButton.getGlobalBounds().width / 2),
 			(SCREEN_HEIGHT / 2) - (this->playButton.getGlobalBounds().height / 2));
-
-		/*this->playButtonOuter.setPosition((SCREEN_WIDTH / 2) - 
-				(this->playButtonOuter.getGlobalBounds().width / 2),
-			(SCREEN_HEIGHT / 2) - (this->playButtonOuter.getGlobalBounds().height / 2));*/
 
 		this->title.setPosition((SCREEN_WIDTH / 2) - 
 				(this->title.getGlobalBounds().width / 2), this->title
@@ -59,7 +53,6 @@ namespace gui {
 
 		this->data->window.draw(this->background);
 		this->data->window.draw(this->playButton);
-		//this->data->window.draw(this->playButtonOuter);
 		this->data->window.draw(this->title);
 
 		this->data->window.display();

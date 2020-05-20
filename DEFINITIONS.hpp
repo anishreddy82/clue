@@ -14,6 +14,12 @@
 #define MAIN_MENU_PLAY_BUTTON "./Assets/graphics/PlayButton.jpg"
 #define MAIN_MENU_PLAY_BUTTON_OUTER "./Assets/graphics/PlayButtonBorder.png"
 
+#define NEXT_GRAYED_FILEPATH "./Assets/graphics/NextGrayed.png"
+#define NEXT_ACTIVE_FILEPATH "./Assets/graphics/NextButton.png"
+#define INC_BUTTON_FILEPATH "./Assets/graphics/IncButton.png"
+#define DEC_BUTTON_FILEPATH "./Assets/graphics/DecButton.png"
+#define CONFIRM_BUTTON_FILEPATH "./Assets/graphics/ConfirmButton.png"
+
 #define GAME_ROLL_BUTTON_FILEPATH "./Assets/graphics/RollButton.png"
 #define GAME_SUGGEST_BUTTON_FILEPATH "./Assets/graphics/SuggestButton.png"
 #define GAME_ACCUSE_BUTTON_FILEPATH "./Assets/graphics/AccuseButton.png"
