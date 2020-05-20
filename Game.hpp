@@ -29,6 +29,8 @@ class Game {
 		void clearScreen();
 		void greet(std::string current_player_name, char current_player_color);
 		int displaySubMenu();
+
+		bool playerInSpot(int x, int y);
 };
 
 #endif

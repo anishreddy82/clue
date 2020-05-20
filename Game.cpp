@@ -121,25 +121,45 @@ void Game::movePlayer(std::vector<Player> &players){
 			std::cin.clear();
 			std::cin.ignore(10000, '\n');
 
+			bool playerThere = false;
 			if (move == 1) {
-				if (players[player_id].getPositionY() != 0){
+				playerThere = playerInSpot(players[player_id].getPositionX(), players[player_id].getPositionY() - 1);
+				if (players[player_id].getPositionY() != 0 && playerThere == false) {
 					players[player_id].setPositionY(players[player_id].getPositionY() - 1);
-
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
 				}
 			}
 			else if (move == 2) {
-				if (players[player_id].getPositionY() != 6) {
+				playerThere = playerInSpot(players[player_id].getPositionX(), players[player_id].getPositionY() + 1);
+				if (players[player_id].getPositionY() != 6 && playerThere == false) {
 					players[player_id].setPositionY(players[player_id].getPositionY() + 1);
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
 				}
 			}
 			else if (move == 3) {
-				if (players[player_id].getPositionX() != 0) {
+				playerThere = playerInSpot(players[player_id].getPositionX() - 1, players[player_id].getPositionY());
+				if (players[player_id].getPositionX() != 0 && playerThere == false) {
 					players[player_id].setPositionX(players[player_id].getPositionX() - 1);
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
 				}
 			}
 			else if (move == 4) {
-				if (players[player_id].getPositionX() != 4) {
+				playerThere = playerInSpot(players[player_id].getPositionX() + 1, players[player_id].getPositionY());
+				if (players[player_id].getPositionX() != 4 && playerThere == false) {
 					players[player_id].setPositionX(players[player_id].getPositionX() + 1);
+				}
+				else {
+					std::cout << "Not a valid spot!" << std::endl;
+					randDie++;
 				}
 			}
 			//display board
@@ -232,4 +252,15 @@ int Game::displaySubMenu() {
 	std::cin.ignore(10000, '\n');
 	std::cout << std::endl;
 	return choice;
+}
+
+bool Game::playerInSpot(int x, int y) {
+	//, vector<Player> players
+
+	for (int i = 0; i < players.size(); i++) {
+		if (x == players[i].getPositionX() && y == players[i].getPositionY()) {
+			return true;
+		}
+	}
+	return false;
 }
