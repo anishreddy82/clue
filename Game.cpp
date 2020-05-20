@@ -110,16 +110,7 @@ void Game::movePlayer(std::vector<Player> &players){
 		int randDie = rand() % 3 + 1;
 		std::cout << "You rolled " << randDie << std::endl;
 		while (randDie > 0) {
-			std::cout << "You have " << randDie << " moves left" << std::endl;
-			std::cout << "Would you like to move up, down, left or right?" << std::endl;
-			std::cout << "1. Up" << std::endl;
-			std::cout << "2. Down" << std::endl;
-			std::cout << "3. Left" << std::endl;
-			std::cout << "4. Right" << std::endl;
-			std::cin >> move;
-			//clear the buffer after cin
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
+            move = playerChoiceMenu(randDie);
 
 			bool playerThere = false;
 			if (move == 1) {
@@ -169,6 +160,22 @@ void Game::movePlayer(std::vector<Player> &players){
 	}
 }
 
+int Game::playerChoiceMenu(int randDie){
+    int move;
+
+    std::cout << "You have " << randDie << " moves left" << std::endl;
+    std::cout << "Would you like to move up, down, left or right?" << std::endl;
+    std::cout << "1. Up" << std::endl;
+    std::cout << "2. Down" << std::endl;
+    std::cout << "3. Left" << std::endl;
+    std::cout << "4. Right" << std::endl;
+    std::cin >> move;
+    //clear the buffer after cin
+    std::cin.clear();
+    std::cin.ignore(10000, '\n');
+
+    return move;
+}
 
 /*
 Function for performing the main game functions

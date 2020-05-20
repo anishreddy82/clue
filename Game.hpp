@@ -31,6 +31,7 @@ class Game {
 		int displaySubMenu();
 
 		bool playerInSpot(int x, int y);
+		int playerChoiceMenu(int randDie);
 };
 
 #endif
