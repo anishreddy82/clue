@@ -320,7 +320,7 @@ bool Game::playTurn() {
 					std::cout << "None of the suggested cards were found in any of the players hands" << std::endl;
 				}
 			}
-		case 4: accusation = false; //accusation (implement current_player->accuse() IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
+		case 4: accusation = false; //accusation (implement current_player->accuse(murderCards) IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
 			break;
 		case 5: break; //quit
 		default: std::cout << "Please enter a menu choice from 1-5 only" << std::endl;
