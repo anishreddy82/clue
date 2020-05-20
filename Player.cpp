@@ -117,15 +117,6 @@ bool Player::accuse(std::vector<Card> murderCards) {
 	std::string real_weapon;
 	std::string real_room;
 
-	std::cout << "Please enter WHO you think did it.\n" << std::endl;
-	cin.ignore();
-	getline(std::cin, guess_person);
-	std::cout << "Please enter WHAT weapon you think they used.\n" << std::endl;
-	cin.ignore();
-	getline(std::cin, guess_weapon);
-	std::cout << "Please enter WHERE you think it happened.\n" << std::endl;
-	cin.ignore();
-	getline(std::cin, guess_room);
 
 	std::cout << "How did the murder really happen?\n" << std::endl;
 	int i = 0;
@@ -145,14 +136,49 @@ bool Player::accuse(std::vector<Card> murderCards) {
 	std::cout << "WHAT: " << real_weapon << "\n" << std::endl;
 	std::cout << "WHERE: " << real_room << "\n" << std::endl;
 
-	if (guess_person == real_person && guess_weapon == real_weapon && guess_room == real_room) {
+
+
+
+
+	std::cout << "Please enter WHO you think did it.\n" << std::endl;
+	cin.ignore();
+	getline(std::cin, guess_person);
+	std::cout << "Please enter WHAT weapon you think they used.\n" << std::endl;
+	cin.ignore();
+	getline(std::cin, guess_weapon);
+	std::cout << "Please enter WHERE you think it happened.\n" << std::endl;
+	cin.ignore();
+	getline(std::cin, guess_room);
+
+	std::cout << "How did the murder really happen?\n" << std::endl;
+	i = 0;
+	for (i = 0; i < murderCards.size(); i++) {
+		if (murderCards[i].getType() == 'w') {
+			real_weapon = murderCards[i].getName();
+		}
+		else if (murderCards[i].getType() == 'r') {
+			real_room = murderCards[i].getName();
+		}
+		else if (murderCards[i].getType() == 'c') {
+			real_person = murderCards[i].getName();
+		}
+	}
+
+	std::cout << "WHO: " << real_person << "\n" << std::endl;
+	std::cout << "WHAT: " << real_weapon << "\n" << std::endl;
+	std::cout << "WHERE: " << real_room << "\n" << std::endl;
+
+	std::cout << "You entered this for person" << guess_person << "\n" << std::endl;
+
+	if ((guess_person == real_person) && (guess_weapon == real_weapon) && (guess_room == real_room)) {
+		std::cout << "You have won the game, CONGRATS!\n" << std::endl;
 		return true;
 	}
 	else {
+		std::cout << "Unfortunately, you have lost this game, as you only get one accusation!\n" << std::endl;
 		return false;
 	}
 
-	//return false;
 }
 
 
