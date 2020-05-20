@@ -67,17 +67,23 @@ void Player::viewNotebook() {
 		std::cout << "Wrong password\n";
 	else {
 		do {
-			std::cout << std::endl;
-			notebook.display();
-			std::cout << "\nWhat would you like to do?\n";
-			std::cout << "1. Add an entry\n";
-			std::cout << "2. Remove an entry\n";
-			std::cout << "3. Clear the notebook\n";
-			std::cout << "4. Close the notebook\n";
-			cin >> choice;
-			useNotebook(choice);
+            choice = notebookMenu();
 		} while (choice != 4);
 	}
+}
+
+int Player::notebookMenu(){
+    int choice;
+    std::cout << std::endl;
+    notebook.display();
+    std::cout << "\nWhat would you like to do?\n";
+    std::cout << "1. Add an entry\n";
+    std::cout << "2. Remove an entry\n";
+    std::cout << "3. Clear the notebook\n";
+    std::cout << "4. Close the notebook\n";
+    cin >> choice;
+    useNotebook(choice);
+    return choice;
 }
 
 void Player::useNotebook(int val) {

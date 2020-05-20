@@ -24,6 +24,7 @@ public:
 	std::string getName();
 	void showHand();
 	void viewNotebook();
+	int notebookMenu();
 	void useNotebook(int);
 	int getId();
 	char getColor();
