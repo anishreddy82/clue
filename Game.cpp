@@ -105,7 +105,7 @@ returns: none
 */
 void Game::dealAllCards() {
 	//first deal out the murder cards
-	giveBoardCards(gameBoard.murderCards);
+	giveBoardCards(murderCards);
 
 	int i = 0;
 	//deal the rest of the cards to the players hands
@@ -320,8 +320,17 @@ bool Game::playTurn() {
 					std::cout << "None of the suggested cards were found in any of the players hands" << std::endl;
 				}
 			}
-		case 4: accusation = false; //accusation (implement current_player->accuse(murderCards) IF PLAYER IS IN ROOM AND HAVE NOT ALREADY MADE AN ACCUSATION)
-			break;
+		case 4: accusation = false;
+			//check to see if they are in the clue room
+			if (current_player->getPositionY() == 3 && current_player->getPositionX() == 2) {
+				//call accuse function
+				current_player->accuse(murderCards);
+				break;
+			}
+			else {
+				std::cout << "You are not in the Clue Room, so you can't make an accusation!\n" << std::endl;
+				break;
+			}
 		case 5: break; //quit
 		default: std::cout << "Please enter a menu choice from 1-5 only" << std::endl;
 		}

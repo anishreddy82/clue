@@ -17,6 +17,7 @@ class Game {
 		vector<std::string> name;
 		vector<std::string> weapon;
 		vector<std::string> room;
+		std::vector<Card> murderCards;
 		
 	public:
 		Game();

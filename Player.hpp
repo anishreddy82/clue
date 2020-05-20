@@ -23,6 +23,9 @@ public:
 	void showHand();
 	void viewNotebook();
 	void useNotebook(int);
+
+	bool accuse(std::vector<Card>);
+
 	int getId();
 	char getColor();
 	int getPositionX();
