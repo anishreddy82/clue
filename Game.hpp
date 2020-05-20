@@ -18,6 +18,7 @@ namespace gui {
 		sf::RenderWindow window;
 		AssetManager assets;
 		InputManager input;
+		vector<Player> players;
 	};
 
 	typedef std::shared_ptr<GameData> GameDataRef;

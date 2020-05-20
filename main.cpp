@@ -27,16 +27,16 @@ int main() {
 		std::cin.clear();
 		std::cin.ignore(10000, '\n'); //skips the newline char on input
 	}
-	
 	/*
 	Begin Game Setup
 	*/
 	std::vector<Player> game_players = main_menu.setup(player_count);
 	//create the board
 	Board difBoard;
-	//create the Game
+	//create the Game*/
 	gui::Game game = gui::Game(SCREEN_WIDTH, SCREEN_HEIGHT, "Virtual Clue");
 	//add the players
+	
 	game.setPlayers(game_players);
 	//add the board
 	game.setBoard(difBoard);
@@ -59,6 +59,5 @@ int main() {
 		//let the player perform the turn
 		winner = game.playTurn();
 	}
-
 	return 0;
 }

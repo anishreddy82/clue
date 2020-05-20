@@ -1,6 +1,6 @@
 #include <sstream>
 #include "MainMenuState.hpp"
-#include "GameState.hpp"
+#include "SetupState.hpp"
 #include "DEFINITIONS.hpp"
 #include <iostream>
 
@@ -39,7 +39,7 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, 
 						this->data->window)) {
-				this->data->machine.addState(stateRef(new GameState(data)), true);
+				this->data->machine.addState(stateRef(new SetupState(data)), true);
 			}
 		}
 	}

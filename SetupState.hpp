@@ -21,5 +21,33 @@ namespace gui {
 			sf::Sprite inc;
 			sf::Sprite dec;
 			sf::Sprite confirmButton;
+			sf::Sprite setButton;
+
+			sf::RectangleShape nameBox;
+			sf::RectangleShape pwBox;
+
+			sf::Font setupFont;
+			sf::Text playerCount;
+			sf::Text playerLabel;
+			sf::Text nameLabel;
+			sf::Text nameText;
+			sf::Text pwLabel;
+			sf::Text pwText;
+			sf::String playerName;
+			sf::String playerPw;
+
+			int numPlayers;
+			int playerId;
+			bool countChanged;
+			bool playerCountSet;
+			bool playerDataSet;
+			bool nameFieldClicked;
+			bool pwFieldClicked;
+
+			void initButtons();
+			void initText();
+			char generate_color();
+			vector<char> colors;
+			vector<int> positions;
 	};
 }

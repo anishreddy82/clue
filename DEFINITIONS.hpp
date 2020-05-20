@@ -5,6 +5,8 @@
 
 #define SPLASH_STATE_SHOW_TIME 2
 
+#define BUTTON_SCALE .08
+
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "./Assets/graphics/sky.png"
 #define MAIN_MENU_BACKGROUND_FILEPATH "./Assets/graphics/MainMenuBackground.png"
 #define GAME_BACKGROUND_FILEPATH "./Assets/graphics/board.jpg"
@@ -19,6 +21,7 @@
 #define INC_BUTTON_FILEPATH "./Assets/graphics/IncButton.png"
 #define DEC_BUTTON_FILEPATH "./Assets/graphics/DecButton.png"
 #define CONFIRM_BUTTON_FILEPATH "./Assets/graphics/ConfirmButton.png"
+#define SET_BUTTON_FILEPATH "./Assets/graphics/SetPlayers.png"
 
 #define GAME_ROLL_BUTTON_FILEPATH "./Assets/graphics/RollButton.png"
 #define GAME_SUGGEST_BUTTON_FILEPATH "./Assets/graphics/SuggestButton.png"

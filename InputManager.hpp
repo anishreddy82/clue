@@ -10,6 +10,10 @@ namespace gui {
 
 			bool isSpriteClicked(sf::Sprite obj, sf::Mouse::Button button, 
 					sf::RenderWindow& window);
+
+			bool isRectClicked(sf::RectangleShape obj, sf::Mouse::Button button,
+					sf::RenderWindow& window);
+
 			sf::Vector2i getMousePosition(sf::RenderWindow& window);
 	};
 }
