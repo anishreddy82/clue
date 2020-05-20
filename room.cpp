@@ -7,7 +7,3 @@ Room::Room() {
 	weapon = 0;
 	name = "";
 }
-
-void Room::rooms(){
-    
-}
