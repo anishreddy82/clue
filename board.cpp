@@ -36,7 +36,7 @@ Board::Board() {
 }
 
 
-void Board::dif(std::vector<Player> players){
+void Board::displayBoard(std::vector<Player> players){
 	
 	for (int i = 0; i < static_cast<int>(players.size()); i++) {
 		player_coords.at(i).first = players.at(i).getPositionY();
