@@ -45,6 +45,15 @@ namespace gui {
 
 		gameState = GameStates::eTurnOver;
 		dealOutCards();
+
+		//DEBUG
+		std::cout << "\nGameState name recall:\n";
+		for (int i = 0; i < this->data->players.size(); i++) {
+			std::cout << std::endl << this->data->players.at(i).getName() << std::endl;
+			for (int j = 0; j < this->data->players.at(i).hand.size(); j++) {
+				std::cout << this->data->players.at(i).hand.at(j).getName() << std::endl;
+			}
+		}
 	}
 
 	void GameState::handleInput() {
@@ -60,7 +69,8 @@ namespace gui {
 				}
 				if (event.key.code == sf::Keyboard::Right) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (players.at(turn).getPositionX() + MOVE_RIGHT);
+						pos = (this->data->players.at(turn).getPositionX() 
+								+ MOVE_RIGHT);
 						if (pos < CELLS_X) {
 							if (!validateHorizontalMove(pos, MOVE_RIGHT))
 									activePiece->movePiece(MOVE_LEFT);
@@ -69,13 +79,13 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getName() << "(" << 
-							players.at(turn).getColor() << ")" << 
+						std::cout << this->data->players.at(turn).getName() << "(" << 
+							this->data->players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Left) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (players.at(turn).getPositionX() - 1);
+						pos = (this->data->players.at(turn).getPositionX() - 1);
 						if (pos >= 0) {
 							if(!validateHorizontalMove(pos, MOVE_LEFT))
 								activePiece->movePiece(MOVE_RIGHT);
@@ -84,13 +94,13 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getName() << "(" << 
-							players.at(turn).getColor() << ")" << 
+						std::cout << this->data->players.at(turn).getName() << "(" << 
+							this->data->players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Up) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (players.at(turn).getPositionY() - 1);
+						pos = (this->data->players.at(turn).getPositionY() - 1);
 						if (pos >= 0) {
 							if (!validateVerticalMove(pos, MOVE_UP))
 								activePiece->movePiece(MOVE_DOWN);
@@ -99,13 +109,13 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getName() << "(" << 
-							players.at(turn).getColor() << ")" << 
+						std::cout << this->data->players.at(turn).getName() << "(" << 
+							this->data->players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Down) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (players.at(turn).getPositionY() + 1);
+						pos = (this->data->players.at(turn).getPositionY() + 1);
 						if (pos < CELLS_Y) {
 							if (!validateVerticalMove(pos, MOVE_DOWN))
 								activePiece->movePiece(MOVE_UP);
@@ -114,8 +124,8 @@ namespace gui {
 							std::cout << "You have reached the edge\n";
 					}
 					else
-						std::cout << players.at(turn).getName() << "(" << 
-							players.at(turn).getColor() << ")" << 
+						std::cout << this->data->players.at(turn).getName() << "(" << 
+							this->data->players.at(turn).getColor() << ")" << 
 							" must roll first\n";
 				}
 			}
@@ -153,9 +163,9 @@ namespace gui {
 			//move to GameOver State
 		}
 		if (gameState == GameStates::eTurnOver) {
-			char next = players.at(turn).getColor();
-			turnText.setString(players.at(turn).getName() + "'s Turn" + 
-					"(" + players.at(turn).getColor() + ")");
+			char next = this->data->players.at(turn).getColor();
+			turnText.setString(this->data->players.at(turn).getName() + "'s Turn" + 
+					"(" + this->data->players.at(turn).getColor() + ")");
 			if (next == 'r')
 				activePiece = pieces.at(3);
 			else if (next == 'b')
@@ -176,8 +186,6 @@ namespace gui {
 		else {
 			rollText.setString("<--");
 		}
-
-		
 	}
 
 	void GameState::draw(float dt) {
@@ -327,7 +335,7 @@ namespace gui {
 	}
 
 	void GameState::initPlayers() {
-		int player_count;
+		/*int player_count;
 		//prompt to confirm game setup
 		std::cout << "How many players for the game? (min 4, max 6)" << std::endl;
 		std::cin >> player_count;
@@ -368,12 +376,12 @@ namespace gui {
 
 			players.push_back(new_player);
 
-		}
-		for (int i = 0; i < players.size(); i++) {
-			if (players.at(i).getColor() == 'r')
+		}*/
+		for (int i = 0; i < this->data->players.size(); i++) {
+			if (this->data->players.at(i).getColor() == 'r')
 				turn = i;
 			else
-				turn = rand() % players.size();
+				turn = rand() % this->data->players.size();
 		}
 	}
 
@@ -405,18 +413,21 @@ namespace gui {
 		//deal the rest of the cards to the players hands
 		while (static_cast<int>(deck.size() > 0)) {
 			//mod the number of players for even distribution
-			givePlayerCard(players.at(i % (players.size())).hand);
+			givePlayerCard(this->data->players.at(i % (this->data->players.size())).hand);
 			i++;
 		}
 	}
 
-	char GameState::generate_color() {
+	/*
+	   DEAD CODE
+	*/
+	/*char GameState::generate_color() {
 		srand(time(NULL));
 		int randIndex = rand() % static_cast<int>(colors.size());
 		char choice = colors.at(randIndex);
 		colors.erase(colors.begin() + randIndex);
 		return choice;
-	}
+	}*/
 
 	bool GameState::checkSpriteCollision() {
 		sf::FloatRect shape1 = activePiece->getPiece().getGlobalBounds();
@@ -438,7 +449,7 @@ namespace gui {
 		}
 		else {
 			moves--;
-			players.at(turn).setPositionX(pos);
+			this->data->players.at(turn).setPositionX(pos);
 			checkForMoves();
 		}
 		return true;
@@ -452,7 +463,7 @@ namespace gui {
 		}
 		else {
 			moves--;
-			players.at(turn).setPositionY(pos);
+			this->data->players.at(turn).setPositionY(pos);
 			checkForMoves();
 		}
 		return true;
@@ -462,7 +473,7 @@ namespace gui {
 		cout << "The roll button has been clicked\n";
 		srand(time(NULL));
 		moves = rand() % 3 + 1;
-		std::cout << players.at(turn).getColor() << " has rolled "
+		std::cout << this->data->players.at(turn).getColor() << " has rolled "
 			<< moves << "\n";
 		gameState = GameStates::ePlaying;
 	}
@@ -471,7 +482,7 @@ namespace gui {
 		if (!moves) {
 			gameState = GameStates::eTurnOver;
 			turn++;
-			if (turn >= players.size())
+			if (turn >= this->data->players.size())
 				turn = 0;
 		}
 	}

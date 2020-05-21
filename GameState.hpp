@@ -49,7 +49,7 @@ namespace gui {
 			vector<Piece*> pieces;
 			vector<Card> deck;
 			vector<Card> murderCards;
-			vector<Player> players;
+			//vector<Player> players;
 			vector<char> colors;
 			vector<int> positions;
 

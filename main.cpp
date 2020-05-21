@@ -9,7 +9,7 @@
 #include "DEFINITIONS.hpp"
 
 int main() {
-	Menu main_menu = Menu();
+	/*Menu main_menu = Menu();
 	int player_count;
 	//prompt to confirm game setup
 	std::cout << "How many players for the game? (min 4, max 6)" << std::endl;
@@ -27,17 +27,19 @@ int main() {
 		std::cin.clear();
 		std::cin.ignore(10000, '\n'); //skips the newline char on input
 	}
+	*/
 	/*
 	Begin Game Setup
 	*/
+	/*
 	std::vector<Player> game_players = main_menu.setup(player_count);
 	//create the board
 	Board difBoard;
 	//create the Game*/
-	gui::Game game = gui::Game(SCREEN_WIDTH, SCREEN_HEIGHT, "Virtual Clue");
+	gui::Game(SCREEN_WIDTH, SCREEN_HEIGHT, "Virtual Clue");
 	//add the players
 	
-	game.setPlayers(game_players);
+	/*game.setPlayers(game_players);
 	//add the board
 	game.setBoard(difBoard);
 	//deal cards to the board and player
@@ -58,6 +60,6 @@ int main() {
 
 		//let the player perform the turn
 		winner = game.playTurn();
-	}
+	}*/
 	return 0;
 }
