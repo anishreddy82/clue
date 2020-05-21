@@ -325,6 +325,8 @@ bool Game::playTurn() {
 			if (current_player->getPositionY() == 3 && current_player->getPositionX() == 2) {
 				//call accuse function
 				current_player->accuse(murderCards);
+				//need to delete that person from the current game here
+				//and put them in the losing person database
 				break;
 			}
 			else {
