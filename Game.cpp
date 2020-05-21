@@ -320,13 +320,20 @@ bool Game::playTurn() {
 					std::cout << "None of the suggested cards were found in any of the players hands" << std::endl;
 				}
 			}
-		case 4: accusation = false;
+		case 4:
 			//check to see if they are in the clue room
 			if (current_player->getPositionY() == 3 && current_player->getPositionX() == 2) {
 				//call accuse function
-				current_player->accuse(murderCards);
-				//need to delete that person from the current game here
-				//and put them in the losing person database
+				accusation = current_player->accuse(murderCards);
+				if (accusation == false) {
+					//if they made an accusation but got it wrong
+					//delete that player
+					//delete current_player;
+				}
+				if (accusation == true) {
+					menu_choice = 5;
+					//triggers endgame
+				}
 				break;
 			}
 			else {

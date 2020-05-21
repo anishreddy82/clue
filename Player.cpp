@@ -117,6 +117,26 @@ bool Player::accuse(std::vector<Card> murderCards) {
 	std::string real_weapon;
 	std::string real_room;
 
+
+	//THIS IS SIMPLY HERE FOR THE TESTING PROCESS SO YOU CAN TEST AN ENDGAME
+	/*std::cout << "How did the murder really happen?\n" << std::endl;
+	int i = 0;
+	for (i = 0; i < murderCards.size(); i++) {
+		if (murderCards[i].getType() == 'w') {
+			real_weapon = murderCards[i].getName();
+		}
+		else if (murderCards[i].getType() == 'r') {
+			real_room = murderCards[i].getName();
+		}
+		else if (murderCards[i].getType() == 'c') {
+			real_person = murderCards[i].getName();
+		}
+	}
+
+	std::cout << "WHO: " << real_person << "\n" << std::endl;
+	std::cout << "WHAT: " << real_weapon << "\n" << std::endl;
+	std::cout << "WHERE: " << real_room << "\n" << std::endl;*/
+
 	std::cout << "Please enter WHO you think did it.\n" << std::endl;
 	getline(std::cin, guess_person);
 	std::cout << "Please enter WHAT weapon you think they used.\n" << std::endl;

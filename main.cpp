@@ -59,5 +59,7 @@ int main() {
 		winner = game.playTurn();
 	}
 
+	std::cout << "Congrats! The game is now ended. \n" << std::endl;
+
 	return 0;
 }
