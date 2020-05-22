@@ -151,7 +151,7 @@ namespace gui {
 			if (this->data->input.isSpriteClicked(this->myCardsButton, sf::Mouse::Left,
 						this->data->window)) {
 				cout << "The my cards button has been clicked\n";
-				this->data->machine.addState(stateRef(new HandOfCardsState(data)), true); //CHANGE THIS TO FALSE AT SOME POINT AND LEARN HOW TO TEMPORARILY SWITCH STATES
+				this->data->machine.addState(stateRef(new HandOfCardsState(data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->notebookButton, sf::Mouse::Left,
 						this->data->window)) {

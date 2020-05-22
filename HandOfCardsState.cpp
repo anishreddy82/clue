@@ -23,7 +23,7 @@ namespace gui {
 		this->returnButton.setScale(0.5f, 0.5f);
 		this->returnButton.setPosition((SCREEN_WIDTH / 2) -
 			(this->returnButton.getGlobalBounds().width / 2),
-			(SCREEN_HEIGHT / 2) - (this->returnButton.getGlobalBounds().height / 2));
+			(SCREEN_HEIGHT) - (this->returnButton.getGlobalBounds().height));
 
 	}
 
@@ -36,7 +36,7 @@ namespace gui {
 
 			if (this->data->input.isSpriteClicked(this->returnButton, sf::Mouse::Left,
 				this->data->window)) {
-				this->data->machine.addState(stateRef(new GameState(data)), true); //replacing this state but want to go back to the old one
+				this->data->machine.removeState();
 			}
 
 		}
