@@ -38,6 +38,13 @@
 #define G_PIECE_FILEPATH "./Assets/graphics/gPiece.png"
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
 
+#define CSTICK_FILEPATH "./Assets/graphics/candlestick.png"
+#define KNIFE_FILEPATH "./Assets/graphics/knife.png"
+#define PIPE_FILEPATH "./Assets/graphics/pipe.png"
+#define GUN_FILEPATH "./Assets/graphics/revolver.png"
+#define ROPE_FILEPATH "./Assets/graphics/rope.png"
+#define WRENCH_FILEPATH "./Assets/graphics/wrench.png"
+
 
 /*
 Cards Assests
