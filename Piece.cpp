@@ -1,7 +1,7 @@
 #include "Piece.hpp"
 
 namespace gui {
-	Piece::Piece(GameDataRef data, std::string name) : data(data) {
+	Piece::Piece(GameDataRef data, std::string name) : data(data) , name(name) {
 		piece.setTexture(data->assets.getTexture(name));
 	}
 
@@ -22,6 +22,14 @@ namespace gui {
 
 	void Piece::update(float dt) {
 
+	}
+
+	void Piece::setName(std::string name) {
+		this->name = name;
+	}
+
+	std::string Piece::getName() {
+		return name;
 	}
 
 	sf::Sprite& Piece::getPiece() {

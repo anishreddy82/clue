@@ -12,10 +12,13 @@ namespace gui {
 			void drawPieces();
 			void movePiece(int);
 			void update(float dt);
+			void setName(std::string);
+			std::string getName();
 			sf::Sprite& getPiece();
 
 		private:
 			GameDataRef data;
 			sf::Sprite piece;
+			std::string name;
 	};
 }
