@@ -384,6 +384,8 @@ namespace gui {
 				turn = i;
 			else
 				turn = rand() % this->data->players.size();
+
+			this->data->turnNumber = turn;
 		}
 	}
 
@@ -484,6 +486,7 @@ namespace gui {
 		if (!moves) {
 			gameState = GameStates::eTurnOver;
 			turn++;
+			this->data->turnNumber = turn;
 			if (turn >= this->data->players.size())
 				turn = 0;
 		}

@@ -12,6 +12,9 @@ namespace gui {
 
 		void init();
 		void loadPlayerCards();
+		void initWeaponCard(std::string weaponName);
+		void initRoomCard(std::string roomName);
+		void initColorCard(std::string colorName);
 
 		void handleInput();
 		void update(float dt);
