@@ -13,7 +13,7 @@ private:
 	Notebook notebook;
 	int posX;
 	int posY;
-
+	int location;
 
 public:
 
@@ -29,6 +29,8 @@ public:
 	char getColor();
 	int getPositionX();
 	int getPositionY();
+	int getLocation();
+	void setLocation(int loc);
 	void setName(std::string nameIn);
 	void setColor(char colorIn);
 	void setStartingPosition(int pos);

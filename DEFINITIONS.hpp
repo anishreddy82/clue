@@ -38,6 +38,7 @@
 #define G_PIECE_FILEPATH "./Assets/graphics/gPiece.png"
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
 
+
 /*
 Cards Assests
 */
@@ -72,6 +73,7 @@ HandOfCardsState Assests
 #define RETURN_BUTTON_FILEPATH "./Assets/graphics/returnButton.png"
 #define CARDS_BACKGROUND_FILEPATH "./Assets/graphics/secretBackground.jpg"
 
+
 #define ROLL_FONT_FILEPATH "./Assets/fonts/arial.ttf"
 
 #define GRID_CELL_SIZE 50
@@ -88,4 +90,17 @@ enum GameStates {
 	eTurnOver,
 	ePaused,
 	eGameOver
+};
+
+enum Locations {
+	eHallway,
+	eStudy,
+	eHall,
+	eLounge,
+	eLibrary,
+	eDining,
+	eBilliards,
+	eBall,
+	eConservatory,
+	eKitchen
 };

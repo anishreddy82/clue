@@ -10,6 +10,7 @@ Player::Player() {
 	name = "null";
 	color = 'n';
 	password = "";
+	location = 0;
 }
 
 /*
@@ -21,6 +22,7 @@ Player::Player(int idIn) {
 	name = "";
 	color = ' ';
 	password = "";
+	location = 0;
 }
 
 /*
@@ -124,10 +126,16 @@ int Player::getPositionX(){
 int Player::getPositionY(){
 	return posY;
 }
+int Player::getLocation() {
+	return location;
+}
 
 /*
 Mutator functions for setting private members
 */
+void Player::setLocation(int loc) {
+	location = loc;
+}
 void Player::setColor(char colorIn) {
 	color = colorIn;
 }

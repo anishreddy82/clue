@@ -11,7 +11,7 @@ namespace gui {
 	void GameState::init() {
 		colors = { 'r', 'b', 'g', 'y', 'v', 'w' };
 		positions = { 1, 2, 3, 4, 5, 6 };
-		
+
 		//this->data->assets.loadTexture("Background", GAME_BACKGROUND_FILEPATH);
 		this->data->assets.loadTexture("Grid Sprite", GRID_SPRITE_FILEPATH);
 		this->data->assets.loadTexture("White Piece", W_PIECE_FILEPATH);
@@ -20,6 +20,7 @@ namespace gui {
 		this->data->assets.loadTexture("Brown Piece", Br_PIECE_FILEPATH);
 		this->data->assets.loadTexture("Green Piece", G_PIECE_FILEPATH);
 		this->data->assets.loadTexture("Purple Piece", P_PIECE_FILEPATH);
+
 		this->data->assets.loadTexture("Roll Button", GAME_ROLL_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Suggest Button", GAME_SUGGEST_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Accuse Button", GAME_ACCUSE_BUTTON_FILEPATH);
@@ -27,6 +28,12 @@ namespace gui {
 		this->data->assets.loadTexture("My Cards Button", GAME_MY_CARDS_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Notebook Button", GAME_NOTEBOOK_BUTTON_FILEPATH);
 
+		this->data->assets.loadTexture("Candlestick", CSTICK_FILEPATH);
+		this->data->assets.loadTexture("Knife", KNIFE_FILEPATH);
+		this->data->assets.loadTexture("Pipe", PIPE_FILEPATH);
+		this->data->assets.loadTexture("Revolver", GUN_FILEPATH);
+		this->data->assets.loadTexture("Rope", ROPE_FILEPATH);
+		this->data->assets.loadTexture("Wrench", WRENCH_FILEPATH);
 
 		this->gridSprite.setTexture(this->data->assets.getTexture("Grid Sprite"));
 		this->gridSprite.setScale(5.0f, 5.0f);
@@ -55,6 +62,7 @@ namespace gui {
 				std::cout << this->data->players.at(i).hand.at(j).getName() << std::endl;
 			}
 		}
+
 	}
 
 	void GameState::handleInput() {
@@ -138,7 +146,14 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
 						this->data->window)) {
-				cout << "The suggest button has been clicked\n";
+				if (this->data->players.at(turn).getLocation() != Locations::eHallway) {
+					//DEBUG
+					cout << "You may make a suggestion from room: " << 
+						this->data->players.at(turn).getLocation() << std::endl;
+					//insert state transition here
+				}
+				else
+					cout << "You have to enter a room first\n";
 			}
 			if (this->data->input.isSpriteClicked(this->accuseButton, sf::Mouse::Left,
 						this->data->window)) {
@@ -195,14 +210,9 @@ namespace gui {
 
 		this->data->window.draw(this->gridSprite);
 		this->data->window.draw(this->turnText);
-		//this->data->window.draw(this->gridPieces[11][7]);
-		//this->data->window.draw(this->gridPieces[11][4]);
-		pieces.at(0)->drawPieces();
-		pieces.at(1)->drawPieces();
-		pieces.at(2)->drawPieces();
-		pieces.at(3)->drawPieces();
-		pieces.at(4)->drawPieces();
-		pieces.at(5)->drawPieces();
+		for (int i = 0; i < pieces.size(); i++) {
+			pieces.at(i)->drawPieces();
+		}
 		this->data->window.draw(this->rollText);
 		this->data->window.draw(this->rollButton);
 		this->data->window.draw(this->suggestButton);
@@ -243,6 +253,33 @@ namespace gui {
 		pieces.emplace_back(new Piece(data, "Purple Piece"));
 		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + 8,
 				gridSprite.getPosition().y + (GRID_CELL_SIZE * 2) + 7);
+
+		pieces.emplace_back(new Piece(data, "Candlestick"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x + 8,
+				gridSprite.getPosition().y + (GRID_CELL_SIZE) + 7);
+
+		pieces.emplace_back(new Piece(data, "Knife"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
+				(GRID_CELL_SIZE * 6) + 8, gridSprite.getPosition().y + 7);
+
+		pieces.emplace_back(new Piece(data, "Pipe"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
+				(GRID_CELL_SIZE * 10) + 8, gridSprite.getPosition().y + 7);
+
+		pieces.emplace_back(new Piece(data, "Revolver"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
+				(GRID_CELL_SIZE * 11) + 8, gridSprite.getPosition().y +
+				(GRID_CELL_SIZE * 6) + 7);
+
+		pieces.emplace_back(new Piece(data, "Rope"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
+				(GRID_CELL_SIZE * 10) + 8, gridSprite.getPosition().y +
+				(GRID_CELL_SIZE * 11) + 7);
+
+		pieces.emplace_back(new Piece(data, "Wrench"));
+		pieces.at(pieces.size() - 1)->getPiece().setPosition(gridSprite.getPosition().x +
+				(GRID_CELL_SIZE * 5) + 8, gridSprite.getPosition().y +
+				(GRID_CELL_SIZE * 11) + 7);
 	}
 
 	void GameState::initButtons() {
@@ -454,6 +491,8 @@ namespace gui {
 		else {
 			moves--;
 			this->data->players.at(turn).setPositionX(pos);
+			this->data->players.at(turn).setLocation(gridArray[this->data->players.at(turn).
+					getPositionY()][this->data->players.at(turn).getPositionX()]);
 			checkForMoves();
 		}
 		return true;
@@ -468,6 +507,8 @@ namespace gui {
 		else {
 			moves--;
 			this->data->players.at(turn).setPositionY(pos);
+			this->data->players.at(turn).setLocation(gridArray[this->data->players.at(turn).
+					getPositionY()][this->data->players.at(turn).getPositionX()]);
 			checkForMoves();
 		}
 		return true;
