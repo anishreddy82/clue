@@ -1,6 +1,7 @@
 #include <sstream>
 #include "GameState.hpp"
 #include "PauseState.hpp"
+#include "HandOfCardsState.hpp"
 #include "DEFINITIONS.hpp"
 #include <iostream>
 
@@ -165,6 +166,7 @@ namespace gui {
 			if (this->data->input.isSpriteClicked(this->myCardsButton, sf::Mouse::Left,
 						this->data->window)) {
 				cout << "The my cards button has been clicked\n";
+				this->data->machine.addState(stateRef(new HandOfCardsState(data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->notebookButton, sf::Mouse::Left,
 						this->data->window)) {
@@ -419,6 +421,8 @@ namespace gui {
 				turn = i;
 			else
 				turn = rand() % this->data->players.size();
+
+			this->data->turnNumber = turn;
 		}
 	}
 
@@ -523,6 +527,7 @@ namespace gui {
 		if (!moves) {
 			gameState = GameStates::eTurnOver;
 			turn++;
+			this->data->turnNumber = turn;
 			if (turn >= this->data->players.size())
 				turn = 0;
 		}

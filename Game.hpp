@@ -19,6 +19,7 @@ namespace gui {
 		AssetManager assets;
 		InputManager input;
 		vector<Player> players;
+		int turnNumber;
 	};
 
 	typedef std::shared_ptr<GameData> GameDataRef;

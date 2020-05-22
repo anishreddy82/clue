@@ -38,12 +38,41 @@
 #define G_PIECE_FILEPATH "./Assets/graphics/gPiece.png"
 #define P_PIECE_FILEPATH "./Assets/graphics/pPiece.png"
 
-#define CSTICK_FILEPATH "./Assets/graphics/candlestick.png"
-#define KNIFE_FILEPATH "./Assets/graphics/knife.png"
-#define PIPE_FILEPATH "./Assets/graphics/pipe.png"
-#define GUN_FILEPATH "./Assets/graphics/revolver.png"
-#define ROPE_FILEPATH "./Assets/graphics/rope.png"
-#define WRENCH_FILEPATH "./Assets/graphics/wrench.png"
+
+/*
+Cards Assests
+*/
+#define BLUE_CARD_FILEPATH "./Assets/graphics/cards/blueCard.png"
+#define BROWN_CARD_FILEPATH "./Assets/graphics/cards/brownCard.png"
+#define GREEN_CARD_FILEPATH "./Assets/graphics/cards/greenCard.png"
+#define PURPLE_CARD_FILEPATH "./Assets/graphics/cards/purpleCard.png"
+#define RED_CARD_FILEPATH "./Assets/graphics/cards/redCard.png"
+#define WHITE_CARD_FILEPATH "./Assets/graphics/cards/whiteCard.png"
+#define YELLOW_CARD_FILEPATH "./Assets/graphics/cards/yellowCard.png"
+
+#define BALLROOM_CARD_FILEPATH "./Assets/graphics/cards/ballroomCard.png"
+#define BILLARD_CARD_FILEPATH "./Assets/graphics/cards/billardCard.png"
+#define CONSERVATORY_CARD_FILEPATH "./Assets/graphics/cards/conservatoryCard.png"
+#define DINING_CARD_FILEPATH "./Assets/graphics/cards/diningCard.png"
+#define HALL_CARD_FILEPATH "./Assets/graphics/cards/hallCard.png"
+#define KITCHEN_CARD_FILEPATH "./Assets/graphics/cards/kitchenCard.png"
+#define LIBRARY_CARD_FILEPATH "./Assets/graphics/cards/libraryCard.png"
+#define LOUNGE_CARD_FILEPATH "./Assets/graphics/cards/loungeCard.png"
+#define STUDY_CARD_FILEPATH "./Assets/graphics/cards/studyCard.png"
+
+#define CANDLESTICK_CARD_FILEPATH "./Assets/graphics/cards/candlestickCard.png"
+#define KNIFE_CARD_FILEPATH "./Assets/graphics/cards/knifeCard.png"
+#define LEADPIPE_CARD_FILEPATH "./Assets/graphics/cards/leadpipeCard.png"
+#define REVOLVER_CARD_FILEPATH "./Assets/graphics/cards/revolverCard.png"
+#define ROPE_CARD_FILEPATH "./Assets/graphics/cards/ropeCard.png"
+#define WRENCH_CARD_FILEPATH "./Assets/graphics/cards/wrenchCard.png"
+
+/*
+HandOfCardsState Assests
+*/
+#define RETURN_BUTTON_FILEPATH "./Assets/graphics/returnButton.png"
+#define CARDS_BACKGROUND_FILEPATH "./Assets/graphics/secretBackground.jpg"
+
 
 #define ROLL_FONT_FILEPATH "./Assets/fonts/arial.ttf"
 
