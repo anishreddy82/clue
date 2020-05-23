@@ -8,6 +8,6 @@ Room::Room() {
 	name = "";
 }
 
-void Room::rooms(){
-    
+void Room::rooms() {
+
 }

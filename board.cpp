@@ -13,7 +13,7 @@ Board::Board() {
 		player.second = 0;
 		player_coords.push_back(player);
 	}
-	boardArray = new Room*[w];
+	boardArray = new Room * [w];
 	for (int i = 0; i < w; i++) {
 		boardArray[i] = new Room[h];
 	}
@@ -61,8 +61,8 @@ Board::Board() {
 }
 
 
-void Board::dif(std::vector<Player> players){
-	
+void Board::dif(std::vector<Player> players) {
+
 	for (int i = 0; i < static_cast<int>(players.size()); i++) {
 		player_coords.at(i).first = players.at(i).getPositionY();
 		player_coords.at(i).second = players.at(i).getPositionX();
@@ -72,8 +72,8 @@ void Board::dif(std::vector<Player> players){
 
 	bool match = false;
 	//printing the board
-    for(int i = 0; i < w; i++){
-        for(int j = 0; j < h; j++){
+	for (int i = 0; i < w; i++) {
+		for (int j = 0; j < h; j++) {
 			match = false;
 			//if a player coord matches i and j, add token to the name
 			for (int k = 0; k < static_cast<int>(players.size()); k++) {
@@ -85,9 +85,13 @@ void Board::dif(std::vector<Player> players){
 			if (!match) {
 				std::cout << boardArray[i][j].name << "|";
 			}
-        }
-        std::cout << std::endl;
-    }
+		}
+		std::cout << std::endl;
+	}
 	std::cout << "__________________________________________________________________________________" << std::endl;
 	std::cout << std::endl;
+}
+
+std::string Board::getRoomName(int pos1, int pos2) {
+	return boardArray[pos1][pos2].name;
 }

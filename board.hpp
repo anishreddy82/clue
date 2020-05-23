@@ -8,7 +8,7 @@
 #include "room.hpp"
 #include "Card.hpp"
 
-class Board{
+class Board {
 private:
 	int w;
 	int h;
@@ -17,6 +17,6 @@ public:
 	Board();
 
 	void dif(std::vector<Player>);
-	Room **boardArray;
-	std::vector<Card> murderCards;
+	Room** boardArray;
+	std::string getRoomName(int, int);
 };

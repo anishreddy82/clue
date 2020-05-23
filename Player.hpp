@@ -13,18 +13,22 @@ private:
 	Notebook notebook;
 	int posX;
 	int posY;
-
+	int accuseInt;
 
 public:
 
 	Player();
 	Player(int idIn);
 	std::vector<Card> hand;
-	
 	std::string getName();
 	void showHand();
 	void viewNotebook();
 	void useNotebook(int);
+
+	bool accuse(std::vector<Card>);
+
+	void changeAccuse();
+	int getAccuse();
 	int getId();
 	char getColor();
 	int getPositionX();
