@@ -2,6 +2,7 @@
 #include "GameState.hpp"
 #include "PauseState.hpp"
 #include "HandOfCardsState.hpp"
+#include "AccuseState.hpp"
 #include "DEFINITIONS.hpp"
 #include <iostream>
 
@@ -47,6 +48,7 @@ namespace gui {
 		initButtons();
 		initText();
 		initGameDeck();
+		initCards();
 		this->turn = 0;
 		initPlayers();
 		this->moves = 0;
@@ -157,7 +159,11 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->accuseButton, sf::Mouse::Left,
 						this->data->window)) {
-				cout << "The accuse button has been clicked\n";
+				this->data->machine.addState(stateRef(new AccuseState(data)), false);
+				if (this->data->accusation.size() == 3) {
+					std::cout << this->data->players.at(turn).getName() << 
+						" has made an accusation!\n";
+				}
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
 						this->data->window)) {
@@ -371,6 +377,32 @@ namespace gui {
 		deck.emplace_back(Card("ballroom", 'r'));
 		deck.emplace_back(Card("lounge", 'r'));
 		deck.emplace_back(Card("billiard room", 'r'));
+	}
+
+	void GameState::initCards() {
+		this->data->assets.loadTexture("Study Room Card", STUDY_CARD_FILEPATH);
+		this->data->assets.loadTexture("Library Room Card", LIBRARY_CARD_FILEPATH);
+		this->data->assets.loadTexture("Conservatory Room Card", CONSERVATORY_CARD_FILEPATH);
+		this->data->assets.loadTexture("Hall Room Card", HALL_CARD_FILEPATH);
+		this->data->assets.loadTexture("Kitchen Room Card", KITCHEN_CARD_FILEPATH);
+		this->data->assets.loadTexture("Ballroom Room Card", BALLROOM_CARD_FILEPATH);
+		this->data->assets.loadTexture("Lounge Room Card", LOUNGE_CARD_FILEPATH);
+		this->data->assets.loadTexture("Billiard Room Card", BILLARD_CARD_FILEPATH);
+
+		this->data->assets.loadTexture("Candlestick Weapon Card", CANDLESTICK_CARD_FILEPATH);
+		this->data->assets.loadTexture("Revolver Weapon Card", REVOLVER_CARD_FILEPATH);
+		this->data->assets.loadTexture("Rope Weapon Card", ROPE_CARD_FILEPATH);
+		this->data->assets.loadTexture("Wrench Weapon Card", WRENCH_CARD_FILEPATH);
+		this->data->assets.loadTexture("Lead Pipe Weapon Card", LEADPIPE_CARD_FILEPATH);
+		this->data->assets.loadTexture("Knife Weapon Card", KNIFE_CARD_FILEPATH);
+
+		this->data->assets.loadTexture("White Color Card", WHITE_CARD_FILEPATH);
+		this->data->assets.loadTexture("Blue Color Card", BLUE_CARD_FILEPATH);
+		this->data->assets.loadTexture("Red Color Card", RED_CARD_FILEPATH);
+		this->data->assets.loadTexture("Brown Color Card", BROWN_CARD_FILEPATH);
+		this->data->assets.loadTexture("Green Color Card", GREEN_CARD_FILEPATH);
+		this->data->assets.loadTexture("Purple Color Card", PURPLE_CARD_FILEPATH);
+
 	}
 
 	void GameState::initPlayers() {

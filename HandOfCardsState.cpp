@@ -97,49 +97,41 @@ namespace gui {
 
 	void HandOfCardsState::initRoomCard(std::string roomName) {
 		if (roomName == "study") {
-			this->data->assets.loadTexture("Study Room Card", STUDY_CARD_FILEPATH);
 			sf::Sprite newRoomCard; 
 			newRoomCard.setTexture(this->data->assets.getTexture("Study Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "library") {
-			this->data->assets.loadTexture("Library Room Card", LIBRARY_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Library Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "conservatory") {
-			this->data->assets.loadTexture("Conservatory Room Card", CONSERVATORY_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Conservatory Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "hall") {
-			this->data->assets.loadTexture("Hall Room Card", HALL_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Hall Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "kitchen") {
-			this->data->assets.loadTexture("Kitchen Room Card", KITCHEN_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Kitchen Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "ballroom") {
-			this->data->assets.loadTexture("Ballroom Room Card", BALLROOM_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Ballroom Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "lounge") {
-			this->data->assets.loadTexture("Lounge Room Card", LOUNGE_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Lounge Room Card"));
 			this->playerCards.push_back(newRoomCard);
 		}
 		else if (roomName == "billiard room") {
-			this->data->assets.loadTexture("Billiard Room Card", BILLARD_CARD_FILEPATH);
 			sf::Sprite newRoomCard;
 			newRoomCard.setTexture(this->data->assets.getTexture("Billiard Room Card"));
 			this->playerCards.push_back(newRoomCard);
@@ -147,37 +139,31 @@ namespace gui {
 	}
 	void HandOfCardsState::initWeaponCard(std::string weaponName) {
 		if (weaponName == "candlestick") {
-			this->data->assets.loadTexture("Candlestick Weapon Card", CANDLESTICK_CARD_FILEPATH);
 			sf::Sprite newWeaponCard;
 			newWeaponCard.setTexture(this->data->assets.getTexture("Candlestick Weapon Card"));
 			this->playerCards.push_back(newWeaponCard);
 		}
 		else if (weaponName == "revolver") {
-			this->data->assets.loadTexture("Revolver Weapon Card", REVOLVER_CARD_FILEPATH);
 			sf::Sprite newWeaponCard;
 			newWeaponCard.setTexture(this->data->assets.getTexture("Revolver Weapon Card"));
 			this->playerCards.push_back(newWeaponCard);
 		}
 		else if (weaponName == "rope") {
-			this->data->assets.loadTexture("Rope Weapon Card", ROPE_CARD_FILEPATH);
 			sf::Sprite newWeaponCard;
 			newWeaponCard.setTexture(this->data->assets.getTexture("Rope Weapon Card"));
 			this->playerCards.push_back(newWeaponCard);
 		}
 		else if (weaponName == "wrench") {
-			this->data->assets.loadTexture("Wrench Weapon Card", WRENCH_CARD_FILEPATH);
 			sf::Sprite newWeaponCard;
 			newWeaponCard.setTexture(this->data->assets.getTexture("Wrench Weapon Card"));
 			this->playerCards.push_back(newWeaponCard);
 		}
 		else if (weaponName == "lead pipe") {
-			this->data->assets.loadTexture("Lead Pipe Weapon Card", LEADPIPE_CARD_FILEPATH);
 			sf::Sprite newWeaponCard;
 			newWeaponCard.setTexture(this->data->assets.getTexture("Lead Pipe Weapon Card"));
 			this->playerCards.push_back(newWeaponCard);
 		}
 		else if (weaponName == "knife") {
-			this->data->assets.loadTexture("Knife Weapon Card", KNIFE_CARD_FILEPATH);
 			sf::Sprite newWeaponCard;
 			newWeaponCard.setTexture(this->data->assets.getTexture("Knife Weapon Card"));
 			this->playerCards.push_back(newWeaponCard);
@@ -185,37 +171,31 @@ namespace gui {
 	}
 	void HandOfCardsState::initColorCard(std::string colorName) {
 		if (colorName == "white") {
-			this->data->assets.loadTexture("White Color Card", WHITE_CARD_FILEPATH);
 			sf::Sprite newColorCard;
 			newColorCard.setTexture(this->data->assets.getTexture("White Color Card"));
 			this->playerCards.push_back(newColorCard);
 		}
 		else if (colorName == "blue") {
-			this->data->assets.loadTexture("Blue Color Card", BLUE_CARD_FILEPATH);
 			sf::Sprite newColorCard;
 			newColorCard.setTexture(this->data->assets.getTexture("Blue Color Card"));
 			this->playerCards.push_back(newColorCard);
 		}
 		else if (colorName == "red") {
-			this->data->assets.loadTexture("Red Color Card", RED_CARD_FILEPATH);
 			sf::Sprite newColorCard;
 			newColorCard.setTexture(this->data->assets.getTexture("Red Color Card"));
 			this->playerCards.push_back(newColorCard);
 		}
 		else if (colorName == "brown") {
-			this->data->assets.loadTexture("Brown Color Card", BROWN_CARD_FILEPATH);
 			sf::Sprite newColorCard;
 			newColorCard.setTexture(this->data->assets.getTexture("Brown Color Card"));
 			this->playerCards.push_back(newColorCard);
 		}
 		else if (colorName == "green") {
-			this->data->assets.loadTexture("Green Color Card", GREEN_CARD_FILEPATH);
 			sf::Sprite newColorCard;
 			newColorCard.setTexture(this->data->assets.getTexture("Green Color Card"));
 			this->playerCards.push_back(newColorCard);
 		}
 		else if (colorName == "purple") {
-			this->data->assets.loadTexture("Purple Color Card", PURPLE_CARD_FILEPATH);
 			sf::Sprite newColorCard;
 			newColorCard.setTexture(this->data->assets.getTexture("Purple Color Card"));
 			this->playerCards.push_back(newColorCard);

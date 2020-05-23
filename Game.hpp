@@ -19,6 +19,7 @@ namespace gui {
 		AssetManager assets;
 		InputManager input;
 		vector<Player> players;
+		vector<std::string> accusation;
 		int turnNumber;
 	};
 

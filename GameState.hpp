@@ -19,6 +19,7 @@ namespace gui {
 			void initButtons();
 			void initText();
 			void initGameDeck();
+			void initCards();
 			void initPlayers();
 			void initWinningCards(vector<Card>&);
 			void givePlayerCard(vector<Card>&);
