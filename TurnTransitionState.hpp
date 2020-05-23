@@ -22,6 +22,12 @@ namespace gui {
 
 		sf::Sprite readyButton;
 		sf::Sprite background;
+		sf::Text playerNameText;
+		sf::RectangleShape pwBox;
+		sf::Text passwordInput;
+		sf::String playerPw;
+
+		bool pwFieldClicked;
 	};
 }
 #pragma once

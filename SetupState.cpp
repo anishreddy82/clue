@@ -81,11 +81,22 @@ namespace gui {
 				nameFieldClicked = false;
 			}
 			if (sf::Event::TextEntered == event.type && nameFieldClicked) {
-				playerName += event.text.unicode;
+				if (event.text.unicode == '\b' && playerName.getSize() > 0) {
+					playerName.erase(playerName.getSize() - 1, 1);
+				}
+				else {
+					playerName += event.text.unicode;
+				}
 				nameText.setString(playerName);
 			}
 			if (sf::Event::TextEntered == event.type && pwFieldClicked) {
-				playerPw += event.text.unicode;
+				if (event.text.unicode == '\b' && playerPw.getSize() > 0) {
+					playerPw.erase(playerPw.getSize() - 1, 1);
+				}
+				else {
+					playerPw += event.text.unicode;
+				}
+				
 				pwText.setString(playerPw);
 			}
 			if (sf::Event::KeyPressed == event.type) {
