@@ -10,6 +10,7 @@ Player::Player() {
 	name = "null";
 	color = 'n';
 	password = "";
+	accuseInt = 0;
 }
 
 /*
@@ -173,7 +174,13 @@ bool Player::accuse(std::vector<Card> murderCards) {
 
 }
 
+void Player::changeAccuse() {
+	accuseInt = 1;
+}
 
+int Player::getAccuse() {
+	return accuseInt;
+}
 
 /*
 Accessor functions for getting private members

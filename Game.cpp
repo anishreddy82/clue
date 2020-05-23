@@ -322,13 +322,12 @@ bool Game::playTurn() {
 			}
 		case 4:
 			//check to see if they are in the clue room
-			if (current_player->getPositionY() == 3 && current_player->getPositionX() == 2) {
+			if (current_player->getPositionY() == 3 && current_player->getPositionX() == 2 && current_player->getAccuse() != 1) {
 				//call accuse function
 				accusation = current_player->accuse(murderCards);
 				if (accusation == false) {
 					//if they made an accusation but got it wrong
-					//delete that player
-					//delete current_player;
+					current_player->changeAccuse();
 				}
 				if (accusation == true) {
 					menu_choice = 5;
@@ -337,7 +336,7 @@ bool Game::playTurn() {
 				break;
 			}
 			else {
-				std::cout << "You are not in the Clue Room, so you can't make an accusation!\n" << std::endl;
+				std::cout << "You are not in the Clue Room, or you have already made an accusation, so you can't make an accusation!\n" << std::endl;
 				break;
 			}
 		case 5: break; //quit

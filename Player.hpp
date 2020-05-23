@@ -13,6 +13,7 @@ private:
 	Notebook notebook;
 	int posX;
 	int posY;
+	int accuseInt;
 
 public:
 
@@ -26,6 +27,8 @@ public:
 
 	bool accuse(std::vector<Card>);
 
+	void changeAccuse();
+	int getAccuse();
 	int getId();
 	char getColor();
 	int getPositionX();
