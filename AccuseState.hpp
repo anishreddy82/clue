@@ -46,10 +46,13 @@ namespace gui {
 			sf::Sprite billiardCard;
 
 			sf::Sprite cancelButton;
+			sf::Sprite checkButton;
+			sf::Sprite crossButton;
 
 			void initPlayerSelect();
 			void initWeaponSelect();
 			void initRoomSelect();
+			void initConfirmOrCancel();
 
 	};
 }

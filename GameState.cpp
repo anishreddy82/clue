@@ -160,10 +160,7 @@ namespace gui {
 			if (this->data->input.isSpriteClicked(this->accuseButton, sf::Mouse::Left,
 						this->data->window)) {
 				this->data->machine.addState(stateRef(new AccuseState(data)), false);
-				if (this->data->accusation.size() == 3) {
-					std::cout << this->data->players.at(turn).getName() << 
-						" has made an accusation!\n";
-				}
+				
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
 						this->data->window)) {

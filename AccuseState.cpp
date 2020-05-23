@@ -6,12 +6,16 @@ namespace gui {
 	AccuseState::AccuseState(GameDataRef data) : data(data) {}
 
 	void AccuseState::init() {
+		this->data->accusation.clear();
 		charSelected = false;
 		weaponSelected = false;
 		roomSelected = false;
 
 		this->data->assets.loadTexture("Background", CARDS_BACKGROUND_FILEPATH);
 		this->data->assets.loadTexture("Return Button", RETURN_BUTTON_FILEPATH);
+		this->data->assets.loadTexture("Check Button", CHECK_BUTTON_FILEPATH);
+		this->data->assets.loadTexture("Cross Button", CROSS_BUTTON_FILEPATH);
+
 		this->background.setTexture(this->data->assets.getTexture("Background"));
 		this->cancelButton.setTexture(this->data->assets.getTexture("Return Button"));
 
@@ -126,115 +130,139 @@ namespace gui {
 					(loungeCard.getGlobalBounds().width / 2), 0));
 	}
 
+	void AccuseState::initConfirmOrCancel() {
+		this->checkButton.setTexture(this->data->assets.getTexture("Check Button"));
+		this->checkButton.setPosition((SCREEN_WIDTH / 2) -
+				(this->checkButton.getGlobalBounds().width * 2),
+				(SCREEN_HEIGHT / 2) - (this->checkButton.getGlobalBounds().height));
+
+		this->crossButton.setTexture(this->data->assets.getTexture("Cross Button"));
+		this->crossButton.setPosition((SCREEN_WIDTH / 2) + 
+				(this->crossButton.getGlobalBounds().width),
+				(SCREEN_HEIGHT / 2) - (this->crossButton.getGlobalBounds().height));
+	}
+
 	void AccuseState::handleInput() {
 		sf::Event event;
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) {
 				this->data->window.close();
 			}
-			if (this->data->input.isSpriteClicked(this->redChar, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("red");
-				charSelected = true;
+			if (!charSelected) {
+				if (this->data->input.isSpriteClicked(this->redChar, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("red");
+					charSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->blueChar, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("blue");
+					charSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->greenChar, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("green");
+					charSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->brownChar, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("brown");
+					charSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->whiteChar, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("white");
+					charSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->purpleChar, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("purple");
+					charSelected = true;
+				}
 			}
-			if (this->data->input.isSpriteClicked(this->blueChar, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("blue");
-				charSelected = true;
+			if (!weaponSelected && charSelected) {
+				if (this->data->input.isSpriteClicked(this->candlestickCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("candlestick");
+					weaponSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->gunCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("revolver");
+					weaponSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->ropeCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("rope");
+					weaponSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->wrenchCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("wrench");
+					weaponSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->pipeCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("lead pipe");
+					weaponSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->knifeCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("knife");
+					weaponSelected = true;
+				}
 			}
-			if (this->data->input.isSpriteClicked(this->greenChar, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("green");
-				charSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->brownChar, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("brown");
-				charSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->whiteChar, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("white");
-				charSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->purpleChar, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("purple");
-				charSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->candlestickCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("candlestick");
-				weaponSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->gunCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("revolver");
-				weaponSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->ropeCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("rope");
-				weaponSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->wrenchCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("wrench");
-				weaponSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->pipeCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("lead pipe");
-				weaponSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->knifeCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("knife");
-				weaponSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->studyCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("study");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->libraryCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("library");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->conservatoryCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("conservatory");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->hallCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("hall");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->kitchenCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("kitchen");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->ballroomCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("ballroom");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->loungeCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("lounge");
-				roomSelected = true;
-			}
-			if (this->data->input.isSpriteClicked(this->billiardCard, sf::Mouse::Left,
-						this->data->window)) {
-				this->data->accusation.push_back("billiard room");
-				roomSelected = true;
+			if (!roomSelected && weaponSelected && charSelected) {
+				if (this->data->input.isSpriteClicked(this->studyCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("study");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->libraryCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("library");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->conservatoryCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("conservatory");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->hallCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("hall");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->kitchenCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("kitchen");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->ballroomCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("ballroom");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->loungeCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("lounge");
+					roomSelected = true;
+				}
+				if (this->data->input.isSpriteClicked(this->billiardCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("billiard room");
+					roomSelected = true;
+				}
 			}
 			if (this->data->input.isSpriteClicked(this->cancelButton, sf::Mouse::Left,
-						this->data->window)) {
+						this->data->window) || (this->data->input.
+							isSpriteClicked(this->crossButton, sf::Mouse::Left,
+								this->data->window))) {
 				this->data->accusation.clear();
+				this->data->machine.removeState();
+			}
+			if (this->data->input.isSpriteClicked(this->checkButton, sf::Mouse::Left,
+						this->data->window)) {
 				this->data->machine.removeState();
 			}
 		}
@@ -277,6 +305,11 @@ namespace gui {
 			this->data->window.draw(this->ballroomCard);
 			this->data->window.draw(this->loungeCard);
 			this->data->window.draw(this->billiardCard);
+		}
+		if (roomSelected) {
+			initConfirmOrCancel();
+			this->data->window.draw(this->checkButton);
+			this->data->window.draw(this->crossButton);
 		}
 
 		this->data->window.display();

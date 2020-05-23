@@ -30,6 +30,9 @@
 #define GAME_MY_CARDS_BUTTON_FILEPATH "./Assets/graphics/MyCardsButton.png"
 #define GAME_NOTEBOOK_BUTTON_FILEPATH "./Assets/graphics/NotebookButton.png"
 
+#define CHECK_BUTTON_FILEPATH "./Assets/graphics/checkButton.jpg"
+#define CROSS_BUTTON_FILEPATH "./Assets/graphics/crossButton.jpg"
+
 #define GRID_SPRITE_FILEPATH "./Assets/graphics/grid.png"
 #define W_PIECE_FILEPATH "./Assets/graphics/wPiece.png"
 #define B_PIECE_FILEPATH "./Assets/graphics/bPiece.png"
