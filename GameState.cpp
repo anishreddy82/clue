@@ -206,6 +206,20 @@ namespace gui {
 		else {
 			rollText.setString("<--");
 		}
+		if (this->data->accusation.size() == 3) {
+			int count = 0;
+			for (int i = 0; i < this->data->accusation.size(); i++) {
+				for (int j = 0; j < murderCards.size(); j++) {
+					if (this->data->accusation.at(i) == murderCards.at(i).getName())
+						count++;
+				}
+			}
+			if (count != 3) {
+				std::cout << this->data->players.at(turn).getName() << " has lost\n";
+				this->data->players.at(turn).setHasLost();
+				this->data->accusation.clear();
+			}
+		}
 	}
 
 	void GameState::draw(float dt) {
@@ -468,6 +482,12 @@ namespace gui {
 		idx = rand() % 6;
 		v.push_back(deck.at(idx));
 		deck.erase(deck.begin() + idx);
+
+				/* DEBUG
+		for (int i = 0; i < v.size(); i++) {
+			std::cout << v.at(i).getName() << std::endl;
+		}
+		*/
 	}
 
 	void GameState::givePlayerCard(vector<Card> &v) {
@@ -513,6 +533,10 @@ namespace gui {
 
 	bool GameState::validateHorizontalMove(int pos, int dir) {
 		activePiece->movePiece(dir);
+		if (this->data->players.at(turn).getHasLost()) {
+			std::cout << "You can't move for the rest of the game\n";
+			return false;
+		}
 		if (checkSpriteCollision()) {
 			std::cout << "Collision\n";
 			return false;
@@ -529,6 +553,10 @@ namespace gui {
 
 	bool GameState::validateVerticalMove(int pos, int dir) {
 		activePiece->movePiece(dir);
+		if (this->data->players.at(turn).getHasLost()) {
+			std::cout << "You can't move for the rest of the game\n";
+			return false;
+		}
 		if (checkSpriteCollision()) {
 			std::cout << "Collision\n";
 			return false;

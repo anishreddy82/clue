@@ -14,6 +14,7 @@ private:
 	int posX;
 	int posY;
 	int location;
+	bool hasLost;
 
 public:
 
@@ -30,6 +31,8 @@ public:
 	int getPositionX();
 	int getPositionY();
 	int getLocation();
+	bool getHasLost();
+	void setHasLost();
 	void setLocation(int loc);
 	void setName(std::string nameIn);
 	void setColor(char colorIn);

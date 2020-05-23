@@ -11,6 +11,7 @@ Player::Player() {
 	color = 'n';
 	password = "";
 	location = 0;
+	hasLost = false;
 }
 
 /*
@@ -23,6 +24,7 @@ Player::Player(int idIn) {
 	color = ' ';
 	password = "";
 	location = 0;
+	hasLost = false;
 }
 
 /*
@@ -130,9 +132,16 @@ int Player::getLocation() {
 	return location;
 }
 
+bool Player::getHasLost() {
+	return hasLost;
+}
+
 /*
 Mutator functions for setting private members
 */
+void Player::setHasLost() {
+	hasLost = true;
+}
 void Player::setLocation(int loc) {
 	location = loc;
 }
