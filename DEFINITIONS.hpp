@@ -11,6 +11,7 @@
 #define MAIN_MENU_BACKGROUND_FILEPATH "./Assets/graphics/MainMenuBackground.png"
 #define GAME_BACKGROUND_FILEPATH "./Assets/graphics/board.jpg"
 #define PAUSE_BACKGROUND_FILEPATH "./Assets/graphics/MainMenuBackground.png"
+#define TRANSITION_BACKGROUND_FILEPATH "./Assets/graphics/transitionBackground.jpg"
 
 #define MAIN_MENU_TITLE_PATH "./Assets/graphics/GameTitle.png"
 #define MAIN_MENU_PLAY_BUTTON "./Assets/graphics/PlayButton.jpg"
@@ -32,6 +33,7 @@
 
 #define CHECK_BUTTON_FILEPATH "./Assets/graphics/checkButton.png"
 #define CROSS_BUTTON_FILEPATH "./Assets/graphics/crossButton.png"
+#define READY_BUTTON_FILEPATH "./Assets/graphics/readyButton.png"
 
 #define GRID_SPRITE_FILEPATH "./Assets/graphics/grid.png"
 #define W_PIECE_FILEPATH "./Assets/graphics/wPiece.png"
@@ -99,7 +101,8 @@ enum GameStates {
 	ePlaying,
 	eTurnOver,
 	ePaused,
-	eGameOver
+	eGameOver,
+	eNoMoreMoves
 };
 
 enum Locations {

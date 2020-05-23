@@ -2,6 +2,7 @@
 #include "GameState.hpp"
 #include "PauseState.hpp"
 #include "HandOfCardsState.hpp"
+#include "TurnTransitionState.hpp"
 #include "AccuseState.hpp"
 #include "DEFINITIONS.hpp"
 #include <iostream>
@@ -164,11 +165,15 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
 						this->data->window)) {
-				cout << "The end turn button has been clicked\n";
+				turn++;
+				this->data->turnNumber = turn;
+				if (turn >= this->data->players.size()) turn = 0;
+				gameState = GameStates::eTurnOver;
+				this->rollButton.setColor(sf::Color(255, 255, 255));
+				this->data->machine.addState(stateRef(new TurnTransitionState(data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->myCardsButton, sf::Mouse::Left,
 						this->data->window)) {
-				cout << "The my cards button has been clicked\n";
 				this->data->machine.addState(stateRef(new HandOfCardsState(data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->notebookButton, sf::Mouse::Left,
@@ -178,6 +183,9 @@ namespace gui {
 		}
 	}
 
+	/*
+	state checking
+	*/
 	void GameState::update(float dt) {
 		if (gameState == GameStates::eGameOver) {
 			//move to GameOver State
@@ -198,6 +206,19 @@ namespace gui {
 				activePiece = pieces.at(5);
 			else
 				activePiece = pieces.at(0);
+		}
+
+		/*
+		create new eGameDoneMoving
+		prevents rolling of die
+		*/
+		if (gameState == GameStates::eNoMoreMoves) {
+			//grey out the roll button
+			this->rollButton.setColor(sf::Color(102, 102, 102));
+		}
+
+		if (gameState == GameStates::ePlaying) {
+			this->rollButton.setColor(sf::Color(0, 0, 0));
 		}
 
 		if (moves) {
@@ -580,13 +601,13 @@ namespace gui {
 		gameState = GameStates::ePlaying;
 	}
 
+	/*
+	
+	WHERE IS THIS WORKING????
+	*/
 	void GameState::checkForMoves() {
 		if (!moves) {
-			gameState = GameStates::eTurnOver;
-			turn++;
-			this->data->turnNumber = turn;
-			if (turn >= this->data->players.size())
-				turn = 0;
+			gameState = GameStates::eNoMoreMoves; //CHANGE THIS TO NOMOREMOVING??????
 		}
 	}
 
