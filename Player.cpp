@@ -12,6 +12,7 @@ Player::Player() {
 	password = "";
 	location = 0;
 	hasLost = false;
+	madeSuggestion = false;
 }
 
 /*
@@ -25,6 +26,7 @@ Player::Player(int idIn) {
 	password = "";
 	location = 0;
 	hasLost = false;
+	madeSuggestion = false;
 }
 
 /*
@@ -226,4 +228,14 @@ bool Player::holdsCard(std::string cardName) {
 		}
 	}
 	return false;
+}
+
+void Player::resetSuggestion() {
+	madeSuggestion = false;
+}
+void Player::switchSuggestionToTrue() {
+	madeSuggestion = true;
+}
+bool Player::getSuggestion() {
+	return madeSuggestion;
 }

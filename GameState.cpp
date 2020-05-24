@@ -140,12 +140,13 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
 						this->data->window)) {
-				if (this->data->players.at(this->data->turnNumber).getLocation() != 
-						Locations::eHallway) {
+				if (this->data->players.at(this->data->turnNumber).getLocation() != Locations::eHallway
+					&& (this->data->players.at(this->data->turnNumber).getSuggestion() == false)) {
 					//DEBUG
 					cout << "You may make a suggestion from room: " << 
 						Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
 						.getLocation()) << std::endl;
+					this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
 					this->data->machine.addState(stateRef(new SuggestState(data)), false);
 				}
 				else
@@ -158,6 +159,7 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
 						this->data->window)) {
+				this->data->players.at(this->data->turnNumber).resetSuggestion();
 				this->data->turnNumber++;
 				//this->data->turnNumber = turn;
 				if (this->data->turnNumber >= this->data->players.size()) 
@@ -611,7 +613,7 @@ namespace gui {
 	*/
 	void GameState::checkForMoves() {
 		if (!moves) {
-			gameState = GameStates::eNoMoreMoves; //CHANGE THIS TO NOMOREMOVING??????
+			gameState = GameStates::eNoMoreMoves;
 		}
 	}
 
