@@ -7,6 +7,8 @@
 
 #define BUTTON_SCALE .08
 
+#define NOTEBOOK_NUMBOXES 120
+
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "./Assets/graphics/sky.png"
 #define MAIN_MENU_BACKGROUND_FILEPATH "./Assets/graphics/MainMenuBackground.png"
 #define GAME_BACKGROUND_FILEPATH "./Assets/graphics/board.jpg"
@@ -85,8 +87,14 @@ HandOfCardsState Assests
 #define RETURN_BUTTON_FILEPATH "./Assets/graphics/returnButton.png"
 #define CARDS_BACKGROUND_FILEPATH "./Assets/graphics/secretBackground.jpg"
 
-
 #define ROLL_FONT_FILEPATH "./Assets/fonts/arial.ttf"
+
+/*
+Notebook Assets
+*/
+#define EMPTYBOX_FILEPATH "./Assets/graphics/emptyBox.png"
+#define CHECKBOX_FILEPATH "./Assets/graphics/notebookCheck.png"
+#define CROSSBOX_FILEPATH "./Assets/graphics/notebookCross.png"
 
 #define GRID_CELL_SIZE 50
 #define CELLS_X 12

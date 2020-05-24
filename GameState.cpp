@@ -4,6 +4,7 @@
 #include "HandOfCardsState.hpp"
 #include "TurnTransitionState.hpp"
 #include "AccuseState.hpp"
+#include "NotebookState.hpp"
 #include "DEFINITIONS.hpp"
 #include <iostream>
 
@@ -50,7 +51,7 @@ namespace gui {
 		initText();
 		initGameDeck();
 		initCards();
-		this->turn = 0;
+		this->data->turnNumber = 0;
 		initPlayers();
 		this->moves = 0;
 
@@ -81,7 +82,8 @@ namespace gui {
 				}
 				if (event.key.code == sf::Keyboard::Right) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (this->data->players.at(turn).getPositionX() 
+						pos = (this->data->players.at(this->data->turnNumber)
+								.getPositionX() 
 								+ MOVE_RIGHT);
 						if (pos < CELLS_X) {
 							if (!validateHorizontalMove(pos, MOVE_RIGHT))
@@ -90,14 +92,11 @@ namespace gui {
 						else
 							std::cout << "You have reached the edge\n";
 					}
-					else
-						std::cout << this->data->players.at(turn).getName() << "(" << 
-							this->data->players.at(turn).getColor() << ")" << 
-							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Left) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (this->data->players.at(turn).getPositionX() - 1);
+						pos = (this->data->players.at(this->data->turnNumber)
+								.getPositionX() - 1);
 						if (pos >= 0) {
 							if(!validateHorizontalMove(pos, MOVE_LEFT))
 								activePiece->movePiece(MOVE_RIGHT);
@@ -105,14 +104,11 @@ namespace gui {
 						else
 							std::cout << "You have reached the edge\n";
 					}
-					else
-						std::cout << this->data->players.at(turn).getName() << "(" << 
-							this->data->players.at(turn).getColor() << ")" << 
-							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Up) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (this->data->players.at(turn).getPositionY() - 1);
+						pos = (this->data->players.at(this->data->turnNumber)
+								.getPositionY() - 1);
 						if (pos >= 0) {
 							if (!validateVerticalMove(pos, MOVE_UP))
 								activePiece->movePiece(MOVE_DOWN);
@@ -120,14 +116,11 @@ namespace gui {
 						else
 							std::cout << "You have reached the edge\n";
 					}
-					else
-						std::cout << this->data->players.at(turn).getName() << "(" << 
-							this->data->players.at(turn).getColor() << ")" << 
-							" must roll first\n";
 				}
 				if (event.key.code == sf::Keyboard::Down) {
 					if (gameState == GameStates::ePlaying) {
-						pos = (this->data->players.at(turn).getPositionY() + 1);
+						pos = (this->data->players.at(this->data->turnNumber)
+								.getPositionY() + 1);
 						if (pos < CELLS_Y) {
 							if (!validateVerticalMove(pos, MOVE_DOWN))
 								activePiece->movePiece(MOVE_UP);
@@ -135,10 +128,6 @@ namespace gui {
 						else
 							std::cout << "You have reached the edge\n";
 					}
-					else
-						std::cout << this->data->players.at(turn).getName() << "(" << 
-							this->data->players.at(turn).getColor() << ")" << 
-							" must roll first\n";
 				}
 			}
 			if (this->data->input.isSpriteClicked(this->rollButton, sf::Mouse::Left,
@@ -149,10 +138,12 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
 						this->data->window)) {
-				if (this->data->players.at(turn).getLocation() != Locations::eHallway) {
+				if (this->data->players.at(this->data->turnNumber).getLocation() != 
+						Locations::eHallway) {
 					//DEBUG
 					cout << "You may make a suggestion from room: " << 
-						this->data->players.at(turn).getLocation() << std::endl;
+						this->data->players.at(this->data->turnNumber)
+						.getLocation() << std::endl;
 					//insert state transition here
 				}
 				else
@@ -165,9 +156,10 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
 						this->data->window)) {
-				turn++;
-				this->data->turnNumber = turn;
-				if (turn >= this->data->players.size()) turn = 0;
+				this->data->turnNumber++;
+				//this->data->turnNumber = turn;
+				if (this->data->turnNumber >= this->data->players.size()) 
+					this->data->turnNumber = 0;
 				gameState = GameStates::eTurnOver;
 				this->rollButton.setColor(sf::Color(255, 255, 255));
 				this->data->machine.addState(stateRef(new TurnTransitionState(data)), false);
@@ -178,7 +170,7 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->notebookButton, sf::Mouse::Left,
 						this->data->window)) {
-				cout << "The notebook button has been clicked\n";
+				this->data->machine.addState(stateRef(new NotebookState(data)), false);
 			}
 		}
 	}
@@ -191,9 +183,11 @@ namespace gui {
 			//move to GameOver State
 		}
 		if (gameState == GameStates::eTurnOver) {
-			char next = this->data->players.at(turn).getColor();
-			turnText.setString(this->data->players.at(turn).getName() + "'s Turn" + 
-					"(" + this->data->players.at(turn).getColor() + ")");
+			char next = this->data->players.at(this->data->turnNumber).getColor();
+			turnText.setString(this->data->players.at(this->data->turnNumber)
+					.getName() + "'s Turn" + 
+					"(" + this->data->players.at(this->data->turnNumber)
+					.getColor() + ")");
 			if (next == 'r')
 				activePiece = pieces.at(3);
 			else if (next == 'b')
@@ -236,8 +230,9 @@ namespace gui {
 				}
 			}
 			if (count != 3) {
-				std::cout << this->data->players.at(turn).getName() << " has lost\n";
-				this->data->players.at(turn).setHasLost();
+				std::cout << this->data->players.at(this->data->turnNumber)
+					.getName() << " has lost\n";
+				this->data->players.at(this->data->turnNumber).setHasLost();
 				this->data->accusation.clear();
 			}
 		}
@@ -481,15 +476,14 @@ namespace gui {
 
 		}*/
 		for (int i = 0; i < this->data->players.size(); i++) {
-			if (this->data->players.at(i).getColor() == 'r')
-				turn = i;
+			if (this->data->players.at(i).getColor() == 'r') {
+				this->data->turnNumber = i;
+				break;
+			}
 			else
-				turn = rand() % this->data->players.size();
-
-			this->data->turnNumber = turn;
+				this->data->turnNumber = rand() % this->data->players.size();
 		}
 	}
-
 
 	void GameState::initWinningCards(vector<Card> &v) {
 		int idx = (rand() % ((deck.size() - 1) - 12 + 1) + 12);
@@ -504,11 +498,11 @@ namespace gui {
 		v.push_back(deck.at(idx));
 		deck.erase(deck.begin() + idx);
 
-				/* DEBUG
+	/*			 DEBUG
 		for (int i = 0; i < v.size(); i++) {
 			std::cout << v.at(i).getName() << std::endl;
-		}
-		*/
+		}*/
+		
 	}
 
 	void GameState::givePlayerCard(vector<Card> &v) {
@@ -554,7 +548,7 @@ namespace gui {
 
 	bool GameState::validateHorizontalMove(int pos, int dir) {
 		activePiece->movePiece(dir);
-		if (this->data->players.at(turn).getHasLost()) {
+		if (this->data->players.at(this->data->turnNumber).getHasLost()) {
 			std::cout << "You can't move for the rest of the game\n";
 			return false;
 		}
@@ -564,9 +558,11 @@ namespace gui {
 		}
 		else {
 			moves--;
-			this->data->players.at(turn).setPositionX(pos);
-			this->data->players.at(turn).setLocation(gridArray[this->data->players.at(turn).
-					getPositionY()][this->data->players.at(turn).getPositionX()]);
+			this->data->players.at(this->data->turnNumber).setPositionX(pos);
+			this->data->players.at(this->data->turnNumber).setLocation
+				(gridArray[this->data->players.at(this->data->turnNumber).
+					getPositionY()][this->data->players.at(this->data->turnNumber)
+					.getPositionX()]);
 			checkForMoves();
 		}
 		return true;
@@ -574,7 +570,7 @@ namespace gui {
 
 	bool GameState::validateVerticalMove(int pos, int dir) {
 		activePiece->movePiece(dir);
-		if (this->data->players.at(turn).getHasLost()) {
+		if (this->data->players.at(this->data->turnNumber).getHasLost()) {
 			std::cout << "You can't move for the rest of the game\n";
 			return false;
 		}
@@ -584,9 +580,11 @@ namespace gui {
 		}
 		else {
 			moves--;
-			this->data->players.at(turn).setPositionY(pos);
-			this->data->players.at(turn).setLocation(gridArray[this->data->players.at(turn).
-					getPositionY()][this->data->players.at(turn).getPositionX()]);
+			this->data->players.at(this->data->turnNumber).setPositionY(pos);
+			this->data->players.at(this->data->turnNumber).setLocation
+				(gridArray[this->data->players.at(this->data->turnNumber).
+					getPositionY()][this->data->players.at(this->data->turnNumber)
+					.getPositionX()]);
 			checkForMoves();
 		}
 		return true;
@@ -596,7 +594,7 @@ namespace gui {
 		cout << "The roll button has been clicked\n";
 		srand(time(NULL));
 		moves = rand() % 3 + 1;
-		std::cout << this->data->players.at(turn).getColor() << " has rolled "
+		std::cout << this->data->players.at(this->data->turnNumber).getColor() << " has rolled "
 			<< moves << "\n";
 		gameState = GameStates::ePlaying;
 	}

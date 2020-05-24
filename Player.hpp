@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <SFML/Graphics.hpp>
 #include "Card.hpp"
 #include "Notebook.hpp"
 class Player
@@ -21,6 +22,7 @@ public:
 	Player();
 	Player(int idIn);
 	std::vector<Card> hand;
+	std::vector<sf::Sprite> notes;
 	
 	std::string getName();
 	void showHand();

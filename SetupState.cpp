@@ -17,8 +17,11 @@ namespace gui {
 		this->data->assets.loadTexture("Decrease", DEC_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Confirm", CONFIRM_BUTTON_FILEPATH);
 		this->data->assets.loadTexture("Set Players", SET_BUTTON_FILEPATH);
+		this->data->assets.loadTexture("Empty Box", W_PIECE_FILEPATH);
 
 		this->background.setTexture(this->data->assets.getTexture("Setup Background"));
+		this->emptyBox.setTexture(this->data->assets.getTexture("Empty Box"));
+		this->emptyBox.setScale(0.6f, 0.6f);
 		
 
 		//positioning
@@ -115,6 +118,10 @@ namespace gui {
 					new_player.setColor(generate_color());
 					new_player.setStartingPosition();
 					new_player.setPassword(playerPw);
+					for (int i = 0; i < NOTEBOOK_NUMBOXES; i++) {
+						new_player.notes.push_back(emptyBox);
+					}
+					new_player.notes.at(0).setPosition(0, 0);
 					this->data->players.push_back(new_player);
 					playerId++;
 					if (playerId == numPlayers) {

@@ -22,6 +22,7 @@ namespace gui {
 			sf::Sprite dec;
 			sf::Sprite confirmButton;
 			sf::Sprite setButton;
+			sf::Sprite emptyBox;
 
 			sf::RectangleShape nameBox;
 			sf::RectangleShape pwBox;
