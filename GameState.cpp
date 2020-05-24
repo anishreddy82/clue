@@ -407,7 +407,7 @@ namespace gui {
 		deck.emplace_back(Card("lounge", 'r'));
 		deck.emplace_back(Card("billiard room", 'r'));
 		/*
-		ADD DINING ROOM CARD HERE???? 
+		ADD DINING ROOM CARD HERE <-------------------------------------------------
 		*/
 	}
 

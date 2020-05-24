@@ -37,8 +37,10 @@ namespace gui {
 		sf::Sprite knifeCard;
 
 		sf::Sprite roomCard;
+		sf::Sprite foundCard;
 
 		std::vector<std::string> suggestion;
+		sf::Text suggestionMessage;
 
 		sf::Sprite cancelButton;
 		sf::Sprite checkButton;

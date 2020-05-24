@@ -127,3 +127,81 @@ std::string Helper::getRoomNameFromNumber(int roomNumber) {
 		throw "roomNumber out of range";
 	}
 }
+
+
+/*
+Transform shorthand card names into SFML used asset names
+ex: "billard room" --> returns "Billard Room Card"
+*/
+std::string Helper::getProperCardName(std::string oldName) {
+	//Rooms
+	if (oldName == "kitchen") {
+		return "Kitchen Room Card";
+	}
+	else if (oldName == "study") {
+		return "Study Room Card";
+	}
+	else if (oldName == "library") {
+		return "Library Room Card";
+	}
+	else if (oldName == "conservatory") {
+		return "Conservatory Room Card";
+	}
+	else if (oldName == "hall") {
+		return "Hall Room Card";
+	}
+	else if (oldName == "ballroom") {
+		return "Ballroom Room Card";
+	}
+	else if (oldName == "lounge") {
+		return "Lounge Room Card";
+	}
+	else if (oldName == "billiard room") {
+		return "Billiard Room Card";
+	}
+	else if (oldName == "dining room") {
+		return "Dining Room Card";
+	}
+	//Weapons
+	else if (oldName == "candlestick") {
+		return "Candlestick Weapon Card";
+	}
+	else if (oldName == "revolver") {
+		return "Revolver Weapon Card";
+	}
+	else if (oldName == "rope") {
+		return "Rope Weapon Card";
+	}
+	else if (oldName == "wrench") {
+		return "Wrench Weapon Card";
+	}
+	else if (oldName == "lead pipe") {
+		return "Lead Pipe Weapon Card";
+	}
+	else if (oldName == "knife") {
+		return "Knife Weapon Card";
+	}
+
+	//Colors
+	else if (oldName == "white") {
+		return "White Color Card";
+	}
+	else if (oldName == "blue") {
+		return "Blue Color Card";
+	}
+	else if (oldName == "red") {
+		return "Red Color Card";
+	}
+	else if (oldName == "brown") {
+		return "Brown Color Card";
+	}
+	else if (oldName == "green") {
+		return "Green Color Card";
+	}
+	else if (oldName == "purple") {
+		return "Purple Color Card";
+	}
+	else {
+		throw "No matching names";
+	}
+}

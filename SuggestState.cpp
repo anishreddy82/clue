@@ -1,5 +1,7 @@
 #include <sstream>
 #include <algorithm>
+#include <chrono>
+#include <thread>
 #include "SuggestState.hpp"
 #include "GameState.hpp"
 #include "Helper.hpp"
@@ -292,20 +294,52 @@ namespace gui {
 	}
 
 	void SuggestState::makeSuggestion() {
+		suggestionMessage.setFont(this->data->assets.getFont("Roll Font"));
+		suggestionMessage.setCharacterSize(60);
+		suggestionMessage.setFillColor(sf::Color::Black);
+		
 
 		std::random_shuffle(suggestion.begin(), suggestion.end());
 		while (suggestion.size() > 0) {
 			std::string cardName = suggestion.back();
 			for (int i = 0; i < this->data->players.size(); i++) {
 				if (this->data->players.at(i).holdsCard(cardName)) {
-					//if they have it, display, return
 					std::cout << this->data->players.at(i).getName() << "has the " << cardName << std::endl;
+					cardName = Helper::getProperCardName(cardName);
+					this->foundCard.setTexture(this->data->assets.getTexture(cardName));
+					this->foundCard.setPosition(
+						((SCREEN_WIDTH / 2) - this->roomCard.getGlobalBounds().width / 2),
+						((SCREEN_HEIGHT / 2) - this->roomCard.getGlobalBounds().height / 2));
+					
+					this->suggestionMessage.setString(this->data->players.at(i).getName() + " had:");
+					this->suggestionMessage.setPosition(
+						((SCREEN_WIDTH / 2) - this->suggestionMessage.getGlobalBounds().width / 2),
+						(SCREEN_HEIGHT / 4));
+
+					this->data->window.clear();
+					this->data->window.draw(this->background);
+					this->data->window.draw(this->foundCard);
+					this->data->window.draw(this->suggestionMessage);
+					this->data->window.display();
+					//pause for 3 seconds
+					std::chrono::seconds duration(4);
+					std::this_thread::sleep_for(duration);
 					return;
 				}
 			}
 			suggestion.pop_back();
 		}
 
-		//none of the 3 cards were found if other players, draw/give a crypic message, return
+		this->suggestionMessage.setString("None of the other players had your suggested cards...");
+		this->suggestionMessage.setPosition(
+			((SCREEN_WIDTH / 2) - this->suggestionMessage.getGlobalBounds().width / 2),
+			(SCREEN_HEIGHT / 2 + 30));
+		this->data->window.clear();
+		this->data->window.draw(this->background);
+		this->data->window.draw(this->suggestionMessage);
+		this->data->window.display();
+		//pause for 3 seconds
+		std::chrono::seconds duration(3);
+		std::this_thread::sleep_for(duration);
 	}
 }
