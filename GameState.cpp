@@ -4,8 +4,10 @@
 #include "HandOfCardsState.hpp"
 #include "TurnTransitionState.hpp"
 #include "AccuseState.hpp"
+#include "SuggestState.hpp"
 #include "NotebookState.hpp"
 #include "DEFINITIONS.hpp"
+#include "Helper.hpp"
 #include <iostream>
 
 namespace gui {
@@ -142,9 +144,9 @@ namespace gui {
 						Locations::eHallway) {
 					//DEBUG
 					cout << "You may make a suggestion from room: " << 
-						this->data->players.at(this->data->turnNumber)
-						.getLocation() << std::endl;
-					//insert state transition here
+						Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
+						.getLocation()) << std::endl;
+					this->data->machine.addState(stateRef(new SuggestState(data)), false);
 				}
 				else
 					cout << "You have to enter a room first\n";

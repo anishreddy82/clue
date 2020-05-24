@@ -97,3 +97,33 @@ float Helper::fraction_to_float(std::string fraction) {
 		return float(numerator)/(float)denominator;
 	}
 }
+
+/*
+Transform room name from its integer representation to a string
+*/
+std::string Helper::getRoomNameFromNumber(int roomNumber) {
+	switch (roomNumber) {
+	case(0):
+		return "Hallway";
+	case(1):
+		return "Kitchen";
+	case(2):
+		return "Ballroom";
+	case(3):
+		return "Conservatory";
+	case(4):
+		return "Billards Room";
+	case(5):
+		return "Dining Room";
+	case(6):
+		return "Library";
+	case(7):
+		return "Hall";
+	case(8):
+		return "Lounge";
+	case(9):
+		return "Study";
+	default:
+		throw "roomNumber out of range";
+	}
+}
