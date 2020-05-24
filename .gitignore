@@ -1,6 +1,7 @@
 # visual studio user preferences 
 .vs/
 Debug
+Release
 VirtualClue.vcxproj.filters
 VirtualClue.vcxproj.user
 
