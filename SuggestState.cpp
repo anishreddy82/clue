@@ -1,4 +1,5 @@
 #include <sstream>
+#include <algorithm>
 #include "SuggestState.hpp"
 #include "GameState.hpp"
 #include "Helper.hpp"
@@ -101,7 +102,6 @@ namespace gui {
 		//Kitchen
 		if (location == 1) {
 			this->roomCard.setTexture(this->data->assets.getTexture("Kitchen Room Card"));
-
 		}
 		//Ball Room
 		else if (location == 2) {
@@ -242,6 +242,10 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->checkButton, sf::Mouse::Left,
 				this->data->window)) {
+				/*
+				Logic for Suggestion HERE <------------------------------------------------------------------------------------------------------------------------------------------------------
+				*/
+				makeSuggestion();
 				this->data->machine.removeState();
 			}
 		}
@@ -285,5 +289,23 @@ namespace gui {
 		}
 
 		this->data->window.display();
+	}
+
+	void SuggestState::makeSuggestion() {
+
+		std::random_shuffle(suggestion.begin(), suggestion.end());
+		while (suggestion.size() > 0) {
+			std::string cardName = suggestion.back();
+			for (int i = 0; i < this->data->players.size(); i++) {
+				if (this->data->players.at(i).holdsCard(cardName)) {
+					//if they have it, display, return
+					std::cout << this->data->players.at(i).getName() << "has the " << cardName << std::endl;
+					return;
+				}
+			}
+			suggestion.pop_back();
+		}
+
+		//none of the 3 cards were found if other players, draw/give a crypic message, return
 	}
 }

@@ -104,25 +104,25 @@ Transform room name from its integer representation to a string
 std::string Helper::getRoomNameFromNumber(int roomNumber) {
 	switch (roomNumber) {
 	case(0):
-		return "Hallway";
+		return "hallway";
 	case(1):
-		return "Kitchen";
+		return "kitchen";
 	case(2):
-		return "Ballroom";
+		return "ballroom";
 	case(3):
-		return "Conservatory";
+		return "conservatory";
 	case(4):
-		return "Billards Room";
+		return "billard room";
 	case(5):
-		return "Dining Room";
+		return "dining room";
 	case(6):
-		return "Library";
+		return "library";
 	case(7):
-		return "Hall";
+		return "hall";
 	case(8):
-		return "Lounge";
+		return "lounge";
 	case(9):
-		return "Study";
+		return "study";
 	default:
 		throw "roomNumber out of range";
 	}

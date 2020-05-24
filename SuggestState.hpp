@@ -49,5 +49,6 @@ namespace gui {
 		void initRoomSelect();
 		void initConfirmOrCancel();
 
+		void makeSuggestion();
 	};
 }

@@ -45,4 +45,5 @@ public:
 	void setPositionY(int posY1);
 	bool checkPassword(std::string stringIn);
 	void printPlayerInfo();
+	bool holdsCard(std::string cardName);
 };

@@ -406,6 +406,9 @@ namespace gui {
 		deck.emplace_back(Card("ballroom", 'r'));
 		deck.emplace_back(Card("lounge", 'r'));
 		deck.emplace_back(Card("billiard room", 'r'));
+		/*
+		ADD DINING ROOM CARD HERE???? 
+		*/
 	}
 
 	void GameState::initCards() {
@@ -417,6 +420,7 @@ namespace gui {
 		this->data->assets.loadTexture("Ballroom Room Card", BALLROOM_CARD_FILEPATH);
 		this->data->assets.loadTexture("Lounge Room Card", LOUNGE_CARD_FILEPATH);
 		this->data->assets.loadTexture("Billiard Room Card", BILLARD_CARD_FILEPATH);
+		this->data->assets.loadTexture("Dining Room Card", DINING_CARD_FILEPATH);
 
 		this->data->assets.loadTexture("Candlestick Weapon Card", CANDLESTICK_CARD_FILEPATH);
 		this->data->assets.loadTexture("Revolver Weapon Card", REVOLVER_CARD_FILEPATH);

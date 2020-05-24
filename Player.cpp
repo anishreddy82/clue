@@ -217,3 +217,13 @@ void Player::setStartingPosition() {
 		posY = 2;
 	}
 }
+
+
+bool Player::holdsCard(std::string cardName) {
+	for (int i = 0; i < hand.size(); i++) {
+		if (hand.at(i).getName() == cardName) {
+			return true;
+		}
+	}
+	return false;
+}
