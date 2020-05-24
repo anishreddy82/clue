@@ -34,6 +34,9 @@ class Game {
 		int displaySubMenu();
 
 		bool playerInSpot(int x, int y);
+
+		void standingsOut();
+		void printTable();
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Player.hpp"
 #include "Menu.hpp"
 #include "Game.hpp"
@@ -59,7 +60,10 @@ int main() {
 		winner = game.playTurn();
 	}
 
+	game.standingsOut();
 	std::cout << "Congrats! The game is now ended. \n" << std::endl;
+	
+	game.printTable();
 
 	return 0;
 }

@@ -11,6 +11,7 @@ Player::Player() {
 	color = 'n';
 	password = "";
 	accuseInt = 0;
+	winner = false;
 }
 
 /*
@@ -22,6 +23,7 @@ Player::Player(int idIn) {
 	name = "";
 	color = ' ';
 	password = "";
+	winner = false;
 }
 
 /*
@@ -215,6 +217,13 @@ void Player::setPassword(std::string passwordIn) {
 	password = passwordIn;
 }
 
+void Player::setWinner() {
+	winner = true;
+}
+
+bool Player::isWinner(){
+	return winner;
+}
 
 void Player::setPositionX(int posX1) {
 	posX = posX1;

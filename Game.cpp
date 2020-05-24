@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -320,6 +321,7 @@ bool Game::playTurn() {
 					std::cout << "None of the suggested cards were found in any of the players hands" << std::endl;
 				}
 			}
+			break;
 		case 4:
 			//check to see if they are in the clue room
 			if (current_player->getPositionY() == 3 && current_player->getPositionX() == 2 && current_player->getAccuse() != 1) {
@@ -330,6 +332,7 @@ bool Game::playTurn() {
 					current_player->changeAccuse();
 				}
 				if (accusation == true) {
+					current_player->setWinner();
 					menu_choice = 5;
 					//triggers endgame
 				}
@@ -403,4 +406,48 @@ bool Game::playerInSpot(int x, int y) {
 		}
 	}
 	return false;
+}
+
+void Game::standingsOut(){
+	std::ofstream winners;
+	winners.open("./winners.txt", std::ios::app);
+	for (int i = 0; i < players.size(); i++) {
+		if (players[i].isWinner() == true) {
+			winners << players[i].getName() << "\n";
+			break;
+		}
+	}
+	winners << "\n";
+	winners.close();
+
+	std::ofstream losers;
+	losers.open("./losers.txt", std::ios::app);
+	for (int i = 0; i < players.size(); i++) {
+		if (players[i].isWinner() == false) {
+			losers << players[i].getName() << "\n";
+		}
+	}
+	losers << "\n";
+	losers.close();
+}
+
+void Game::printTable(){
+	std::string line;
+
+	std::ifstream winners;
+	winners.open("./winners.txt");
+	
+	std::cout << "Previous Winners" << std::endl;
+	while (getline(winners, line)) {
+		std::cout << line << "\n";
+	}
+	winners.close();
+
+	std::ifstream losers;
+	losers.open("./losers.txt");
+	std::cout << std::endl << "Previous Losers" << std::endl;
+	while (getline(losers, line)) {
+		std::cout << line << "\n";
+	}
+	losers.close();
 }

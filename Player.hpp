@@ -14,6 +14,7 @@ private:
 	int posX;
 	int posY;
 	int accuseInt;
+	bool winner;
 
 public:
 
@@ -41,4 +42,7 @@ public:
 	void setPositionY(int posY1);
 	bool checkPassword(std::string stringIn);
 	void printPlayerInfo();
+
+	void setWinner();
+	bool isWinner();
 };
