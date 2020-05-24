@@ -12,6 +12,7 @@ Player::Player() {
 	password = "";
 	location = 0;
 	hasLost = false;
+	madeSuggestion = false;
 }
 
 /*
@@ -25,6 +26,7 @@ Player::Player(int idIn) {
 	password = "";
 	location = 0;
 	hasLost = false;
+	madeSuggestion = false;
 }
 
 /*
@@ -216,4 +218,24 @@ void Player::setStartingPosition() {
 		posX = 0;
 		posY = 2;
 	}
+}
+
+
+bool Player::holdsCard(std::string cardName) {
+	for (int i = 0; i < hand.size(); i++) {
+		if (hand.at(i).getName() == cardName) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Player::resetSuggestion() {
+	madeSuggestion = false;
+}
+void Player::switchSuggestionToTrue() {
+	madeSuggestion = true;
+}
+bool Player::getSuggestion() {
+	return madeSuggestion;
 }

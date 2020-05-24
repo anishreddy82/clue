@@ -20,5 +20,7 @@ class Helper {
         static void print_vector(std::vector<int> v);
         static std::vector<int> generate_random_ints(int size_n);
 		static float fraction_to_float(std::string fraction);
+		static std::string getRoomNameFromNumber(int roomNumber);
+		static std::string getProperCardName(std::string oldName);
 };
 #endif

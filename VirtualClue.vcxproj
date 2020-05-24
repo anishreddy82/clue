@@ -122,6 +122,7 @@
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Notebook.cpp" />
+    <ClCompile Include="NotebookState.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="SetupState.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="SuggestState.cpp" />
     <ClCompile Include="TurnTransitionState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +147,7 @@
     <ClInclude Include="MainMenuState.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Notebook.hpp" />
+    <ClInclude Include="NotebookState.hpp" />
     <ClInclude Include="PauseState.hpp" />
     <ClInclude Include="Piece.hpp" />
     <ClInclude Include="Player.hpp" />
@@ -153,7 +156,11 @@
     <ClInclude Include="SplashState.hpp" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateMachine.hpp" />
+    <ClInclude Include="SuggestState.hpp" />
     <ClInclude Include="TurnTransitionState.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bugfixes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

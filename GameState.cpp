@@ -4,8 +4,10 @@
 #include "HandOfCardsState.hpp"
 #include "TurnTransitionState.hpp"
 #include "AccuseState.hpp"
+#include "SuggestState.hpp"
 #include "NotebookState.hpp"
 #include "DEFINITIONS.hpp"
+#include "Helper.hpp"
 #include <iostream>
 
 namespace gui {
@@ -138,13 +140,14 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
 						this->data->window)) {
-				if (this->data->players.at(this->data->turnNumber).getLocation() != 
-						Locations::eHallway) {
+				if (this->data->players.at(this->data->turnNumber).getLocation() != Locations::eHallway
+					&& (this->data->players.at(this->data->turnNumber).getSuggestion() == false)) {
 					//DEBUG
 					cout << "You may make a suggestion from room: " << 
-						this->data->players.at(this->data->turnNumber)
-						.getLocation() << std::endl;
-					//insert state transition here
+						Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
+						.getLocation()) << std::endl;
+					this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
+					this->data->machine.addState(stateRef(new SuggestState(data)), false);
 				}
 				else
 					cout << "You have to enter a room first\n";
@@ -156,6 +159,7 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
 						this->data->window)) {
+				this->data->players.at(this->data->turnNumber).resetSuggestion();
 				this->data->turnNumber++;
 				//this->data->turnNumber = turn;
 				if (this->data->turnNumber >= this->data->players.size()) 
@@ -404,6 +408,9 @@ namespace gui {
 		deck.emplace_back(Card("ballroom", 'r'));
 		deck.emplace_back(Card("lounge", 'r'));
 		deck.emplace_back(Card("billiard room", 'r'));
+		/*
+		ADD DINING ROOM CARD HERE <-------------------------------------------------
+		*/
 	}
 
 	void GameState::initCards() {
@@ -415,6 +422,7 @@ namespace gui {
 		this->data->assets.loadTexture("Ballroom Room Card", BALLROOM_CARD_FILEPATH);
 		this->data->assets.loadTexture("Lounge Room Card", LOUNGE_CARD_FILEPATH);
 		this->data->assets.loadTexture("Billiard Room Card", BILLARD_CARD_FILEPATH);
+		this->data->assets.loadTexture("Dining Room Card", DINING_CARD_FILEPATH);
 
 		this->data->assets.loadTexture("Candlestick Weapon Card", CANDLESTICK_CARD_FILEPATH);
 		this->data->assets.loadTexture("Revolver Weapon Card", REVOLVER_CARD_FILEPATH);
@@ -605,7 +613,7 @@ namespace gui {
 	*/
 	void GameState::checkForMoves() {
 		if (!moves) {
-			gameState = GameStates::eNoMoreMoves; //CHANGE THIS TO NOMOREMOVING??????
+			gameState = GameStates::eNoMoreMoves;
 		}
 	}
 
