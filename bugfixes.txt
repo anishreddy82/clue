@@ -4,7 +4,8 @@ fix/
 -Are the room numbers enum Locations in DEFINITIONS correctly corresponding to their rooms on the board representation?
 	--if not, change in SuggestState.cpp-line 95 function, Helper.cpp function
 
-MISSING DINING ROOM CARD IN GAMESTATE DECKS/INITS
+**MISSING DINING ROOM CARD IN GAMESTATE DECKS/INITS, GameState.cpp-439
+	-add to AccuseState room card grid
 
 smells/
 -remove dead code

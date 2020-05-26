@@ -114,6 +114,7 @@
     <ClCompile Include="board.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HandOfCardsState.cpp" />
     <ClCompile Include="Helper.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Card.hpp" />
     <ClInclude Include="DEFINITIONS.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameOverState.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HandOfCardsState.hpp" />
     <ClInclude Include="Helper.hpp" />

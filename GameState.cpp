@@ -634,10 +634,7 @@ namespace gui {
 		gameState = GameStates::ePlaying;
 	}
 
-	/*
-	
-	WHERE IS THIS WORKING????
-	*/
+
 	void GameState::checkForMoves() {
 		if (!moves) {
 			gameState = GameStates::eNoMoreMoves;
