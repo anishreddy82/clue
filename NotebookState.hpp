@@ -21,8 +21,14 @@ namespace gui {
 			sf::Sprite emptyBox;
 			sf::Sprite checkedBox;
 			sf::Sprite crossedBox;
+			sf::Sprite boxBorder;
 			vector<sf::Sprite>* boxes;
+			vector<sf::Text> labels;
+			sf::Font labelFont;
+			sf::Text labelText;
 
 			void updateBoxPosition(int);
+			void initLabels();
+			void setLabelPosition(int);
 	};
 }
