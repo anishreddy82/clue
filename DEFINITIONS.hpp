@@ -95,6 +95,7 @@ Notebook Assets
 #define EMPTYBOX_FILEPATH "./Assets/graphics/emptyBox.png"
 #define CHECKBOX_FILEPATH "./Assets/graphics/notebookCheck.png"
 #define CROSSBOX_FILEPATH "./Assets/graphics/notebookCross.png"
+#define BOX_BORDER_FILEPATH "./Assets/graphics/notebookBoxBorder.png"
 
 #define GRID_CELL_SIZE 50
 #define CELLS_X 12

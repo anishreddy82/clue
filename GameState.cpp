@@ -6,6 +6,7 @@
 #include "AccuseState.hpp"
 #include "SuggestState.hpp"
 #include "NotebookState.hpp"
+#include "GameOverState.hpp"
 #include "DEFINITIONS.hpp"
 #include "Helper.hpp"
 #include <iostream>
@@ -67,6 +68,9 @@ namespace gui {
 			for (int j = 0; j < this->data->players.at(i).hand.size(); j++) {
 				std::cout << this->data->players.at(i).hand.at(j).getName() << std::endl;
 			}
+		}
+		for (int i = 0; i < murderCards.size(); i++) {
+			std::cout << std::endl << murderCards.at(i).getName() << std::endl;
 		}
 
 	}
@@ -140,21 +144,25 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->suggestButton, sf::Mouse::Left,
 						this->data->window)) {
-				if (this->data->players.at(this->data->turnNumber).getLocation() != Locations::eHallway
-					&& (this->data->players.at(this->data->turnNumber).getSuggestion() == false)) {
-					//DEBUG
-					cout << "You may make a suggestion from room: " << 
-						Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
-						.getLocation()) << std::endl;
-					this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
-					this->data->machine.addState(stateRef(new SuggestState(data)), false);
+				if (!this->data->players.at(this->data->turnNumber).getHasLost()) {
+					if (this->data->players.at(this->data->turnNumber).getLocation() != Locations::eHallway
+						&& (this->data->players.at(this->data->turnNumber).getSuggestion() == false)) {
+						//DEBUG
+						cout << "You may make a suggestion from room: " << 
+							Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
+							.getLocation()) << std::endl;
+						this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
+						this->data->machine.addState(stateRef(new SuggestState(data)), false);
+					}
+					else
+						cout << "You have to enter a room first\n";
 				}
-				else
-					cout << "You have to enter a room first\n";
 			}
 			if (this->data->input.isSpriteClicked(this->accuseButton, sf::Mouse::Left,
 						this->data->window)) {
-				this->data->machine.addState(stateRef(new AccuseState(data)), false);
+				if (!this->data->players.at(this->data->turnNumber).getHasLost()) {
+					this->data->machine.addState(stateRef(new AccuseState(data)), false);
+				}
 				
 			}
 			if (this->data->input.isSpriteClicked(this->endTurnButton, sf::Mouse::Left,
@@ -183,8 +191,9 @@ namespace gui {
 	state checking
 	*/
 	void GameState::update(float dt) {
+		int activePlayers = 0;
 		if (gameState == GameStates::eGameOver) {
-			//move to GameOver State
+			this->data->machine.addState(stateRef(new GameOverState(data)), true);
 		}
 		if (gameState == GameStates::eTurnOver) {
 			char next = this->data->players.at(this->data->turnNumber).getColor();
@@ -219,6 +228,15 @@ namespace gui {
 			this->rollButton.setColor(sf::Color(0, 0, 0));
 		}
 
+		if (this->data->players.at(this->data->turnNumber).getHasLost()) {
+			this->accuseButton.setColor(sf::Color(102, 102, 102));
+			this->suggestButton.setColor(sf::Color(102, 102, 102));
+		}
+		else {
+			this->accuseButton.setColor(sf::Color::White);
+			this->suggestButton.setColor(sf::Color::White);
+		}
+
 		if (moves) {
 			rollText.setString(std::to_string(moves));
 		}
@@ -239,7 +257,16 @@ namespace gui {
 				this->data->players.at(this->data->turnNumber).setHasLost();
 				this->data->accusation.clear();
 			}
+			else {
+				gameState = GameStates::eGameOver;
+			}
 		}
+		for (int i = 0; i < this->data->players.size(); i++) {
+			if (!this->data->players.at(i).getHasLost())
+				activePlayers++;
+		}
+		if (activePlayers == 0)
+			gameState = GameStates::eGameOver;
 	}
 
 	void GameState::draw(float dt) {
