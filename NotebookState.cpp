@@ -121,6 +121,7 @@ namespace gui {
 
 		boxBorder.setPosition(boxes->at(idx).getPosition().x,
 			boxes->at(idx).getPosition().y);
+
 		col = idx % 6;
 		switch (col) {
 			case 0: boxBorder.setColor(sf::Color::Red);
@@ -138,6 +139,9 @@ namespace gui {
 			default: boxBorder.setColor(sf::Color::White);
 				 break;
 		};
+
+		if (idx == 119)
+			this->data->window.draw(this->boxBorder);
 	}
 
 	void NotebookState::setLabelPosition(int idx) {
