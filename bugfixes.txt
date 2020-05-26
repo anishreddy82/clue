@@ -1,0 +1,18 @@
+fix/
+-"lost" players cant use Accuse again
+-Reset move "count" to <-- if previous player didn't use all move points in their turn
+-Are the room numbers enum Locations in DEFINITIONS correctly corresponding to their rooms on the board representation?
+	--if not, change in SuggestState.cpp-line 95 function, Helper.cpp function
+
+**MISSING DINING ROOM CARD IN GAMESTATE DECKS/INITS, GameState.cpp-439
+	-add to AccuseState room card grid
+
+smells/
+-remove dead code
+-remove dead files
+
+
+feature/
+-auto start after 4 players (if 4 players selected) enter information
+-grey out Suggestion button if player has already made suggestion this turn
+

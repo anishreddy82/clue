@@ -10,6 +10,9 @@ Player::Player() {
 	name = "null";
 	color = 'n';
 	password = "";
+	location = 0;
+	hasLost = false;
+	madeSuggestion = false;
 }
 
 /*
@@ -21,6 +24,9 @@ Player::Player(int idIn) {
 	name = "";
 	color = ' ';
 	password = "";
+	location = 0;
+	hasLost = false;
+	madeSuggestion = false;
 }
 
 /*
@@ -124,10 +130,23 @@ int Player::getPositionX(){
 int Player::getPositionY(){
 	return posY;
 }
+int Player::getLocation() {
+	return location;
+}
+
+bool Player::getHasLost() {
+	return hasLost;
+}
 
 /*
 Mutator functions for setting private members
 */
+void Player::setHasLost() {
+	hasLost = true;
+}
+void Player::setLocation(int loc) {
+	location = loc;
+}
 void Player::setColor(char colorIn) {
 	color = colorIn;
 }
@@ -172,4 +191,51 @@ void Player::setStartingPosition(int pos){
 		posX = 1;
 		posY = 0;
 	}
+}
+
+void Player::setStartingPosition() {
+	if (color == 'r') {
+		posX = 8;
+		posY = 0;
+	}
+	else if (color == 'b') {
+		posX = 0;
+		posY = 9;
+	}
+	else if (color == 'g') {
+		posX = 4;
+		posY = 11;
+	}
+	else if (color == 'y') {
+		posX = 11;
+		posY = 3;
+	}
+	else if (color == 'w') {
+		posX = 7;
+		posY = 11;
+	}
+	else {
+		posX = 0;
+		posY = 2;
+	}
+}
+
+
+bool Player::holdsCard(std::string cardName) {
+	for (int i = 0; i < hand.size(); i++) {
+		if (hand.at(i).getName() == cardName) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Player::resetSuggestion() {
+	madeSuggestion = false;
+}
+void Player::switchSuggestionToTrue() {
+	madeSuggestion = true;
+}
+bool Player::getSuggestion() {
+	return madeSuggestion;
 }
