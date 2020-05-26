@@ -112,27 +112,29 @@ namespace gui {
 			}
 			if (this->data->input.isSpriteClicked(this->confirmButton, sf::Mouse::Left,
 						this->data->window)) {
-				if (!playerDataSet) {
-					Player new_player = Player(playerId);
-					new_player.setName(playerName);
-					new_player.setColor(generate_color());
-					new_player.setStartingPosition();
-					new_player.setPassword(playerPw);
-					for (int i = 0; i < NOTEBOOK_NUMBOXES; i++) {
-						new_player.notes.push_back(emptyBox);
+				if (this->data->players.size() < numPlayers) {
+					if (!playerDataSet) {
+						Player new_player = Player(playerId);
+						new_player.setName(playerName);
+						new_player.setColor(generate_color());
+						new_player.setStartingPosition();
+						new_player.setPassword(playerPw);
+						for (int i = 0; i < NOTEBOOK_NUMBOXES; i++) {
+							new_player.notes.push_back(emptyBox);
+						}
+						new_player.notes.at(0).setPosition(0, 0);
+						this->data->players.push_back(new_player);
+						playerId++;
+						if (playerId == numPlayers) {
+							playerDataSet = true;
+						}
 					}
-					new_player.notes.at(0).setPosition(0, 0);
-					this->data->players.push_back(new_player);
-					playerId++;
-					if (playerId == numPlayers) {
-						playerDataSet = true;
-					}
-				}
 
-				nameText.setString("");
-				playerName.clear();
-				pwText.setString("");
-				playerPw.clear();
+					nameText.setString("");
+					playerName.clear();
+					pwText.setString("");
+					playerPw.clear();
+				}
 
 				for (int i = 0; i < this->data->players.size(); i++) {
 					std::cout << this->data->players.at(i).getName() << std::endl;
@@ -164,6 +166,8 @@ namespace gui {
 				this->data->window.draw(this->nextGrayed);
 
 
+			if (this->data->players.size() == numPlayers)
+				this->confirmButton.setColor(sf::Color(102, 102, 102));
 			this->data->window.draw(this->nameLabel);
 			this->data->window.draw(nameBox);
 			this->data->window.draw(nameText);
