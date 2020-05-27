@@ -103,20 +103,20 @@ namespace gui {
 		
 		//Kitchen
 		if (location == 1) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Kitchen Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Study Room Card"));
 		}
 		//Ball Room
 		else if (location == 2) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Ballroom Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Hall Room Card"));
 
 		}
 		//Conservatory
 		else if (location == 3) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Conservatory Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Lounge Room Card"));
 		}
 		//Billard Room
 		else if (location == 4) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Billiard Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Library Room Card"));
 		}
 		//Dining Room
 		else if (location == 5) {
@@ -124,20 +124,20 @@ namespace gui {
 		}
 		//Library
 		else if (location == 6) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Library Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Billiard Room Card"));
 		}
 		//Hall
 		else if (location == 7) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Hall Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Ballroom Room Card"));
 
 		}
 		//Lounge
 		else if (location == 8) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Lounge Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Conservatory Room Card"));
 		}
 		//Study
 		else if (location == 9) {
-			this->roomCard.setTexture(this->data->assets.getTexture("Study Room Card"));
+			this->roomCard.setTexture(this->data->assets.getTexture("Kitchen Room Card"));
 		}
 
 		this->roomCard.setPosition(

@@ -106,23 +106,23 @@ std::string Helper::getRoomNameFromNumber(int roomNumber) {
 	case(0):
 		return "hallway";
 	case(1):
-		return "kitchen";
+		return "study";
 	case(2):
-		return "ballroom";
+		return "hall";
 	case(3):
-		return "conservatory";
+		return "lounge";
 	case(4):
-		return "billard room";
+		return "library";
 	case(5):
 		return "dining room";
 	case(6):
-		return "library";
+		return "billiard room";
 	case(7):
-		return "hall";
+		return "ballroom";
 	case(8):
-		return "lounge";
+		return "conservatory";
 	case(9):
-		return "study";
+		return "kitchen";
 	default:
 		throw "roomNumber out of range";
 	}

@@ -44,6 +44,7 @@ namespace gui {
 			sf::Sprite ballroomCard;
 			sf::Sprite loungeCard;
 			sf::Sprite billiardCard;
+			sf::Sprite diningCard;
 
 			sf::Sprite cancelButton;
 			sf::Sprite checkButton;

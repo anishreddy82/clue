@@ -90,7 +90,7 @@ namespace gui {
 
 	void AccuseState::initRoomSelect() {
 		float offsetX = 8.5;
-		float offsetY = 4.5;
+		float offsetY = 45.5;
 		this->studyCard.setTexture(this->data->assets.getTexture("Study Room Card"));
 		this->studyCard.setPosition((SCREEN_WIDTH / offsetX), (SCREEN_HEIGHT / offsetY));
 
@@ -112,7 +112,7 @@ namespace gui {
 
 		this->kitchenCard.setTexture(this->data->assets.getTexture("Kitchen Room Card"));
 		this->kitchenCard.setPosition(studyCard.getPosition().x, studyCard.getPosition().y);
-		this->kitchenCard.move(sf::Vector2f(0, kitchenCard.getGlobalBounds().height * 1.25));
+		this->kitchenCard.move(sf::Vector2f(0, kitchenCard.getGlobalBounds().height * 1.1));
 
 		this->ballroomCard.setTexture(this->data->assets.getTexture("Ballroom Room Card"));
 		this->ballroomCard.setPosition(kitchenCard.getPosition().x, kitchenCard.getPosition().y);
@@ -128,6 +128,11 @@ namespace gui {
 		this->billiardCard.setPosition(loungeCard.getPosition().x, loungeCard.getPosition().y);
 		this->billiardCard.move(sf::Vector2f(loungeCard.getGlobalBounds().width + 
 					(loungeCard.getGlobalBounds().width / 2), 0));
+
+		this->diningCard.setTexture(this->data->assets.getTexture("Dining Room Card"));
+		this->diningCard.setPosition(ballroomCard.getPosition().x, ballroomCard.getPosition().y);
+		this->diningCard.move(sf::Vector2f(diningCard.getGlobalBounds().width * 0.75, 
+					diningCard.getGlobalBounds().height * 1.1));
 	}
 
 	void AccuseState::initConfirmOrCancel() {
@@ -253,6 +258,11 @@ namespace gui {
 					this->data->accusation.push_back("billiard room");
 					roomSelected = true;
 				}
+				if (this->data->input.isSpriteClicked(this->diningCard, sf::Mouse::Left,
+							this->data->window)) {
+					this->data->accusation.push_back("dining room");
+					roomSelected = true;
+				}
 			}
 			if (this->data->input.isSpriteClicked(this->cancelButton, sf::Mouse::Left,
 						this->data->window) || (this->data->input.
@@ -305,6 +315,7 @@ namespace gui {
 			this->data->window.draw(this->ballroomCard);
 			this->data->window.draw(this->loungeCard);
 			this->data->window.draw(this->billiardCard);
+			this->data->window.draw(this->diningCard);
 		}
 		if (roomSelected) {
 			initConfirmOrCancel();

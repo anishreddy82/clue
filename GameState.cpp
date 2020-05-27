@@ -435,6 +435,7 @@ namespace gui {
 		deck.emplace_back(Card("ballroom", 'r'));
 		deck.emplace_back(Card("lounge", 'r'));
 		deck.emplace_back(Card("billiard room", 'r'));
+		deck.emplace_back(Card("dining room", 'r'));
 		/*
 		ADD DINING ROOM CARD HERE <-------------------------------------------------
 		*/
