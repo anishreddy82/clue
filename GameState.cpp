@@ -172,6 +172,7 @@ namespace gui {
 				if (this->data->turnNumber >= this->data->players.size()) 
 					this->data->turnNumber = 0;
 				gameState = GameStates::eTurnOver;
+				this->moves = 0;
 				this->rollButton.setColor(sf::Color(255, 255, 255));
 				this->data->machine.addState(stateRef(new TurnTransitionState(data)), false);
 			}
