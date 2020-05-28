@@ -247,6 +247,7 @@ namespace gui {
 				/*
 				Logic for Suggestion HERE <------------------------------------------------------------------------------------------------------------------------------------------------------
 				*/
+				this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
 				makeSuggestion();
 				this->data->machine.removeState();
 			}

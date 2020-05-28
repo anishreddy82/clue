@@ -151,7 +151,6 @@ namespace gui {
 						cout << "You may make a suggestion from room: " << 
 							Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
 							.getLocation()) << std::endl;
-						this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
 						this->data->machine.addState(stateRef(new SuggestState(data)), false);
 					}
 					else
@@ -173,6 +172,7 @@ namespace gui {
 				if (this->data->turnNumber >= this->data->players.size()) 
 					this->data->turnNumber = 0;
 				gameState = GameStates::eTurnOver;
+				this->moves = 0;
 				this->rollButton.setColor(sf::Color(255, 255, 255));
 				newTurn = true;
 				this->data->machine.addState(stateRef(new TurnTransitionState(data)), false);
