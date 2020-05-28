@@ -151,7 +151,6 @@ namespace gui {
 						cout << "You may make a suggestion from room: " << 
 							Helper::getRoomNameFromNumber(this->data->players.at(this->data->turnNumber)
 							.getLocation()) << std::endl;
-						this->data->players.at(this->data->turnNumber).switchSuggestionToTrue();
 						this->data->machine.addState(stateRef(new SuggestState(data)), false);
 					}
 					else
