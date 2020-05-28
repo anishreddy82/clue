@@ -174,6 +174,7 @@ namespace gui {
 					this->data->turnNumber = 0;
 				gameState = GameStates::eTurnOver;
 				this->rollButton.setColor(sf::Color(255, 255, 255));
+				newTurn = true;
 				this->data->machine.addState(stateRef(new TurnTransitionState(data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->myCardsButton, sf::Mouse::Left,
@@ -237,7 +238,7 @@ namespace gui {
 			this->suggestButton.setColor(sf::Color::White);
 		}
 
-		if (moves) {
+		if (moves && !newTurn) {
 			rollText.setString(std::to_string(moves));
 		}
 		else {
@@ -436,9 +437,7 @@ namespace gui {
 		deck.emplace_back(Card("lounge", 'r'));
 		deck.emplace_back(Card("billiard room", 'r'));
 		deck.emplace_back(Card("dining room", 'r'));
-		/*
-		ADD DINING ROOM CARD HERE <-------------------------------------------------
-		*/
+
 	}
 
 	void GameState::initCards() {
@@ -469,48 +468,7 @@ namespace gui {
 	}
 
 	void GameState::initPlayers() {
-		/*int player_count;
-		//prompt to confirm game setup
-		std::cout << "How many players for the game? (min 4, max 6)" << std::endl;
-		std::cin >> player_count;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n'); //skips the newline char on input
 
-		//loop for invalid player count inputs
-		while (player_count > 6 || player_count < 4) {
-			//prompt to confirm game setup
-			std::cout << "Please input a valid player count. (min 4, max 6)" << std::endl;
-
-			std::cin >> player_count;
-
-			std::cin.clear();
-			std::cin.ignore(10000, '\n'); //skips the newline char on input
-		}
-		for (int i = 1; i <= player_count; i++) {
-			std::cout << "_______________________________________________________________" << std::endl;
-			//create new Player with their id
-			Player new_player = Player(i);
-
-			//setup Player i's name
-			std::cout << "Player " << i << ". Please enter your name: ";
-			std::string nameIn;
-			std::getline(std::cin, nameIn);
-			new_player.setName(nameIn);
-			std::cout << std::endl;
-
-			//setup Player i's color
-			new_player.setColor(generate_color());
-			new_player.setStartingPosition();
-
-			//setup Player i's password
-			std::cout << "(Optional) Please enter your password to secure your turn: ";
-			std::string passwordIn;
-			std::getline(std::cin, passwordIn);
-			new_player.setPassword(passwordIn);
-
-			players.push_back(new_player);
-
-		}*/
 		for (int i = 0; i < this->data->players.size(); i++) {
 			if (this->data->players.at(i).getColor() == 'r') {
 				this->data->turnNumber = i;
@@ -532,13 +490,7 @@ namespace gui {
 		    
 		idx = rand() % 6;
 		v.push_back(deck.at(idx));
-		deck.erase(deck.begin() + idx);
-
-	/*			 DEBUG
-		for (int i = 0; i < v.size(); i++) {
-			std::cout << v.at(i).getName() << std::endl;
-		}*/
-		
+		deck.erase(deck.begin() + idx);	
 	}
 
 	void GameState::givePlayerCard(vector<Card> &v) {
@@ -559,16 +511,6 @@ namespace gui {
 		}
 	}
 
-	/*
-	   DEAD CODE
-	*/
-	/*char GameState::generate_color() {
-		srand(time(NULL));
-		int randIndex = rand() % static_cast<int>(colors.size());
-		char choice = colors.at(randIndex);
-		colors.erase(colors.begin() + randIndex);
-		return choice;
-	}*/
 
 	bool GameState::checkSpriteCollision() {
 		sf::FloatRect shape1 = activePiece->getPiece().getGlobalBounds();
@@ -633,6 +575,7 @@ namespace gui {
 		std::cout << this->data->players.at(this->data->turnNumber).getColor() << " has rolled "
 			<< moves << "\n";
 		gameState = GameStates::ePlaying;
+		newTurn = false;
 	}
 
 
