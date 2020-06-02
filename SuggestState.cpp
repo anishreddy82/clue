@@ -304,7 +304,7 @@ namespace gui {
 		while (suggestion.size() > 0) {
 			std::string cardName = suggestion.back();
 			for (int i = 0; i < this->data->players.size(); i++) {
-				if (this->data->players.at(i).holdsCard(cardName)) {
+				if (this->data->players.at(i).holdsCard(cardName) && i != player_id) {
 					std::cout << this->data->players.at(i).getName() << "has the " << cardName << std::endl;
 					cardName = Helper::getProperCardName(cardName);
 					this->foundCard.setTexture(this->data->assets.getTexture(cardName));
