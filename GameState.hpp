@@ -65,6 +65,7 @@ namespace gui {
 			vector<int> positions;
 
 			int moves;
+			bool newTurn;
 			int gameState;
 	};
 }
